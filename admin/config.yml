@@ -1,6 +1,7 @@
 backend:
-  name: git-gateway
-  branch: main  # ← important! Use "main" not "master"
+  name: github
+  repo: moonlightbookreader/moonlightbookreader  # ← replace with YOUR username!
+  branch: main
 
 media_folder: "content/images"
 public_folder: "/content/images"
