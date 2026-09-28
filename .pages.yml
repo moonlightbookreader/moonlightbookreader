@@ -1,0 +1,81 @@
+media:
+  input: content/images
+  output: /content/images
+
+content:
+  - name: books
+    label: Book Reviews
+    type: collection
+    path: content/books
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: author
+        label: Author
+        type: string
+      - name: category
+        label: Category
+        type: select
+        options:
+          - Fiction
+          - Fantasy
+          - Mystery
+          - Sci-Fi
+          - Romance
+          - Non-Fiction
+          - Classics
+      - name: rating
+        label: Rating
+        type: number
+        min: 1
+        max: 5
+      - name: date
+        label: Date
+        type: date
+      - name: coverImage
+        label: Cover Image
+        type: image
+        optional: true
+      - name: excerpt
+        label: Excerpt
+        type: text
+      - name: fullReview
+        label: Full Review
+        type: rich-text
+      - name: highlights
+        label: Highlights
+        type: list
+        items:
+          type: string
+      - name: verdict
+        label: Verdict
+        type: text
+
+  - name: journal
+    label: Journal Entries
+    type: collection
+    path: content/journal
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: type
+        label: Type
+        type: select
+        options:
+          - OBSERVATION
+          - OPINION
+          - HOT TAKE
+          - REFLECTION
+          - QUOTE
+      - name: date
+        label: Date
+        type: date
+      - name: text
+        label: Content
+        type: textarea
+      - name: attribution
+        label: Attribution (for quotes)
+        type: string
+        optional: true
