@@ -4,27 +4,21 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin — Moonlight Book Reader</title>
-  <!-- Try multiple CDN sources as fallback -->
   <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.5.0/dist/decap-cms.min.js"></script>
-  <script>
-    // Fallback: load from second CDN if first fails
-    window.addEventListener('load', function() {
-      setTimeout(function() {
-        if (!window.CMS) {
-          const s = document.createElement('script');
-          s.src = 'https://unpkg.com/decap-cms@3.5.0/dist/decap-cms.min.js';
-          document.head.appendChild(s);
-        }
-      }, 3000);
-    });
-  </script>
   <style>
-    body { margin: 0; background: #150c2b; font-family: 'Lora', serif; color: #f5e6d3; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
-    #root { width: 100%; }
-    .note { text-align: center; padding: 40px; }
+    body { margin: 0; background: #150c2b; color: #f5e6d3; font-family: 'Lora', serif; min-height: 100vh; }
+    .waiting { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; padding: 40px; }
+    .spinner { width: 40px; height: 40px; border: 3px solid rgba(212,168,87,.2); border-top-color: #d4a857; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
-  <div id="root"></div>
+  <div id="root">
+    <div class="waiting">
+      <div class="spinner"></div>
+      <h3>Opening your writing desk...</h3>
+      <p style="color: #c9b8e0; margin-top: 10px;">Connecting to GitHub...</p>
+    </div>
+  </div>
 </body>
 </html>
