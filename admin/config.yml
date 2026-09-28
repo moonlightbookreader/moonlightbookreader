@@ -1,8 +1,7 @@
-load_config_file: true
 backend:
-  name: git-gateway
+  name: github
+  repo: moonlightbookreader/moonlightbookreader
   branch: main
-  base_url: https://moonlightbookreader.netlify.app
 
 media_folder: "content/images"
 public_folder: "/content/images"
