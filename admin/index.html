@@ -4,22 +4,27 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin — Moonlight Book Reader</title>
-  <!-- Official Decap CMS CDN (replaces old Netlify CMS) -->
+  <!-- Try multiple CDN sources as fallback -->
   <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.5.0/dist/decap-cms.min.js"></script>
+  <script>
+    // Fallback: load from second CDN if first fails
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        if (!window.CMS) {
+          const s = document.createElement('script');
+          s.src = 'https://unpkg.com/decap-cms@3.5.0/dist/decap-cms.min.js';
+          document.head.appendChild(s);
+        }
+      }, 3000);
+    });
+  </script>
   <style>
-    body { margin: 0; background: #150c2b; font-family: 'Lora', serif; color: #f5e6d3; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
-    .msg { text-align: center; padding: 40px; }
-    .error { color: #ffb3b3; margin-top: 20px; }
+    body { margin: 0; background: #150c2b; font-family: 'Lora', serif; color: #f5e6d3; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    #root { width: 100%; }
+    .note { text-align: center; padding: 40px; }
   </style>
 </head>
 <body>
   <div id="root"></div>
-  <script>
-    setTimeout(function() {
-      if (!window.CMS) {
-        document.body.innerHTML = '<div class="msg"><h3>⚠️ Could not load login panel</h3><p>Try opening this page in a new tab or check your connection.</p><p class="error">Script source: Decap CDN</p></div>';
-      }
-    }, 8000);
-  </script>
 </body>
 </html>
