@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin — Moonlight Book Reader</title>
+  <script src="https://cdn.jsdelivr.net/npm/netlify-identity-widget@1.12.0/build/netlify-identity-widget.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.5.0/dist/decap-cms.min.js"></script>
   <style>
-    body { margin: 0; background: #150c2b; color: #f5e6d3; font-family: 'Lora', serif; min-height: 100vh; }
-    .waiting { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; padding: 40px; }
-    .spinner { width: 40px; height: 40px; border: 3px solid rgba(212,168,87,.2); border-top-color: #d4a857; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    body { background: #150c2b; color: #f5e6d3; font-family: sans-serif; text-align: center; padding-top: 3rem; }
+    .btn { background: #d4a857; color: #150c2b; border: none; padding: 0.75rem 2rem; font-size: 1rem; border-radius: 6px; cursor: pointer; margin-top: 1rem; }
   </style>
 </head>
 <body>
-  <div id="root">
-    <div class="waiting">
-      <div class="spinner"></div>
-      <h3>Opening your writing desk...</h3>
-      <p style="color: #c9b8e0; margin-top: 10px;">Connecting to GitHub...</p>
-    </div>
-  </div>
+  <div id="root"></div>
+  <script>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.init({
+        APIUrl: "https://moonlightbookreader.netlify.app/.netlify/identity"
+      });
+    }
+  </script>
 </body>
 </html>
