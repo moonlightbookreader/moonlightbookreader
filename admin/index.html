@@ -1,72 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Content Manager — Moonlight Book Reader</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Lora:wght@400;500;600&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body { margin: 0; font-family: 'Lora', Georgia, serif; background: #150c2b; }
-    .cms-loading {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: #f5e6d3;
-      text-align: center;
-      padding: 24px;
-    }
-    .cms-loading h1 {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: 32px;
-      margin-bottom: 12px;
-      background: linear-gradient(100deg,#f0d89a,#d4a857,#e8c77a);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    .cms-loading p {
-      font-family: 'Caveat', cursive;
-      font-size: 22px;
-      color: #a8b5d4;
-      margin: 0;
-    }
-    .spinner {
-      width: 40px;
-      height: 40px;
-      border: 3px solid rgba(212,168,87,.2);
-      border-top-color: #d4a857;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin: 24px auto;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Moonlight Book Reader</title>
+  <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.5.0/dist/decap-cms.min.js"></script>
 </head>
 <body>
-  <div class="cms-loading">
-    <h1>Moonlight Book Reader</h1>
-    <div class="spinner"></div>
-    <p>lighting the lamp for your writing desk...</p>
-  </div>
-  <!-- Decap CMS -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  <!-- Configure Decap to use Netlify Identity widget -->
-  <script>
-    if (typeof window !== 'undefined') {
-      window.CMS_CONFIGURATION = {
-        config: {
-          backend: {
-            name: 'git-gateway',
-            branch: 'main'
-          },
-          load_config_file: true
-        }
-      };
-    }
-  </script>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <!-- Decap CMS loads here automatically -->
 </body>
 </html>
