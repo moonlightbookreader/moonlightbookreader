@@ -1,6 +1,5 @@
 backend:
-  name: github
-  repo: moonlightbookreader/moonlightbookreader
+  name: git-gateway
   branch: main
   base_url: https://moonlightbookreader.netlify.app
 
@@ -12,7 +11,6 @@ collections:
     label: Book Reviews
     folder: "content/books"
     create: true
-    slug: "{{slug}}"
     fields:
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Author", name: "author", widget: "string"}
@@ -29,32 +27,33 @@ collections:
     label: Journal Entries
     folder: "content/journal"
     create: true
-    slug: "{{slug}}"
     fields:
       - {label: "Title", name: "title", widget: "string"}
-      - {label: "Category Tag", name: "tag", widget: "string", required: false}
+      - {label: "Type", name: "type", widget: "select", options: ["OBSERVATION", "OPINION", "HOT TAKE", "REFLECTION", "QUOTE"]}
       - {label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false}
-      - {label: "Read Time / Note", name: "note", widget: "string", required: false}
-      - {label: "Content", name: "content", widget: "markdown"}
+      - {label: "Content / Text", name: "text", widget: "text"}
+      - {label: "Attribution (for quotes)", name: "attribution", widget: "string", required: false}
 
   - name: site
     label: Site Settings
     files:
+      - name: site
+        label: Profile & Social
+        file: "content/site.json"
+        fields:
+          - {label: "Your Name", name: "name", widget: "string"}
+          - {label: "Tagline", name: "tagline", widget: "string"}
+          - {label: "Profile Image", name: "profileImage", widget: "image", required: false}
+          - {label: "Goodreads URL", name: "goodreads", widget: "string", required: false}
+          - {label: "Storygraph URL", name: "storygraph", widget: "string", required: false}
+          - {label: "Instagram URL", name: "instagram", widget: "string", required: false}
+          - {label: "Twitter URL", name: "twitter", widget: "string", required: false}
+          - {label: "Email", name: "email", widget: "string", required: false}
       - name: about
         label: About Section
         file: "content/about.json"
         fields:
-          - {label: "Profile Image", name: "profileImage", widget: "image", required: false}
-          - {label: "Bio Paragraph 1", name: "bio1", widget: "text"}
-          - {label: "Bio Paragraph 2", name: "bio2", widget: "text"}
-          - {label: "Closing Line", name: "closingLine", widget: "string"}
-      - name: social
-        label: Social Links
-        file: "content/social.json"
-        fields:
-          - {label: "Goodreads", name: "goodreads", widget: "string", required: false}
-          - {label: "Storygraph", name: "storygraph", widget: "string", required: false}
-          - {label: "Instagram", name: "instagram", widget: "string", required: false}
-          - {label: "Threads", name: "threads", widget: "string", required: false}
-          - {label: "Twitter", name: "twitter", widget: "string", required: false}
-          - {label: "Email", name: "email", widget: "string", required: false}
+          - {label: "Intro Line", name: "introLine", widget: "string"}
+          - {label: "Heading", name: "heading", widget: "string"}
+          - {label: "Bio Paragraphs", name: "bioParagraphs", widget: "list", field: {label: "Paragraph", name: "para", widget: "text"}}
+          - {label: "Sign-off Line", name: "signoff", widget: "string"}
