@@ -1,12 +1,322 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" style="margin:0;padding:0;">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin — Moonlight Book Reader</title>
-  <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.5.0/dist/decap-cms.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moonlight Book Reader — A Cozy Reading Journal</title>
+<meta name="description" content="A cozy nocturnal reading journal — book reviews, literary musings, and recommendations by lamplight.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+(function(){
+  var s = document.createElement('style');
+  s.textContent = ':root{' +
+    '--bg:#150c2b;' +
+    '--card:#211440;' +
+    '--card-alt:#2a1a52;' +
+    '--text:#f5e6d3;' +
+    '--muted:#c9b8e0;' +
+    '--accent:#d4a857;' +
+    '--accent-soft:rgba(212,168,87,.18);' +
+    '--accent2:#a8b5d4;' +
+    '--border:rgba(245,230,211,.1);' +
+    '--star:#fff8dc' +
+  '}' +
+  '.reveal{opacity:0;transform:translateY(20px);animation:fadeUp .7s ease forwards}.reveal:nth-child(2){animation-delay:.12s}.reveal:nth-child(3){animation-delay:.24s}.reveal:nth-child(4){animation-delay:.36s}.reveal:nth-child(5){animation-delay:.48s}.reveal:nth-child(6){animation-delay:.6s}@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}' +
+  '.book-card{transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease}.book-card:hover{transform:translateY(-5px);box-shadow:0 16px 50px rgba(212,168,87,.18);border-color:var(--accent)}' +
+  '.filter-btn{transition:all .25s ease}.filter-btn.active{background:var(--accent);color:#150c2b;border-color:var(--accent);font-weight:600}' +
+  '.star-filled{color:var(--accent)}.star-empty{color:rgba(245,230,211,.18)}' +
+  '.modal-backdrop{animation:fadeIn .25s ease}@keyframes fadeIn{from{opacity:0}to{opacity:1}}' +
+  '.modal-content{animation:slideUp .35s ease}@keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}' +
+  '.nav-link{position:relative}.nav-link::after{content:"";position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--accent);transition:width .3s ease}.nav-link:hover::after{width:100%}' +
+  '.gold-text{background:linear-gradient(100deg,#f0d89a,#d4a857,#e8c77a,#f5e6d3);-webkit-background-clip:text;background-clip:text;color:transparent}' +
+  '.handwritten{font-family:"Caveat",cursive}' +
+  'html{scroll-behavior:smooth}' +
+  'body{margin:0}' +
+  '::selection{background:rgba(212,168,87,.35);color:var(--text)}' +
+  '::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:rgba(212,168,87,.4);border-radius:4px}' +
+  '.stars-bg{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}' +
+  '.twinkle{position:absolute;width:2px;height:2px;background:var(--star);border-radius:50%;animation:twinkle var(--dur,3s) ease-in-out infinite;animation-delay:var(--delay,0s)}' +
+  '@keyframes twinkle{0%,100%{opacity:.12;transform:scale(.6)}50%{opacity:1;transform:scale(1.5)}}' +
+  '.moon-deco{position:absolute;opacity:.07;pointer-events:none}' +
+  '.section-deco{position:absolute;pointer-events:none;opacity:.06;color:var(--accent)}' +
+  '.glow-gold{text-shadow:0 0 24px rgba(212,168,87,.35)}' +
+  '.card-inner{background:linear-gradient(145deg,var(--card),var(--card-alt))}' +
+  '.warm-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(212,168,87,.35),transparent)}' +
+  '.journal-card{transition:transform .3s ease,box-shadow .3s ease}.journal-card:hover{transform:translateY(-3px);box-shadow:0 10px 35px rgba(212,168,87,.1)}' +
+  '.quote-mark{font-family:"Playfair Display",serif;font-size:80px;line-height:1;color:var(--accent);opacity:.25}' +
+  'input,textarea{color-scheme:dark}' +
+  '.social-icon{transition:all .25s ease}.social-icon:hover{transform:translateY(-3px) scale(1.08);box-shadow:0 6px 20px rgba(212,168,87,.25)}' +
+  '@keyframes moonPhase{0%,100%{transform:translateX(0)}50%{transform:translateX(8px)}}' +
+  '.moon-phase-anim{animation:moonPhase 12s ease-in-out infinite}' +
+  '@keyframes slowSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}' +
+  '.slow-spin{animation:slowSpin 60s linear infinite}' +
+  '.loading-fade{opacity:0;transition:opacity .4s ease}.loading-fade.ready{opacity:1}' +
+  '.skeleton{background:linear-gradient(90deg,var(--card) 25%,var(--card-alt) 50%,var(--card) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:8px}' +
+  '@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}';
+  document.head.appendChild(s);
+})();
+</script>
 </head>
 <body>
-  <!-- Decap CMS loads here automatically -->
-</body>
-</html>
+<div style="color:var(--text);font-family:'Lora',serif;background:var(--bg);min-height:100vh;position:relative;z-index:1">
+  <!-- ANIMATED STARRY BACKGROUND -->
+  <div class="stars-bg" id="starsBg"></div>
+  <!-- LARGE AMBIENT MOON DECORATIONS -->
+  <svg class="moon-deco moon-phase-anim" style="top:90px;right:3%;width:110px;height:110px" viewBox="0 0 100 100">
+    <defs><radialGradient id="moonGrad1" cx="40%" cy="40%"><stop offset="0%" stop-color="#f5e6d3"/><stop offset="100%" stop-color="#d4a857"/></radialGradient></defs>
+    <circle cx="50" cy="50" r="38" fill="url(#moonGrad1)"/>
+    <circle cx="64" cy="45" r="30" fill="var(--bg)"/>
+  </svg>
+  <svg class="moon-deco" style="top:44%;left:1%;width:60px;height:60px" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="38" fill="#f5e6d3"/>
+    <circle cx="38" cy="52" r="34" fill="var(--bg)"/>
+  </svg>
+  <svg class="moon-deco slow-spin" style="bottom:20%;right:2%;width:75px;height:75px" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="38" fill="#f5e6d3"/>
+    <circle cx="60" cy="48" r="32" fill="var(--bg)"/>
+  </svg>
+  <!-- NAVIGATION -->
+  <nav style="position:sticky;top:0;z-index:50;background:rgba(21,12,43,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)">
+    <div class="max-w-6xl mx-auto px-6 py-4" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
+      <a href="#home" style="display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text)">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <div>
+          <span style="font-family:'Playfair Display',serif;font-weight:700;font-size:20px;letter-spacing:.01em;font-style:italic">Moonlight Book Reader</span>
+          <div class="handwritten" style="font-size:14px;color:var(--accent);line-height:1;margin-top:-2px">~ a cozy reading journal ~</div>
+        </div>
+      </a>
+      <div style="display:flex;align-items:center;gap:28px;flex-wrap:wrap">
+        <a href="#home" class="nav-link" style="text-decoration:none;color:var(--text);font-weight:500;font-size:15px">Home</a>
+        <a href="#reviews" class="nav-link" style="text-decoration:none;color:var(--text);font-weight:500;font-size:15px">Reviews</a>
+        <a href="#journal" class="nav-link" style="text-decoration:none;color:var(--text);font-weight:500;font-size:15px">Journal</a>
+        <a href="#recommendations" class="nav-link" style="text-decoration:none;color:var(--text);font-weight:500;font-size:15px">Recommendations</a>
+        <a href="#about" class="nav-link" style="text-decoration:none;color:var(--text);font-weight:500;font-size:15px">About</a>
+        <a href="#newsletter" style="text-decoration:none;padding:10px 22px;border-radius:10px;background:var(--accent-soft);color:var(--accent);font-weight:600;font-size:14px;border:1px solid var(--accent)">Join the Circle</a>
+      </div>
+    </div>
+  </nav>
+  <!-- HERO SECTION -->
+  <section id="home" class="reveal" style="position:relative;overflow:hidden">
+    <div style="max-width:6xl;margin:0 auto;padding:80px 24px 60px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center">
+        <div style="position:relative">
+          <svg class="section-deco" style="top:10px;left:-30px;width:20px;height:20px" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+          <p class="handwritten" style="font-size:24px;color:var(--accent);margin-bottom:10px">come in, dear reader... the kettle's on</p>
+          <h1 style="font-family:'Playfair Display',serif;font-size:54px;font-weight:700;line-height:1.1;letter-spacing:.01em;margin-bottom:18px;font-style:italic">
+            Where stories are read by <span class="gold-text glow-gold">moonlight</span>
+          </h1>
+          <p style="font-size:18px;line-height:1.8;color:var(--muted);margin-bottom:14px;font-style:italic">
+            "A reader lives a thousand lives before he dies. The man who never reads lives only one."
+          </p>
+          <p class="handwritten" style="font-size:18px;color:var(--accent2);margin-bottom:28px">— George R.R. Martin</p>
+          <p style="font-size:16px;line-height:1.8;color:var(--text);opacity:.9;margin-bottom:32px">
+            Welcome to my cozy corner of the literary world. Pull up a chair, wrap yourself in a blanket, and let me share with you the books that have kept me company through countless quiet nights.
+          </p>
+          <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:36px">
+            <a href="#reviews" style="text-decoration:none;padding:14px 28px;border-radius:12px;background:var(--accent);color:#150c2b;font-weight:600;font-size:15px;font-family:'Lora',serif;box-shadow:0 4px 24px rgba(212,168,87,.28)">Browse My Reviews</a>
+            <a href="#journal" style="text-decoration:none;padding:14px 28px;border-radius:12px;background:transparent;color:var(--text);font-weight:500;font-size:15px;font-family:'Lora',serif;border:1px solid var(--border)">Read My Journal</a>
+          </div>
+          <div class="warm-divider" style="margin-bottom:28px"></div>
+          <div style="display:flex;gap:44px;flex-wrap:wrap">
+            <div>
+              <div style="font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--accent);font-style:italic" id="statBooks">50+</div>
+              <div class="handwritten" style="font-size:17px;color:var(--muted);margin-top:2px">books reviewed</div>
+            </div>
+            <div>
+              <div style="font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--accent2)">12</div>
+              <div class="handwritten" style="font-size:17px;color:var(--muted);margin-top:2px">genres explored</div>
+            </div>
+            <div>
+              <div style="font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--accent);font-style:italic">∞</div>
+              <div class="handwritten" style="font-size:17px;color:var(--muted);margin-top:2px">cups of tea shared</div>
+            </div>
+          </div>
+        </div>
+        <div style="position:relative">
+          <div style="border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5);border:1px solid rgba(212,168,87,.25);position:relative">
+            <img src="https://p19-flow-image-sign.ibyteimg.com/tos-mya-i-3rsxbfecgb/rc_gen_image/e0103d8403f649bbb62283b7baf3c3dd.jpeg~tplv-0es2k971ck-image.image?rcl=2026092800523032186D7376C1BE37B002&rk3s=8e244e95&rrcfp=02a80fc2&x-expires=1793119966&x-signature=0NsQBR51EfPvVXwl%2B38oUWlxIHY%3D" alt="Cozy night reading nook" style="width:100%;display:block" loading="lazy">
+          </div>
+          <div class="handwritten" style="position:absolute;bottom:-18px;right:24px;background:var(--card);padding:12px 22px;border-radius:14px;box-shadow:0 8px 30px rgba(0,0,0,.35);border:1px solid var(--border);font-size:21px;color:var(--accent);transform:rotate(-3deg);z-index:6">
+            currently reading...
+          </div>
+          <div class="handwritten" style="position:absolute;top:16px;left:16px;font-size:20px;color:#f5e6d3;text-shadow:0 2px 8px rgba(0,0,0,.8);z-index:6;opacity:.9">
+            ~ my reading nook ~
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- FEATURED REVIEW -->
+  <section class="reveal" style="max-width:6xl;margin:0 auto;padding:40px 24px;position:relative">
+    <svg class="section-deco" style="top:30px;right:20px;width:28px;height:28px;opacity:.05" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:28px;flex-wrap:wrap">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--accent)" stroke="var(--accent)" stroke-width="1">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+      </svg>
+      <h2 style="font-family:'Playfair Display',serif;font-size:30px;font-weight:700;letter-spacing:.01em;font-style:italic">Featured Review</h2>
+      <span class="handwritten" style="font-size:21px;color:var(--muted);margin-left:6px">— the book on my nightstand</span>
+    </div>
+    <div id="featuredReview" class="card-inner" style="border:1px solid var(--border);border-radius:20px;padding:32px;min-height:200px">
+      <div style="display:flex;align-items:center;justify-content:center;color:var(--muted)">
+        <div class="handwritten" style="font-size:22px">loading latest review...</div>
+      </div>
+    </div>
+  </section>
+  <!-- ALL REVIEWS -->
+  <section id="reviews" class="reveal" style="max-width:6xl;margin:0 auto;padding:60px 24px;position:relative">
+    <svg class="section-deco" style="top:50px;right:30px;width:22px;height:22px;opacity:.045" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:28px">
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+        </svg>
+        <h2 style="font-family:'Playfair Display',serif;font-size:30px;font-weight:700;letter-spacing:.01em;font-style:italic">My Reviews</h2>
+        <span class="handwritten" style="font-size:21px;color:var(--muted);margin-left:4px">— thoughts from my reading journal</span>
+      </div>
+      <div style="position:relative">
+        <input id="searchInput" type="text" placeholder="search books or authors..." style="padding:11px 16px 11px 42px;border-radius:10px;border:1px solid var(--border);background:var(--card);font-family:'Lora',serif;font-size:14px;width:260px;outline:none;color:var(--text)" oninput="filterBooks()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" style="position:absolute;left:14px;top:50%;transform:translateY(-50%)">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+      </div>
+    </div>
+    <div id="filterBar" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px"></div>
+    <div id="booksGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px">
+      <div class="skeleton" style="height:380px"></div>
+      <div class="skeleton" style="height:380px"></div>
+      <div class="skeleton" style="height:380px"></div>
+    </div>
+    <div id="noResults" style="display:none;text-align:center;padding:60px 24px;color:var(--muted)">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 16px;opacity:.5">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <p class="handwritten" style="font-size:22px">no books found... perhaps try another search?</p>
+    </div>
+  </section>
+  <!-- JOURNAL SECTION -->
+  <section id="journal" class="reveal" style="max-width:6xl;margin:0 auto;padding:60px 24px;position:relative">
+    <svg class="section-deco" style="top:40px;right:15px;width:24px;height:24px;opacity:.045" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:28px;flex-wrap:wrap">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+      </svg>
+      <h2 style="font-family:'Playfair Display',serif;font-size:30px;font-weight:700;letter-spacing:.01em;font-style:italic">Moonlit Musings</h2>
+      <span class="handwritten" style="font-size:21px;color:var(--muted);margin-left:4px">— my reading journal & random thoughts</span>
+    </div>
+    <div id="journalGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px">
+      <div class="skeleton" style="height:220px"></div>
+      <div class="skeleton" style="height:220px"></div>
+      <div class="skeleton" style="height:220px"></div>
+    </div>
+  </section>
+  <!-- RECOMMENDATIONS -->
+  <section id="recommendations" class="reveal" style="max-width:6xl;margin:0 auto;padding:60px 24px;position:relative">
+    <svg class="section-deco" style="top:45px;left:10px;width:20px;height:20px;opacity:.045" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:28px;flex-wrap:wrap">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent2)" stroke-width="2">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+      </svg>
+      <h2 style="font-family:'Playfair Display',serif;font-size:30px;font-weight:700;letter-spacing:.01em;font-style:italic">Reading Recommendations</h2>
+      <span class="handwritten" style="font-size:21px;color:var(--muted);margin-left:4px">— curated with love from my shelves</span>
+    </div>
+    <div id="recsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px">
+      <div class="skeleton" style="height:280px"></div>
+      <div class="skeleton" style="height:280px"></div>
+      <div class="skeleton" style="height:280px"></div>
+    </div>
+  </section>
+  <!-- ABOUT SECTION -->
+  <section id="about" class="reveal" style="max-width:6xl;margin:0 auto;padding:60px 24px">
+    <div class="card-inner" style="border:1px solid var(--border);border-radius:20px;padding:48px;position:relative;overflow:hidden">
+      <svg class="moon-deco" style="top:-20px;right:-20px;width:120px;height:120px;opacity:.05" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="40" fill="#d4a857"/>
+      </svg>
+      <div style="display:grid;grid-template-columns:1fr 2fr;gap:48px;align-items:center;position:relative;z-index:1">
+        <div style="text-align:center">
+          <div id="profileCircle" style="width:160px;height:160px;border-radius:50%;background:linear-gradient(135deg,#4a2d7a,var(--accent));display:flex;align-items:center;justify-content:center;margin:0 auto 20px;color:#f5e6d3;box-shadow:0 0 40px rgba(212,168,87,.25);overflow:hidden;position:relative;border:2px solid rgba(212,168,87,.3)">
+            <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+              <defs><radialGradient id="moonGlow" cx="35%" cy="35%"><stop offset="0%" stop-color="#fff8dc"/><stop offset="100%" stop-color="#f5e6d3"/></radialGradient></defs>
+              <circle cx="12" cy="12" r="9" fill="url(#moonGlow)" stroke="none" opacity=".95"/>
+              <circle cx="15" cy="10" r="7" fill="#2a1a52" stroke="none"/>
+            </svg>
+          </div>
+          <h3 id="profileName" style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;font-style:italic">Moonlight Book Reader</h3>
+          <p id="profileTagline" class="handwritten" style="font-size:20px;color:var(--accent);margin-top:4px">your nocturnal reading companion</p>
+        </div>
+        <div id="aboutText">
+          <p class="handwritten" style="font-size:22px;color:var(--accent);margin-bottom:8px">a little about me...</p>
+          <h2 style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;margin-bottom:16px;font-style:italic">Hello, fellow book lover!</h2>
+          <p style="font-size:16px;line-height:1.85;color:var(--text);opacity:.92;margin-bottom:14px">I'm your companion through countless literary adventures. There's something magical about losing yourself in a good book under the soft glow of lamplight while the moon watches through the window.</p>
+        </div>
+      </div>
+      <div style="position:relative;z-index:1;margin-top:40px;padding-top:28px;border-top:1px solid var(--border)">
+        <p class="handwritten" style="font-size:20px;color:var(--muted);text-align:center;margin-bottom:18px">find me elsewhere in the bookish world...</p>
+        <div id="socialLinks" style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap"></div>
+      </div>
+    </div>
+  </section>
+  <!-- NEWSLETTER -->
+  <section id="newsletter" class="reveal" style="max-width:6xl;margin:0 auto;padding:60px 24px;position:relative">
+    <div style="background:linear-gradient(135deg,rgba(212,168,87,.14),rgba(168,181,212,.1));border-radius:20px;padding:48px;text-align:center;border:1px solid rgba(212,168,87,.22);position:relative;overflow:hidden">
+      <svg class="moon-deco" style="top:-30px;left:-30px;width:100px;height:100px;opacity:.06" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="#d4a857"/></svg>
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="margin:0 auto 16px">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+        <polyline points="22,6 12,13 2,6"/>
+      </svg>
+      <h2 style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;margin-bottom:10px;font-style:italic">Letters from My Reading Nook</h2>
+      <p class="handwritten" style="font-size:21px;color:var(--accent);margin-bottom:20px">monthly bookish thoughts, delivered to your inbox</p>
+      <p style="font-size:15px;color:var(--muted);margin-bottom:28px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.75">Subscribe to receive my latest reviews, journal musings, reading recommendations, and cozy literary thoughts. No spam — just books, warmth, and good company.</p>
+      <form onsubmit="subscribe(event)" style="display:flex;gap:10px;max-width:440px;margin:0 auto;flex-wrap:wrap;justify-content:center">
+        <input id="emailInput" type="email" required placeholder="your@email.com" style="flex:1;min-width:220px;padding:14px 18px;border-radius:12px;border:1px solid var(--border);background:var(--card);font-family:'Lora',serif;font-size:15px;outline:none;color:var(--text)">
+        <button type="submit" style="padding:14px 28px;border-radius:12px;background:var(--accent);color:#150c2b;border:none;font-family:'Lora',serif;font-weight:600;font-size:15px;cursor:pointer;box-shadow:0 4px 20px rgba(212,168,87,.22)">Subscribe</button>
+      </form>
+      <p id="subscribeMsg" style="margin-top:16px;font-family:'Caveat',cursive;font-size:22px;color:var(--accent);min-height:24px"></p>
+    </div>
+  </section>
+  <!-- FOOTER -->
+  <footer style="border-top:1px solid var(--border);margin-top:40px">
+    <div class="max-w-6xl mx-auto px-6 py-10" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <div>
+          <span style="font-family:'Playfair Display',serif;font-weight:700;font-size:16px;font-style:italic">Moonlight Book Reader</span>
+          <div class="handwritten" style="font-size:16px;color:var(--muted);line-height:1">~ read by moonlight ~</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:24px;flex-wrap:wrap">
+        <a href="#home" style="text-decoration:none;color:var(--muted);font-size:14px">Home</a>
+        <a href="#reviews" style="text-decoration:none;color:var(--muted);font-size:14px">Reviews</a>
+        <a href="#journal" style="text-decoration:none;color:var(--muted);font-size:14px">Journal</a>
+        <a href="#recommendations" style="text-decoration:none;color:var(--muted);font-size:14px">Recommendations</a>
+        <a href="#about" style="text-decoration:none;color:var(--muted);font-size:14px">About</a>
+      </div>
+      <p class="handwritten" style="font-size:18px;color:var(--muted)">© 2026 · made with love & lamplight</p>
+    </div>
+  </footer>
+  <!-- MODAL -->
+  <div id="modal" class="modal-backdrop" style="display:none;position:fixed;inset:0;background:rgba(10,5,25,.8);z-index:100;align-items:center;justify-content:center;padding:20px;overflow-y:auto" onclick="if(event.target===this)closeModal()">
+    <div class="modal-content" style="background:var(--card);border-radius:20px;max-width:640px;width:100%;max-height:90vh;overflow-y:auto;position:relative;border:1px solid rgba(212,168,87,.25)">
+      <button onclick="closeModal()" style="position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--card);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:22px;z-index:10;font-family:serif">×</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+<script>
+/* ======================================================================
+   DATA — loaded from JSON files (editable via the /admin CMS panel)
+   ====================================================================== */
+var siteData = {}, books = [], journal = [], recommendations = [], aboutData = {};
+var currentCategory = 'all', currentSearch = '';
+var socialIcons = {
+  goodreads: '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.5 0C5.149 0 0 5.149 0 11.5S5.149 23 11.5 23 23 17.851 23 11.5 17.851 0 11.5 0zm4.607 17.528c-.365.166-.747.297-1.142.395v.183c0 .322.023.623.058.902h-7.31c.07-.503.14-1.006.14-1.517 0-.51-.07-1.013-.14-1.517h3.31c.14.47.21.97.21 1.484 0 .693-.14 1.34-.386 1.926h1.54c.105-.28.175-.595.175-.937v-2.37c0-.342-.07-.658-.175-.937h-1.54c.246.586.386 1.233.386 1.926 0 .514-.07 1.014-.21 1.484H7.83c.14-.47.21-.97.21-1.484 0-.514-.07-1.014-.21-1.484h3.31c-.14-.47-.21-.97-.21-1.484 0-.51.07-1.013.21-1.517H7.55c.14-.503.21-1.006.21-1.517 0-.51-.07-1.013-.21-1.517h7.31c-.035.28-.058.58-.058.902v.183c.395.098.777.229 1.142.395v-2.23h1.575v11.19h-1.575v-2.23zM7.54 6.483c-.365.166-.747.297-1.142.395v-2.23h1.575v2.23c-.395.098-.777.229-1.142.395v-2.23h-1.575v11.19h1.575V6.483z"/></svg>',
+  instagram: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>',
+  storygraph: '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-1.5 4.5h3v15h-3v-15zm-4 3h3v12h-3v-12zm8 1.5h3v10.5h-3V9zm4 3h3v7.5h-3V12z"/></svg>',
+  threads: '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 10.8c-1.149-2.128-4.043-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.562.139 1.902 0 3.08 0 4.3c0 .679.133 3.194.23 3.677.768 3.872 4.433 4.956 7.43 5.342-2.482.28-6.86.758-7.387 2.43-.408 1.28-.197 5.394 6.612 6.722 2.913.571 4.896.922 5.113 1.482.323.845-.21 2.107-3.482.977-2.027-.701-2.34-1.052-3.106-1.838l-.156-.154c-.86-.86-1.66-1.96-1.66-3.18 0-.42.34-.76.76-.76.27 0 .53.11.72.3l1.84 1.56c.65.55 1.5.86 2.4.86s1.75-.31 2.4-.86l1.84-1.56c.19-.19.45-.3.72-.3.42 0 .76.34.76.76 0 1.22-.8 2.32-1.66 3.18l-.156.154c-.766.786-1.079 1.137-3.106 1.838-3.272 1.13-3.805.132-3.482-.977.217-.56.8-1.09 2.2-1.38 4.203-.87 6.842-1.58 6.842-4.94 0-.39-.02-2.58-.23-3.677C23.867 3.194 24 4.979 24 4.3 24 3.08 23.861 1.902 23.098 1.562c-.659-.296-1.664-.618-4.3.043-2.755 1.942-5.649 5.867-6.798 7.995z"/></svg>',
+  twitter: '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>',
+  email: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>'
+};
+/* =====
