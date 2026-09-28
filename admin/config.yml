@@ -1,6 +1,5 @@
 backend:
-  name: github
-  repo: moonlightbookreader/moonlightbookreader
+  name: git-gateway
   branch: main
 
 media_folder: "content/images"
