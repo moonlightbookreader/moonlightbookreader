@@ -3,6 +3,62 @@ media:
   output: /content/images
 
 content:
+  - name: site
+    label: Site Profile & Social
+    type: file
+    path: content/site.json
+    fields:
+      - name: name
+        label: Your Name
+        type: string
+      - name: tagline
+        label: Tagline
+        type: string
+      - name: profileImage
+        label: Profile Photo
+        type: image
+        optional: true
+      - name: goodreads
+        label: Goodreads URL
+        type: string
+        optional: true
+      - name: storygraph
+        label: Storygraph URL
+        type: string
+        optional: true
+      - name: instagram
+        label: Instagram URL
+        type: string
+        optional: true
+      - name: twitter
+        label: Twitter / X URL
+        type: string
+        optional: true
+      - name: email
+        label: Email Address
+        type: string
+        optional: true
+
+  - name: about
+    label: About Page
+    type: file
+    path: content/about.json
+    fields:
+      - name: introLine
+        label: Intro Line
+        type: string
+      - name: heading
+        label: Heading
+        type: string
+      - name: bioParagraphs
+        label: Bio Text
+        type: list
+        items:
+          type: textarea
+      - name: signoff
+        label: Sign-off Line
+        type: string
+
   - name: books
     label: Book Reviews
     type: collection
@@ -76,6 +132,6 @@ content:
         label: Content
         type: textarea
       - name: attribution
-        label: Attribution (for quotes)
+        label: Attribution
         type: string
         optional: true
