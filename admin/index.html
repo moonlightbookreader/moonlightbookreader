@@ -1,12 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin — Moonlight Book Reader</title>
-  <script src="https://cdn.jsdelivr.net/npm/netlify-cms@2.10.194/dist/netlify-cms.min.js"></script>
+  <!-- Force latest version + prevent caching -->
+  <script src="https://cdn.jsdelivr.net/npm/netlify-cms@2.10.194/dist/netlify-cms.min.js?v=2"></script>
+  <style>
+    body { margin: 0; background: #150c2b; font-family: sans-serif; }
+    .loading { color: #f5e6d3; padding: 40px; text-align: center; }
+  </style>
 </head>
 <body>
   <div id="root"></div>
+  <script>
+    // Debug: confirm script is running
+    console.log('✅ Admin page loaded');
+    if (window.netlifyCMS) {
+      console.log('✅ Netlify CMS found');
+    } else {
+      console.log('❌ Netlify CMS NOT loaded');
+      document.body.innerHTML = '<div class="loading">⚠️ Loading CMS... <br>If this stays, check your internet or disable ad-blockers.</div>';
+    }
+  </script>
 </body>
 </html>
