@@ -1,0 +1,32 @@
+[
+  {
+    "subtitle": "for deep thinkers",
+    "title": "Philosophical Reads",
+    "description": "Books that challenge your perspective and make you question everything under the moonlight.",
+    "books": [
+      "The Midnight Library · Matt Haig",
+      "Siddhartha · Hermann Hesse",
+      "The Alchemist · Paulo Coelho"
+    ]
+  },
+  {
+    "subtitle": "cozy night reads",
+    "title": "Warm & Comforting",
+    "description": "Perfect companions for a rainy evening with a cup of tea and soft blankets.",
+    "books": [
+      "The No. 1 Ladies' Detective Agency",
+      "Chocolat · Joanne Harris",
+      "A Man Called Ove · Fredrik Backman"
+    ]
+  },
+  {
+    "subtitle": "adventure awaits",
+    "title": "Epic Journeys",
+    "description": "Sweep yourself away to magical worlds and grand adventures under starry skies.",
+    "books": [
+      "The Name of the Wind · Patrick Rothfuss",
+      "Dune · Frank Herbert",
+      "The Hobbit · J.R.R. Tolkien"
+    ]
+  }
+]
