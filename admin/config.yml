@@ -1,157 +1,60 @@
 backend:
   name: github
-  repo: moonlightbookreader/moonlightbookreader  # ← replace with YOUR username!
+  repo: YOUR_GITHUB_USERNAME/moonlight-book-reader
   branch: main
+  base_url: https://moonlightbookreader.netlify.app
 
 media_folder: "content/images"
 public_folder: "/content/images"
 
 collections:
+  - name: books
+    label: Book Reviews
+    folder: "content/books"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Author", name: "author", widget: "string"}
+      - {label: "Category", name: "category", widget: "select", options: ["Fiction", "Fantasy", "Mystery", "Sci-Fi", "Romance", "Non-Fiction", "Classics"]}
+      - {label: "Rating", name: "rating", widget: "number", min: 1, max: 5}
+      - {label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false}
+      - {label: "Cover Image", name: "coverImage", widget: "image", required: false}
+      - {label: "Excerpt", name: "excerpt", widget: "text"}
+      - {label: "Full Review", name: "fullReview", widget: "markdown"}
+      - {label: "Highlights", name: "highlights", widget: "list", field: {label: "Point", name: "point", widget: "string"}}
+      - {label: "Verdict", name: "verdict", widget: "text"}
 
-  # ============== BOOK REVIEWS ==============
-  - name: "books"
-    label: "📚 Book Reviews"
-    label_singular: "Book Review"
-    folder: "content"
+  - name: journal
+    label: Journal Entries
+    folder: "content/journal"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Category Tag", name: "tag", widget: "string", required: false}
+      - {label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false}
+      - {label: "Read Time / Note", name: "note", widget: "string", required: false}
+      - {label: "Content", name: "content", widget: "markdown"}
+
+  - name: site
+    label: Site Settings
     files:
-      - name: "books"
-        label: "All Reviews"
-        file: "content/books.json"
-        description: "Add and edit your book reviews here. Newest appears first on the site."
-        fields:
-          - label: "Books"
-            name: "items"
-            widget: "list"
-            summary: "{{fields.title}} — {{fields.author}} ({{fields.rating}}★ · {{fields.category}})"
-            fields:
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "Author", name: "author", widget: "string" }
-              - label: "Category"
-                name: "category"
-                widget: "select"
-                options: ["Fiction", "Fantasy", "Mystery", "Sci-Fi", "Romance", "Non-Fiction", "Classics"]
-                default: "Fiction"
-              - label: "Rating"
-                name: "rating"
-                widget: "number"
-                value_type: "int"
-                min: 1
-                max: 5
-                default: 5
-              - { label: "Date", name: "date", widget: "datetime", format: "MMMM D, YYYY", date_format: "MMMM D, YYYY", time_format: false }
-              - { label: "Cover Image URL", name: "coverImage", widget: "image", required: false, hint: "Optional — upload a book cover. Leave blank for a beautiful gradient." }
-              - { label: "Short Excerpt", name: "excerpt", widget: "text", hint: "Appears on the review card (1-2 sentences)" }
-              - { label: "Full Review", name: "fullReview", widget: "text", hint: "Your complete review. Paragraphs separated by blank lines." }
-              - label: "Key Highlights"
-                name: "highlights"
-                widget: "list"
-                required: false
-                default: []
-                field: { label: "Highlight", name: "highlight", widget: "string" }
-              - { label: "My Verdict", name: "verdict", widget: "text", required: false, hint: "A short concluding thought." }
-
-  # ============== JOURNAL ENTRIES ==============
-  - name: "journal"
-    label: "🌙 Moonlit Musings"
-    label_singular: "Journal Entry"
-    folder: "content"
-    files:
-      - name: "journal"
-        label: "All Journal Entries"
-        file: "content/journal.json"
-        description: "Your diary-style musings, quotes, opinions, and reflections."
-        fields:
-          - label: "Entries"
-            name: "items"
-            widget: "list"
-            summary: "{{fields.type}} — {{fields.title || fields.attribution}}"
-            fields:
-              - label: "Type"
-                name: "type"
-                widget: "select"
-                options:
-                  - { label: "QUOTE (a quote with attribution)", value: "quote" }
-                  - { label: "OPINION (your personal take)", value: "OPINION" }
-                  - { label: "OBSERVATION (something you noticed)", value: "OBSERVATION" }
-                  - { label: "HOT TAKE (a controversial opinion)", value: "HOT TAKE" }
-                  - { label: "REFLECTION (deeper thinking)", value: "REFLECTION" }
-                default: "REFLECTION"
-              - { label: "Title", name: "title", widget: "string", required: false, hint: "For OPINION / OBSERVATION / HOT TAKE / REFLECTION only" }
-              - { label: "Text / Quote", name: "text", widget: "text", hint: "The main content of your entry" }
-              - { label: "Attribution", name: "attribution", widget: "string", required: false, hint: "For QUOTE type only — who said it (e.g., — Author Name)" }
-              - { label: "Date", name: "date", widget: "string", default: "Sept 25", hint: "Short date label (e.g., Sept 25, Oct 1, etc.)" }
-
-  # ============== RECOMMENDATIONS ==============
-  - name: "recommendations"
-    label: "📖 Reading Recommendations"
-    label_singular: "Recommendation List"
-    folder: "content"
-    files:
-      - name: "recommendations"
-        label: "All Recommendation Lists"
-        file: "content/recommendations.json"
-        description: "Curated themed book lists."
-        fields:
-          - label: "Recommendation Lists"
-            name: "items"
-            widget: "list"
-            summary: "{{fields.title}} — {{fields.subtitle}}"
-            fields:
-              - { label: "Handwritten Subtitle", name: "subtitle", widget: "string", hint: "Small label above the title (e.g., 'for deep thinkers')" }
-              - { label: "List Title", name: "title", widget: "string", hint: "e.g., 'Philosophical Reads'" }
-              - { label: "Description", name: "description", widget: "text", hint: "1-2 sentences about this list" }
-              - label: "Books in this list"
-                name: "books"
-                widget: "list"
-                field: { label: "Book entry", name: "book", widget: "string", hint: "e.g., 'The Midnight Library · Matt Haig'" }
-
-  # ============== SITE SETTINGS ==============
-  - name: "settings"
-    label: "⚙️ Site Settings"
-    delete: false
-    editor:
-      preview: false
-    files:
-      - name: "site"
-        label: "Profile & Social"
-        file: "content/site.json"
-        description: "Your profile picture, name, tagline, and social media links."
-        fields:
-          - { label: "Display Name", name: "name", widget: "string", default: "Moonlight Book Reader" }
-          - { label: "Tagline", name: "tagline", widget: "string", default: "your nocturnal reading companion" }
-          - { label: "Profile Picture", name: "profileImage", widget: "image", required: false, hint: "Leave blank for the elegant moon icon" }
-          - label: "Social Media Links"
-            name: "socialLinks"
-            widget: "object"
-            collapsed: true
-            fields:
-              - { label: "Goodreads", name: "goodreads", widget: "string", required: false }
-              - { label: "Storygraph", name: "storygraph", widget: "string", required: false }
-              - { label: "Instagram", name: "instagram", widget: "string", required: false }
-              - { label: "Threads", name: "threads", widget: "string", required: false }
-              - { label: "TikTok", name: "tiktok", widget: "string", required: false }
-              - { label: "Pinterest", name: "pinterest", widget: "string", required: false }
-              - { label: "YouTube", name: "youtube", widget: "string", required: false }
-              - { label: "Amazon", name: "amazon", widget: "string", required: false }
-              - { label: "Ko-fi", name: "kofi", widget: "string", required: false }
-              - { label: "Twitter / X", name: "twitter", widget: "string", required: false }
-              - { label: "Bluesky", name: "bluesky", widget: "string", required: false }
-              - { label: "Facebook", name: "facebook", widget: "string", required: false }
-              - { label: "Email", name: "email", widget: "string", required: false }
-              - { label: "Website", name: "website", widget: "string", required: false }
-
-      - name: "about"
-        label: "About Page Content"
+      - name: about
+        label: About Section
         file: "content/about.json"
-        description: "Edit the text in your About section."
         fields:
-          - { label: "Intro Line (handwritten)", name: "introLine", widget: "string", default: "a little about me..." }
-          - { label: "Heading", name: "heading", widget: "string", default: "Hello, fellow book lover!" }
-          - label: "Bio Paragraphs"
-            name: "bioParagraphs"
-            widget: "list"
-            default:
-              - "I'm your companion through countless literary adventures. There's something magical about losing yourself in a good book under the soft glow of lamplight while the moon watches through the window, and I created this space to share that passion with you."
-              - "Here you'll find my honest reviews, thoughts on literary themes, journal musings, and curated recommendations to help you discover your next favorite read. I believe every book deserves a thoughtful reader, and every reader deserves the right book to carry them through the night."
-            field: { label: "Paragraph", name: "paragraph", widget: "text" }
-          - { label: "Sign-off (handwritten)", name: "signoff", widget: "string", default: "— when I'm not reading, I'm probably dreaming about my next book" }
+          - {label: "Profile Image", name: "profileImage", widget: "image", required: false}
+          - {label: "Bio Paragraph 1", name: "bio1", widget: "text"}
+          - {label: "Bio Paragraph 2", name: "bio2", widget: "text"}
+          - {label: "Closing Line", name: "closingLine", widget: "string"}
+      - name: social
+        label: Social Links
+        file: "content/social.json"
+        fields:
+          - {label: "Goodreads", name: "goodreads", widget: "string", required: false}
+          - {label: "Storygraph", name: "storygraph", widget: "string", required: false}
+          - {label: "Instagram", name: "instagram", widget: "string", required: false}
+          - {label: "Threads", name: "threads", widget: "string", required: false}
+          - {label: "Twitter", name: "twitter", widget: "string", required: false}
+          - {label: "Email", name: "email", widget: "string", required: false}
