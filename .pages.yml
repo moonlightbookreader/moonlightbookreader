@@ -1,15 +1,11 @@
-media:
-  input: content/images
-  output: /content/images
-
+title: Moonlight Book Reader
 content:
-  - name: site
+  site:
     label: Site Profile & Social
-    type: file
-    path: content/site.json
+    file: content/site.json
     fields:
       - name: name
-        label: Your Name / Site Title
+        label: Site Name
         type: string
       - name: tagline
         label: Tagline
@@ -17,72 +13,71 @@ content:
       - name: profileImage
         label: Profile Photo
         type: image
-        required: false
+        optional: true
       - name: goodreads
         label: Goodreads URL
         type: string
-        required: false
+        optional: true
       - name: storygraph
         label: Storygraph URL
         type: string
-        required: false
+        optional: true
       - name: instagram
         label: Instagram URL
         type: string
-        required: false
+        optional: true
       - name: twitter
-        label: X / Twitter URL
+        label: Twitter / X URL
         type: string
-        required: false
+        optional: true
       - name: threads
         label: Threads URL
         type: string
-        required: false
+        optional: true
       - name: tiktok
         label: TikTok URL
         type: string
-        required: false
+        optional: true
       - name: youtube
         label: YouTube URL
         type: string
-        required: false
+        optional: true
       - name: pinterest
         label: Pinterest URL
         type: string
-        required: false
+        optional: true
       - name: letterboxd
         label: Letterboxd URL
         type: string
-        required: false
+        optional: true
       - name: redbubble
-        label: Redbubble Shop URL
+        label: Redbubble URL
         type: string
-        required: false
+        optional: true
       - name: amazon
         label: Amazon Profile URL
         type: string
-        required: false
+        optional: true
       - name: amazonWishlist
         label: Amazon Wishlist URL
         type: string
-        required: false
+        optional: true
       - name: etsy
         label: Etsy Shop URL
         type: string
-        required: false
+        optional: true
       - name: kofi
         label: Ko-fi URL
         type: string
-        required: false
+        optional: true
       - name: email
         label: Email Address
         type: string
-        required: false
+        optional: true
 
-  - name: about
+  about:
     label: About Page
-    type: file
-    path: content/about.json
+    file: content/about.json
     fields:
       - name: introLine
         label: Intro Line
@@ -91,17 +86,17 @@ content:
         label: Heading
         type: string
       - name: bioParagraphs
-        label: Biography Paragraphs
-        type: text
-        list: true
+        label: Bio Paragraphs
+        type: list
+        field:
+          type: text
       - name: signoff
-        label: Sign-off Line
+        label: Sign-off
         type: string
 
-  - name: books
+  books:
     label: Book Reviews
-    type: file
-    path: content/books.json
+    file: content/books.json
     fields:
       - name: entries
         label: Reviews
@@ -118,42 +113,48 @@ content:
             label: Author
             type: string
           - name: category
-            label: Genre / Categories (select multiple)
+            label: Genres (select multiple)
             type: select
             multiple: true
             options:
               values:
-                - Fiction
-                - Contemporary
-                - Fantasy
-                - "Epic Fantasy"
-                - "Dark Fantasy"
-                - "Urban Fantasy"
-                - "Historical Fiction"
-                - Mystery
-                - Thriller
-                - "Psychological Thriller"
-                - Sci-Fi
-                - Romance
-                - "Fantasy Romance"
-                - "Paranormal Romance"
-                - "Non-Fiction"
-                - Classics
-                - Horror
-                - Historical
-                - "Young Adult"
-                - "New Adult"
-                - Poetry
-                - "Graphic Novel"
-                - Memoir
-                - Biography
-                - Self-Help
-                - Philosophy
-                - Religion
+                - Anthologies
                 - Art
+                - Biography
+                - Children
+                - Classics
+                - Comfort Reads
+                - Contemporary
                 - Cookbook
-                - Travel
+                - Cozy Books
+                - "Dark Fantasy"
+                - Drama
+                - "Epic Fantasy"
+                - Fantasy
+                - "Fantasy Romance"
+                - Fiction
+                - "Graphic Novel"
+                - Historical
+                - "Historical Fiction"
+                - Horror
+                - Memoir
+                - Middle Grade
+                - Mystery
+                - "New Adult"
+                - "Non-Fiction"
+                - "Paranormal Romance"
+                - Philosophy
+                - Poetry
+                - "Psychological Thriller"
+                - Religion
+                - Romance
+                - Sci-Fi
+                - Self-Help
                 - "Short Stories"
+                - Thriller
+                - Travel
+                - "Urban Fantasy"
+                - "Young Adult"
           - name: customGenres
             label: Custom Genres (comma separated)
             type: string
@@ -193,10 +194,9 @@ content:
             label: Final Verdict
             type: text
 
-  - name: journal
+  journal:
     label: Journal Entries
-    type: file
-    path: content/journal.json
+    file: content/journal.json
     fields:
       - name: entries
         label: Entries
