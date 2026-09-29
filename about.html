@@ -1,53 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About — Moonlight Book Reader</title>
-  <link rel="icon" type="image/png" href="favicon.png" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
-  <div class="page-wrapper">
-    <div class="container">
-<header class="site-header">
-  <div class="header-inner">
-    <div class="site-brand">
-      <a href="index.html" class="site-title">Moonlight Book Reader</a>
-      <p class="site-tagline">your nocturnal reading companion</p>
-    </div>
-    <nav class="site-nav">
-      <a href="index.html">Home</a>
-      <a href="books.html">Reviews</a>
-      <a href="journal.html">Journal</a>
-      <a href="about.html">About</a>
-    </nav>
-  </div>
-</header>
+  <div class="stars"></div>
+  <div class="moon-drift"></div>
 
-      <section class="about-section">
-        <p class="about-intro" id="aboutIntro">a little about me...</p>
-        <h2 id="aboutHeading">Hello, Fellow Book Lover!</h2>
-        <div class="about-bio" id="aboutBio"></div>
-        <p class="about-signoff" id="aboutSignoff">— Moonlight Book Reader</p>
-        <div class="about-social">
-          <p class="about-social-label">find me elsewhere in the bookish world...</p>
-          <div id="socialLinks"></div>
-        </div>
-      </section>
-
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="site-brand">
+        <a href="index.html" class="site-title">Moonlight Book Reader</a>
+        <p class="site-tagline">your nocturnal reading companion</p>
+      </div>
+      <nav class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="books.html">Reviews</a>
+        <a href="journal.html">Journal</a>
+        <a href="about.html" class="active">About</a>
+      </nav>
     </div>
-    <footer class="site-footer">
-      <p><span class="handwritten">☾ Moonlight Book Reader · written under the same moon ✨</span></p>
-    </footer>
-  </div>
+  </header>
+
+  <main class="content-wrapper">
+    <section class="page-intro">
+      <h1>A Little About Me</h1>
+      <p>the reader behind the moonlight</p>
+    </section>
+
+    <div class="about-card">
+      <h2>Hello, Fellow Book Lover!</h2>
+      <p>I'm so glad you stopped by my cozy corner of the internet.</p>
+      <p>Books have always been my quiet places, my safe harbors, and my greatest adventures. Whether under the covers with a flashlight or beside a lamp long after midnight, I've always found the best stories happen when the world is quiet and the moon is watching.</p>
+      <p>This space is where I share those stories — the ones that made me laugh, the ones that broke my heart, and the ones that changed how I see the world.</p>
+      <p>Thank you for reading along with me.</p>
+      <p class="signoff">— Moonlight Book Reader 🌙</p>
+      
+      <h3>Find Me Elsewhere</h3>
+      <div class="social-links">
+        <a href="#" class="social-link">Goodreads</a>
+        <a href="#" class="social-link">Instagram</a>
+        <a href="#" class="social-link">Storygraph</a>
+        <a href="#" class="social-link">Letterboxd</a>
+        <a href="#" class="social-link">Ko-fi</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>— Written under the same moon — © 2026 Moonlight Book Reader</p>
+  </footer>
+
   <script src="script.js"></script>
-  <script>
-    loadAllData().then(() => {
-      renderProfile();
-      renderAbout();
-      renderSocialLinks('socialLinks');
-    });
-  </script>
 </body>
 </html>
