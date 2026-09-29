@@ -8,38 +8,95 @@ content:
     type: file
     path: content/site.json
     fields:
-      - { name: name, label: Your Name / Site Title, type: string }
-      - { name: tagline, label: Tagline, type: string }
-      - { name: profileImage, label: Profile Photo, type: image, required: false }
-      - { name: goodreads, label: Goodreads URL, type: string, required: false }
-      - { name: storygraph, label: Storygraph URL, type: string, required: false }
-      - { name: instagram, label: Instagram URL, type: string, required: false }
-      - { name: twitter, label: X / Twitter URL, type: string, required: false }
-      - { name: threads, label: Threads URL, type: string, required: false }
-      - { name: tiktok, label: TikTok URL, type: string, required: false }
-      - { name: youtube, label: YouTube URL, type: string, required: false }
-      - { name: pinterest, label: Pinterest URL, type: string, required: false }
-      - { name: letterboxd, label: Letterboxd URL, type: string, required: false }
-      - { name: redbubble, label: Redbubble Shop URL, type: string, required: false }
-      - { name: amazon, label: Amazon Profile URL, type: string, required: false }
-      - { name: amazonWishlist, label: Amazon Wishlist URL, type: string, required: false }
-      - { name: etsy, label: Etsy Shop URL, type: string, required: false }
-      - { name: kofi, label: Ko-fi URL, type: string, required: false }
-      - { name: email, label: Email Address, type: string, required: false }
+      - name: name
+        label: Your Name / Site Title
+        type: string
+      - name: tagline
+        label: Tagline
+        type: string
+      - name: profileImage
+        label: Profile Photo
+        type: image
+        required: false
+      - name: goodreads
+        label: Goodreads URL
+        type: string
+        required: false
+      - name: storygraph
+        label: Storygraph URL
+        type: string
+        required: false
+      - name: instagram
+        label: Instagram URL
+        type: string
+        required: false
+      - name: twitter
+        label: X / Twitter URL
+        type: string
+        required: false
+      - name: threads
+        label: Threads URL
+        type: string
+        required: false
+      - name: tiktok
+        label: TikTok URL
+        type: string
+        required: false
+      - name: youtube
+        label: YouTube URL
+        type: string
+        required: false
+      - name: pinterest
+        label: Pinterest URL
+        type: string
+        required: false
+      - name: letterboxd
+        label: Letterboxd URL
+        type: string
+        required: false
+      - name: redbubble
+        label: Redbubble Shop URL
+        type: string
+        required: false
+      - name: amazon
+        label: Amazon Profile URL
+        type: string
+        required: false
+      - name: amazonWishlist
+        label: Amazon Wishlist URL
+        type: string
+        required: false
+      - name: etsy
+        label: Etsy Shop URL
+        type: string
+        required: false
+      - name: kofi
+        label: Ko-fi URL
+        type: string
+        required: false
+      - name: email
+        label: Email Address
+        type: string
+        required: false
 
   - name: about
     label: About Page
     type: file
     path: content/about.json
     fields:
-      - { name: introLine, label: Intro Line, type: string }
-      - { name: heading, label: Heading, type: string }
+      - name: introLine
+        label: Intro Line
+        type: string
+      - name: heading
+        label: Heading
+        type: string
       - name: bioParagraphs
-        label: Biography
-        type: list
-        fields:
-          - { name: paragraph, label: Paragraph, type: textarea }
-      - { name: signoff, label: Sign-off Line, type: string }
+        label: Biography Paragraphs
+        type: text
+        list: true
+      - name: signoff
+        label: Sign-off Line
+        type: string
 
   - name: books
     label: Book Reviews
@@ -48,32 +105,62 @@ content:
     fields:
       - name: entries
         label: Reviews
-        type: list
+        type: object
+        list: true
         fields:
-          - { name: id, label: URL ID (no spaces), type: string }
-          - { name: title, label: Book Title, type: string }
-          - { name: author, label: Author, type: string }
+          - name: id
+            label: URL ID (no spaces, e.g. midnight-library)
+            type: string
+          - name: title
+            label: Book Title
+            type: string
+          - name: author
+            label: Author
+            type: string
           - name: category
             label: Genre / Category
             type: select
-            options: [Fiction, Fantasy, Mystery, "Sci-Fi", Romance, "Non-Fiction", Classics]
+            options:
+              - Fiction
+              - Fantasy
+              - Mystery
+              - Sci-Fi
+              - Romance
+              - Non-Fiction
+              - Classics
           - name: format
             label: Format
             type: select
-            options: [Physical, "E-Book", Audiobook]
+            options:
+              - Physical
+              - E-Book
+              - Audiobook
             required: false
-          - { name: rating, label: Rating (1-5), type: number, min: 1, max: 5 }
-          - { name: date, label: Date Finished, type: date }
-          - { name: coverImage, label: Book Cover Image, type: image, required: false }
-          - { name: excerpt, label: Short Excerpt, type: text }
-          - { name: fullReview, label: Full Review (use image button to add photos)
-              type: rich-text }
+          - name: rating
+            label: Rating (1-5)
+            type: number
+            min: 1
+            max: 5
+          - name: date
+            label: Date Finished
+            type: date
+          - name: coverImage
+            label: Book Cover Image
+            type: image
+            required: false
+          - name: excerpt
+            label: Short Excerpt
+            type: text
+          - name: fullReview
+            label: Full Review (use image button to add photos)
+            type: rich-text
           - name: highlights
             label: Favorite Quotes
-            type: list
-            fields:
-              - { name: quote, label: Quote, type: textarea }
-          - { name: verdict, label: Final Verdict, type: textarea }
+            type: text
+            list: true
+          - name: verdict
+            label: Final Verdict
+            type: text
 
   - name: journal
     label: Journal Entries
@@ -82,15 +169,31 @@ content:
     fields:
       - name: entries
         label: Entries
-        type: list
+        type: object
+        list: true
         fields:
-          - { name: id, label: URL ID (no spaces), type: string }
-          - { name: title, label: Entry Title, type: string }
+          - name: id
+            label: URL ID (no spaces)
+            type: string
+          - name: title
+            label: Entry Title
+            type: string
           - name: type
             label: Entry Type
             type: select
-            options: [OBSERVATION, OPINION, "HOT TAKE", REFLECTION, QUOTE]
-          - { name: date, label: Date, type: date }
-          - { name: text, label: Entry Content (use image button to add photos)
-              type: rich-text }
-          - { name: attribution, label: Attribution (for quotes), type: string, required: false }
+            options:
+              - OBSERVATION
+              - OPINION
+              - HOT TAKE
+              - REFLECTION
+              - QUOTE
+          - name: date
+            label: Date
+            type: date
+          - name: text
+            label: Entry Content (use image button to add photos)
+            type: rich-text
+          - name: attribution
+            label: Attribution (for quotes)
+            type: string
+            required: false
