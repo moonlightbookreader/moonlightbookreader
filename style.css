@@ -1,14 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Caveat:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap');
 
 :root {
-  --bg-deep: #1a1238;
+  --bg-deep: #1a1642;
   --accent-gold: #d4af37;
-  --text-cream: #f5e7c8;
-  --text-lavender: #b8a8d8;
-  --text-warm: #d8c8a8;
-  --text-muted: #7a7098;
-  --border-soft: rgba(100, 90, 140, 0.2);
+  --text-cream: #f8f0dc;
+  --text-pale: #c8c0e8;
+  --text-sky: #94b8ff;
+  --border-soft: rgba(212,175,55,0.15);
   --font-serif: 'Playfair Display', Georgia, serif;
+  --font-italic-rounded: 'Playfair Display', Georgia, serif;
   --font-body: 'Lora', Georgia, serif;
   --font-handwritten: 'Caveat', cursive;
 }
@@ -25,7 +27,7 @@ html, body {
   overflow-x: hidden;
 }
 
-/* ⭐ TWINKLING STARS — Subtle like original */
+/* ⭐ Stars */
 .stars-bg {
   position: fixed;
   top: 0; left: 0;
@@ -34,100 +36,71 @@ html, body {
   z-index: 1;
 }
 
-.twinkle {
+.star {
   position: absolute;
   width: 2px; height: 2px;
-  background: #ffffff;
+  background: #fff;
   border-radius: 50%;
-  animation: twinkle 4s ease-in-out infinite;
+  opacity: 0.7;
 }
 
-@keyframes twinkle {
-  0%, 100% { opacity: 0.2; transform: scale(0.8); }
-  50% { opacity: 1; transform: scale(1.2); }
+/* Layout */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 2rem 4rem;
+  position: relative;
+  z-index: 5;
 }
 
-.twinkle:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
-.twinkle:nth-child(2) { top: 15%; left: 18%; animation-delay: 0.5s; }
-.twinkle:nth-child(3) { top: 8%; left: 32%; animation-delay: 1s; }
-.twinkle:nth-child(4) { top: 22%; left: 12%; animation-delay: 1.5s; }
-.twinkle:nth-child(5) { top: 30%; left: 45%; animation-delay: 0.2s; }
-.twinkle:nth-child(6) { top: 5%; left: 58%; animation-delay: 0.7s; }
-.twinkle:nth-child(7) { top: 18%; left: 72%; animation-delay: 1.2s; }
-.twinkle:nth-child(8) { top: 25%; left: 85%; animation-delay: 1.7s; }
-.twinkle:nth-child(9) { top: 40%; left: 8%; animation-delay: 0.4s; }
-.twinkle:nth-child(10) { top: 35%; left: 92%; animation-delay: 0.9s; }
-.twinkle:nth-child(11) { top: 55%; left: 25%; animation-delay: 1.3s; }
-.twinkle:nth-child(12) { top: 65%; left: 68%; animation-delay: 0.6s; }
-.twinkle:nth-child(13) { top: 78%; left: 42%; animation-delay: 1.1s; }
-.twinkle:nth-child(14) { top: 85%; left: 15%; animation-delay: 1.6s; }
-.twinkle:nth-child(15) { top: 72%; left: 80%; animation-delay: 0.3s; }
-
-/* 🌙 MOON GLOW — Soft top-right */
-.moon-drift {
-  position: fixed;
-  top: 5%; right: 5%;
-  width: 280px; height: 280px;
-  background: radial-gradient(circle at 30% 25%, rgba(255,249,232,0.12) 0%, transparent 65%);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* HEADER — EXACT ORIGINAL STRUCTURE */
+/* Header — Title is italic rounded */
 .site-header {
-  position: relative; z-index: 10;
-  max-width: 1200px; margin: 0 auto;
-  padding: 2rem 2rem 1.2rem;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  padding-bottom: 1rem;
   border-bottom: 1px solid var(--border-soft);
+  margin-bottom: 3rem;
 }
 
-.site-brand { display: flex; flex-direction: column; }
-
 .site-title {
-  font-family: var(--font-serif);
-  font-size: 2.5rem;
+  font-family: var(--font-italic-rounded);
+  font-style: italic;
+  font-size: 2.8rem;
   color: var(--accent-gold);
   text-decoration: none;
   font-weight: 600;
   letter-spacing: 0.02em;
 }
 
-/* ✅ TAGLINE — EXACTLY "~ a cozy reading journal ~" in Caveat */
 .site-tagline {
   font-family: var(--font-handwritten);
   font-size: 1.4rem;
-  color: var(--text-lavender);
+  color: var(--text-sky);
   margin-top: 0.2rem;
+  line-height: 1;
 }
 
-.site-nav { display: flex; gap: 2rem; }
+nav { display: flex; gap: 2.5rem; }
 
-.site-nav a {
-  color: var(--text-lavender);
+nav a {
+  color: var(--text-pale);
   text-decoration: none;
-  font-family: var(--font-body);
-  font-size: 1rem;
-  transition: color 0.3s ease;
+  font-size: 1.05rem;
+  transition: color 0.25s;
 }
 
-.site-nav a:hover,
-.site-nav a.active {
+nav a:hover,
+nav a.active {
   color: var(--accent-gold);
-  border-bottom: none;
 }
 
-/* MAIN CONTENT */
-.content-wrapper {
-  position: relative; z-index: 5;
-  max-width: 1200px; margin: 0 auto;
-  padding: 2.5rem 2rem 4rem;
+nav a.active {
+  border-bottom: 1px solid var(--accent-gold);
+  padding-bottom: 2px;
 }
 
-/* HERO — EXACT FONT HIERARCHY FROM YOUR ORIGINAL */
+/* Hero Section */
 .hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -135,160 +108,122 @@ html, body {
   align-items: start;
 }
 
-/* ✅ Intro line — gold italic */
+/* ✅ Intro — Lora italic, soft gold, matches original exactly */
 .hero-intro {
   font-family: var(--font-body);
   font-style: italic;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   color: var(--accent-gold);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
 }
 
+/* ✅ Main Heading — Playfair italic rounded */
 .hero h1 {
-  font-family: var(--font-serif);
-  font-size: 3.2rem;
+  font-family: var(--font-italic-rounded);
+  font-style: italic;
+  font-size: 3.4rem;
   line-height: 1.15;
   margin-bottom: 1.5rem;
+  font-weight: 600;
 }
 
-/* ✅ "by moonlight" — ALL gold gradient */
-.hero h1 span {
-  background: linear-gradient(135deg, #e8c860, var(--accent-gold));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* ✅ Quote — NO left border, plain lavender italic */
-.hero blockquote {
-  color: var(--text-lavender);
+.hero h1 .gold-part {
+  color: var(--accent-gold);
   font-style: italic;
-  margin: 1.2rem 0;
-  padding-left: 0;
-  border-left: none;
-}
-
-.hero blockquote cite {
   display: block;
-  margin-top: 0.3rem;
-  font-size: 1rem;
-  opacity: 0.8;
 }
 
-.hero p {
-  color: var(--text-warm);
-  font-size: 1.05rem;
-  line-height: 1.7;
+/* ✅ Quote — pale lavender, Lora italic */
+.hero-quote {
+  font-family: var(--font-body);
+  font-style: italic;
+  color: var(--text-pale);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 0.3rem;
+}
+
+/* ✅ Author — same pale lavender, italic, smaller */
+.hero-author {
+  font-family: var(--font-body);
+  font-style: italic;
+  color: var(--text-pale);
+  font-size: 1rem;
   margin-bottom: 2rem;
 }
 
-.hero-buttons { display: flex; gap: 1rem; margin-top: 0.5rem; }
+.hero p {
+  color: var(--text-cream);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+}
 
-.primary-btn {
+.hero-buttons { display: flex; gap: 1.2rem; }
+
+.btn-primary {
   background: var(--accent-gold);
   color: var(--bg-deep);
   font-weight: 600;
-  padding: 0.85rem 1.8rem;
-  border-radius: 8px;
+  padding: 0.9rem 2rem;
+  border-radius: 6px;
   text-decoration: none;
   border: none;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s;
 }
 
-.primary-btn:hover { transform: translateY(-2px); }
+.btn-primary:hover { transform: translateY(-2px); }
 
-.secondary-btn {
+.btn-secondary {
   background: transparent;
-  border: 1px solid rgba(212,175,55,0.4);
+  border: 1px solid var(--accent-gold);
   color: var(--accent-gold);
-  padding: 0.85rem 1.8rem;
-  border-radius: 8px;
+  padding: 0.9rem 2rem;
+  border-radius: 6px;
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: all 0.2s;
 }
 
-.secondary-btn:hover { background: rgba(212,175,55,0.1); }
+.btn-secondary:hover {
+  background: rgba(212,175,55,0.1);
+}
 
-/* ✅ BUBBLE — EXACT pill shape, dark bg, Caveat gold text */
-.hero-image-wrapper { position: relative; margin-top: 0.5rem; }
+/* Hero Image & Bubble */
+.hero-image-wrap { position: relative; }
 
-.hero-image {
+.hero-image-wrap img {
   width: 100%;
-  border-radius: 14px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
   display: block;
 }
 
-.reading-bubble {
+.hero-image-caption {
   position: absolute;
   bottom: 1.5rem;
   right: 1.5rem;
-  background: rgba(26, 18, 56, 0.85);
-  border: 1px solid rgba(212,175,55,0.35);
+  background: rgba(26, 22, 66, 0.85);
+  border: 1px solid rgba(212,175,55,0.3);
   color: var(--accent-gold);
-  padding: 0.7rem 1.5rem;
+  padding: 0.6rem 1.4rem;
   border-radius: 2rem;
   font-family: var(--font-handwritten);
   font-size: 1.1rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
 }
 
-/* PAGES: Reviews, Journal, About */
-.page-title {
-  font-family: var(--font-serif);
-  font-size: 2.2rem;
-  color: var(--text-cream);
-  margin-bottom: 0.5rem;
-}
-
-.page-subtitle {
-  color: var(--text-lavender);
-  font-style: italic;
-  margin-bottom: 1.5rem;
-}
-
-.tag-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  margin: 1.5rem 0 2rem;
-}
-
-.tag {
-  color: var(--text-lavender);
-  text-decoration: none;
-  font-size: 0.95rem;
-  transition: color 0.2s;
-}
-
-.tag:hover, .tag.active {
-  color: var(--accent-gold);
-}
-
-.empty-state {
-  color: var(--text-warm);
-  font-style: italic;
-  margin-top: 1rem;
-}
-
-/* FOOTER */
+/* Footer */
 .site-footer {
-  position: relative; z-index: 5;
   text-align: center;
   padding: 2rem;
-  color: var(--text-muted);
+  color: #7068a0;
   font-size: 0.9rem;
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
 
-/* RESPONSIVE */
+/* Responsive */
 @media (max-width: 900px) {
-  .hero { grid-template-columns: 1fr; gap: 2.5rem; }
-}
-@media (max-width: 650px) {
+  .hero { grid-template-columns: 1fr; }
   .site-header { flex-direction: column; gap: 1rem; text-align: center; }
-  .site-nav { justify-content: center; flex-wrap: wrap; }
-  .hero h1 { font-size: 2.2rem; }
-  .content-wrapper { padding: 1.5rem; }
-  .moon-drift { width: 180px; height: 180px; }
+  nav { justify-content: center; flex-wrap: wrap; }
+  .hero h1 { font-size: 2.4rem; }
 }
