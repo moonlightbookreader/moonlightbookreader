@@ -1,115 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Moonlight Book Reader — Home</title>
-  <link rel="icon" type="image/png" href="favicon.png" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
-  <div class="page-wrapper">
-    <div class="container">
-      <header class="site-header">
-        <div class="site-brand">
-          <a href="index.html" class="site-title">Moonlight Book Reader</a>
-          <p class="site-tagline" id="siteTagline">your nocturnal reading companion</p>
-        </div>
-        <nav>
-          <a href="index.html" class="active">Home</a>
-          <a href="books.html">Reviews</a>
-          <a href="journal.html">Journal</a>
-          <a href="about.html">About</a>
-        </nav>
-      </header>
+  <div class="stars"></div>
+  <div class="moon-drift"></div>
 
-      <!-- HERO SECTION -->
-      <section class="hero">
-        <div class="hero-text">
-          <p class="handwritten">come in, dear reader... the kettle's on</p>
-          <h1>Where stories are read by <span class="gold-text">moonlight</span></h1>
-          <p class="quote">"A reader lives a thousand lives before he dies. The man who never reads lives only one."</p>
-          <p class="quote-author">— George R.R. Martin</p>
-          <p>Welcome to my cozy corner of the literary world. Pull up a chair, wrap yourself in a blanket, and let me share with you the books that have kept me company through countless quiet nights.</p>
-          <div class="hero-buttons">
-            <a href="books.html" class="btn btn-primary">Browse My Reviews</a>
-            <a href="journal.html" class="btn btn-secondary">Read My Journal</a>
-          </div>
-          <div class="hero-stats">
-            <div class="hero-stat">
-              <div class="stat-num" id="statBooks">0</div>
-              <div class="stat-label">books reviewed</div>
-            </div>
-            <div class="hero-stat">
-              <div class="stat-num" id="statGenres">0</div>
-              <div class="stat-label">genres explored</div>
-            </div>
-            <div class="hero-stat">
-              <div class="stat-num">∞</div>
-              <div class="stat-label">cups of tea shared</div>
-            </div>
-          </div>
-        </div>
-        <div class="hero-image-wrap">
-          <img src="https://p19-flow-image-sign.ibyteimg.com/tos-mya-i-3rsxbfecgb/rc_gen_image/e0103d8403f649bbb62283b7baf3c3dd.jpeg~tplv-0es2k971ck-image.image?rcl=2026092800523032186D7376C1BE37B002&rk3s=8e244e95&rrcfp=02a80fc2&x-expires=1793119966&x-signature=0NsQBR51EfPvVXwl%2B38oUWlxIHY%3D" alt="Cozy night reading nook" loading="lazy" />
-          <div class="hero-image-caption">currently reading...</div>
-        </div>
-      </section>
-
-      <section>
-        <div class="section-header">
-          <span class="section-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--accent)" stroke="var(--accent)" stroke-width="1">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-            </svg>
-          </span>
-          <h2>Latest Reviews</h2>
-          <span class="handwritten">— fresh from my reading journal</span>
-        </div>
-        <div id="latestBooks"></div>
-        <p class="view-all"><a href="books.html" class="read-more">View all reviews →</a></p>
-      </section>
-
-      <section>
-        <div class="section-header">
-          <span class="section-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-              <polyline points="14 2 14 8 20 8"/>
-            </svg>
-          </span>
-          <h2>Moonlit Musings</h2>
-          <span class="handwritten">— recent thoughts and observations</span>
-        </div>
-        <div id="latestJournal"></div>
-        <p class="view-all"><a href="journal.html" class="read-more">View all entries →</a></p>
-      </section>
-
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="site-brand">
+        <a href="index.html" class="site-title">Moonlight Book Reader</a>
+        <p class="site-tagline">your nocturnal reading companion</p>
+      </div>
+      <nav class="site-nav">
+        <a href="index.html" class="active">Home</a>
+        <a href="books.html">Reviews</a>
+        <a href="journal.html">Journal</a>
+        <a href="about.html">About</a>
+      </nav>
     </div>
+  </header>
 
-    <footer class="site-footer">
-      <p><span class="handwritten">☾ Moonlight Book Reader · written under the same moon ✨</span></p>
-    </footer>
-  </div>
+  <main class="content-wrapper">
+    <section class="hero">
+      <p class="hero-intro">come in, dear reader... the kettle's on</p>
+      <h1>Where stories are read<br>by moonlight</h1>
+      <blockquote>"A reader lives a thousand lives before he dies. The man who never reads lives only one."<br>— George R.R. Martin</blockquote>
+      <p>Welcome to my cozy corner of the literary world. Pull up a chair, wrap yourself in a blanket, and let me share with you the books that have kept me company through countless quiet nights.</p>
+      
+      <div class="hero-buttons">
+        <a href="books.html" class="primary-btn">Browse My Reviews</a>
+        <a href="journal.html" class="secondary-btn">Read My Journal</a>
+      </div>
+
+      <div class="stats-row">
+        <div><strong id="stat-books">0</strong> books reviewed</div>
+        <div><strong id="stat-genres">0</strong> genres explored</div>
+        <div><strong id="stat-tea">0</strong> cups of tea shared</div>
+      </div>
+
+      <div class="hero-image-wrapper">
+        <img src="images/reading-nook.jpg" alt="A cozy reading nook by moonlight" class="hero-image">
+        <div class="reading-bubble">currently reading...</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>— Read by moonlight — © 2026 Moonlight Book Reader</p>
+  </footer>
 
   <script src="script.js"></script>
-  <script>
-    loadAllData().then(() => {
-      renderProfile();
-      renderStats();
-      const booksContainer = document.getElementById('latestBooks');
-      const journalContainer = document.getElementById('latestJournal');
-      if (books.length === 0) {
-        booksContainer.innerHTML = '<div class="empty-state">No reviews yet... your first book awaits ✨</div>';
-      } else {
-        booksContainer.innerHTML = books.slice(0, 3).map(b => renderBookCard(b, false)).join('');
-      }
-      if (journalEntries.length === 0) {
-        journalContainer.innerHTML = '<div class="empty-state">No entries yet... thoughts coming soon 🌙</div>';
-      } else {
-        journalContainer.innerHTML = journalEntries.slice(0, 3).map(e => renderJournalEntry(e, false)).join('');
-      }
-    });
-  </script>
 </body>
 </html>
