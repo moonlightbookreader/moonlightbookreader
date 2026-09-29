@@ -911,3 +911,34 @@ nav a:hover::after, nav a.active::after {
   padding: 3rem;
   font-style: italic;
 }
+/* === Fix Centering for Reviews & Journal Pages === */
+.content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 3rem;
+}
+
+.page-intro {
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+.filter-container {
+  justify-content: flex-start;
+  margin-bottom: 2.5rem;
+}
+
+.cards-grid {
+  width: 100%;
+}
+
+/* Ensure consistent header across ALL pages */
+.site-header,
+.content-wrapper,
+.site-footer {
+  padding-left: 3rem;
+  padding-right: 3rem;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
