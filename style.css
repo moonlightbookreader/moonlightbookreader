@@ -80,22 +80,30 @@ body {
   flex-direction: column;
 }
 .container {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
   width: 100%;
   flex: 1;
 }
 
-/* ===== HEADER & NAV ===== */
+/* ===== HEADER — LEFT TITLE + RIGHT NAV ===== */
 .site-header {
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
   padding: 2.5rem 0 1.5rem;
-  position: relative;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+.site-brand {
+  text-align: left;
 }
 .site-title {
   font-family: 'Playfair Display', serif;
-  font-size: 2.2rem;
+  font-size: 2.4rem;
   font-weight: 600;
   font-style: italic;
   color: var(--accent);
@@ -113,15 +121,11 @@ body {
   font-family: 'Caveat', cursive;
   font-size: 1.5rem;
   color: var(--accent2);
-  margin-top: .25rem;
+  margin-top: .15rem;
 }
 nav {
   display: flex;
-  justify-content: center;
-  gap: 2.5rem;
-  margin-bottom: 2.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--border);
+  gap: 2.25rem;
   flex-wrap: wrap;
 }
 nav a {
@@ -132,11 +136,12 @@ nav a {
   font-size: 1rem;
   position: relative;
   transition: color .3s;
+  padding-bottom: 4px;
 }
 nav a::after {
   content: '';
   position: absolute;
-  bottom: -4px; left: 0;
+  bottom: 0; left: 0;
   width: 0; height: 2px;
   background: var(--accent);
   transition: width .3s;
@@ -151,10 +156,10 @@ nav a:hover::after, nav a.active::after {
 /* ===== HERO SECTION — WIDER! ===== */
 .hero {
   display: grid;
-  grid-template-columns: 1fr 1.1fr;
-  gap: 3.5rem;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 4rem;
   align-items: center;
-  margin-bottom: 3.5rem;
+  margin-bottom: 4rem;
   position: relative;
 }
 .hero-text .handwritten {
@@ -165,7 +170,7 @@ nav a:hover::after, nav a.active::after {
 }
 .hero-text h1 {
   font-family: 'Playfair Display', serif;
-  font-size: 2.8rem;
+  font-size: 3rem;
   font-weight: 700;
   font-style: italic;
   line-height: 1.15;
@@ -369,13 +374,6 @@ nav a:hover::after, nav a.active::after {
   color: var(--accent);
   display: flex;
   align-items: center;
-}
-
-/* ===== CONTENT GRID FOR LISTS ===== */
-.content-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
 }
 
 /* ===== BOOK CARDS ===== */
@@ -723,15 +721,23 @@ nav a:hover::after, nav a.active::after {
   .container {
     padding: 0 1.5rem;
   }
+  .site-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .site-brand {
+    text-align: center;
+  }
+  nav {
+    justify-content: center;
+  }
   .hero {
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }
   .hero-text h1 {
     font-size: 2.2rem;
-  }
-  .content-grid {
-    grid-template-columns: 1fr;
   }
 }
 @media (max-width: 600px) {
@@ -740,6 +746,9 @@ nav a:hover::after, nav a.active::after {
   }
   nav {
     gap: 1.25rem;
+  }
+  .site-title {
+    font-size: 1.9rem;
   }
   .hero-text h1 {
     font-size: 1.9rem;
