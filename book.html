@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Review — Moonlight Book Reader</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="moon-icon">☾</div>
+      <h1 id="siteTitle">Moonlight Book Reader</h1>
+      <p class="tagline" id="siteTagline">your nocturnal reading companion</p>
+    </header>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="books.html" class="active">Reviews</a>
+      <a href="journal.html">Journal</a>
+      <a href="about.html">About</a>
+    </nav>
+
+    <p class="breadcrumb"><a href="books.html">← Back to all reviews</a></p>
+    <div id="bookDetail"></div>
+
+    <footer>
+      <p>☾ Moonlight Book Reader · Written under the same moon ✨</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    loadAllData().then(() => {
+      renderProfile();
+      const bookId = getUrlParam('id');
+      const book = books.find(b => b.id === bookId);
+      const container = document.getElementById('bookDetail');
+      
+      if (!book) {
+        container.innerHTML = '<div class="empty-state">Book not found. <a href="books.html">Back to reviews</a></div>';
+        document.title = 'Not Found — Moonlight Book Reader';
+      } else {
+        document.title = `${book.title} — Moonlight Book Reader`;
+        container.innerHTML = renderBookCard(book, true);
+      }
+    });
+  </script>
+</body>
+</html>

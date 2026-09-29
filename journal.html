@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reading Journal — Moonlight Book Reader</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="moon-icon">☾</div>
+      <h1 id="siteTitle">Moonlight Book Reader</h1>
+      <p class="tagline" id="siteTagline">your nocturnal reading companion</p>
+    </header>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="books.html">Reviews</a>
+      <a href="journal.html" class="active">Journal</a>
+      <a href="about.html">About</a>
+    </nav>
+
+    <h2 class="section-title">🌙 Reading Journal</h2>
+    <div id="allJournal"></div>
+
+    <footer>
+      <p>☾ Moonlight Book Reader · Written under the same moon ✨</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    loadAllData().then(() => {
+      renderProfile();
+      const container = document.getElementById('allJournal');
+      if (journalEntries.length === 0) {
+        container.innerHTML = '<div class="empty-state">No journal entries yet... thoughts coming soon 🌙</div>';
+      } else {
+        container.innerHTML = journalEntries.map(e => renderJournalEntry(e, false)).join('');
+      }
+    });
+  </script>
+</body>
+</html>
