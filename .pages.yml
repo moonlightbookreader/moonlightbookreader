@@ -109,7 +109,7 @@ content:
         list: true
         fields:
           - name: id
-            label: URL ID (no spaces, e.g. midnight-library)
+            label: URL ID (no spaces)
             type: string
           - name: title
             label: Book Title
@@ -118,7 +118,7 @@ content:
             label: Author
             type: string
           - name: category
-            label: Genre / Categories (select multiple if needed)
+            label: Genre / Categories (select multiple)
             type: select
             multiple: true
             options:
@@ -154,6 +154,10 @@ content:
                 - Cookbook
                 - Travel
                 - "Short Stories"
+          - name: customGenres
+            label: Custom Genres (comma separated)
+            type: string
+            required: false
           - name: format
             label: Format
             type: select
@@ -179,7 +183,7 @@ content:
             label: Short Excerpt
             type: text
           - name: fullReview
-            label: Full Review (use image button to add photos)
+            label: Full Review
             type: rich-text
           - name: highlights
             label: Favorite Quotes
@@ -215,13 +219,16 @@ content:
                 - "HOT TAKE"
                 - REFLECTION
                 - QUOTE
+                - "BOOK HAUL"
+                - RECOMMENDATION
+                - LIFE
           - name: date
             label: Date
             type: date
           - name: text
-            label: Entry Content (use image button to add photos)
+            label: Entry Content
             type: rich-text
           - name: attribution
-            label: Attribution (for quotes)
+            label: Attribution
             type: string
             required: false
