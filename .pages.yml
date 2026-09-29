@@ -1,215 +1,100 @@
-media:
-  input: content/images
-  output: /content/images
+site_name: Moonlight Book Reader
+site_url: https://moonlightbookreader.github.io/moonlightbookreader/
 
-content:
+# Media settings — direct uploads go here
+media_folder: "content/images"
+public_folder: "./content/images"
+
+# Content collections
+collections:
   - name: site
     label: Site Profile & Social
-    type: file
-    path: content/site.json
-    fields:
-      - name: name
-        label: Your Name
-        type: string
-      - name: tagline
-        label: Tagline
-        type: string
-      - name: profileImage
-        label: Profile Photo
-        type: image
-        optional: true
-      - name: goodreads
-        label: Goodreads URL
-        type: string
-        optional: true
-      - name: storygraph
-        label: Storygraph URL
-        type: string
-        optional: true
-      - name: instagram
-        label: Instagram URL
-        type: string
-        optional: true
-      - name: twitter
-        label: X / Twitter URL
-        type: string
-        optional: true
-      - name: threads
-        label: Threads URL
-        type: string
-        optional: true
-      - name: tiktok
-        label: TikTok URL
-        type: string
-        optional: true
-      - name: youtube
-        label: YouTube URL
-        type: string
-        optional: true
-      - name: pinterest
-        label: Pinterest URL
-        type: string
-        optional: true
-      - name: letterboxd
-        label: Letterboxd URL
-        type: string
-        optional: true
-      - name: bloglovin
-        label: Bloglovin URL
-        type: string
-        optional: true
-      - name: mastodon
-        label: Mastodon URL
-        type: string
-        optional: true
-      - name: redbubble
-        label: Redbubble Shop URL
-        type: string
-        optional: true
-      - name: amazon
-        label: Amazon Profile URL
-        type: string
-        optional: true
-      - name: amazonWishlist
-        label: Amazon Wishlist URL
-        type: string
-        optional: true
-      - name: etsy
-        label: Etsy Shop URL
-        type: string
-        optional: true
-      - name: kofi
-        label: Ko-fi URL
-        type: string
-        optional: true
-      - name: email
-        label: Email Address
-        type: string
-        optional: true
+    files:
+      - file: content/site.json
+        label: Profile & Social Links
+        fields:
+          - { name: name, label: Your Name / Site Title, widget: string }
+          - { name: tagline, label: Tagline, widget: string }
+          - { name: profileImage, label: Profile Photo, widget: image, required: false }
+          - { name: heroImage, label: Hero Background Image, widget: image, required: false }
+          - { name: welcomeText, label: Welcome Message, widget: text }
+          - { name: goodreads, label: Goodreads URL, widget: string, required: false }
+          - { name: storygraph, label: Storygraph URL, widget: string, required: false }
+          - { name: instagram, label: Instagram URL, widget: string, required: false }
+          - { name: twitter, label: X / Twitter URL, widget: string, required: false }
+          - { name: threads, label: Threads URL, widget: string, required: false }
+          - { name: tiktok, label: TikTok URL, widget: string, required: false }
+          - { name: youtube, label: YouTube URL, widget: string, required: false }
+          - { name: pinterest, label: Pinterest URL, widget: string, required: false }
+          - { name: letterboxd, label: Letterboxd URL, widget: string, required: false }
+          - { name: redbubble, label: Redbubble Shop URL, widget: string, required: false }
+          - { name: amazon, label: Amazon Profile URL, widget: string, required: false }
+          - { name: amazonWishlist, label: Amazon Wishlist URL, widget: string, required: false }
+          - { name: etsy, label: Etsy Shop URL, widget: string, required: false }
+          - { name: kofi, label: Ko-fi URL, widget: string, required: false }
+          - { name: email, label: Email Address, widget: string, required: false }
 
   - name: about
     label: About Page
-    type: file
-    path: content/about.json
-    fields:
-      - name: introLine
-        label: Intro Line
-        type: string
-      - name: heading
-        label: Heading
-        type: string
-      - name: bioParagraphs
-        label: Bio Text
-        type: list
-        items:
-          type: textarea
-      - name: signoff
-        label: Sign-off Line
-        type: string
+    files:
+      - file: content/about.json
+        label: About Content
+        fields:
+          - { name: introLine, label: Intro Line, widget: string }
+          - { name: heading, label: Heading, widget: string }
+          - { name: bioParagraphs, label: Biography, widget: list, fields:
+              - { name: paragraph, label: Paragraph, widget: textarea }
+            }
+          - { name: signoff, label: Sign-off Line, widget: string }
 
   - name: books
     label: Book Reviews
-    type: file
-    path: content/books.json
+    folder: content/books
+    create: true
+    slug: "{{slug}}"
     fields:
-      - name: entries
-        label: Reviews
-        type: list
-        items:
-          type: object
-          fields:
-            - name: id
-              label: ID
-              type: string
-              description: Simple unique slug like midnight-library, no spaces
-            - name: title
-              label: Title
-              type: string
-            - name: author
-              label: Author
-              type: string
-            - name: category
-              label: Category
-              type: select
-              options:
-                - Fiction
-                - Fantasy
-                - Mystery
-                - Sci-Fi
-                - Romance
-                - Non-Fiction
-                - Classics
-            - name: format
-              label: Format
-              type: select
-              options:
-                - Physical
-                - Audiobook
-                - E-Book
-              optional: true
-            - name: rating
-              label: Rating
-              type: number
-              min: 1
-              max: 5
-            - name: date
-              label: Date
-              type: date
-            - name: coverImage
-              label: Cover Image
-              type: image
-              optional: true
-            - name: excerpt
-              label: Excerpt
-              type: text
-            - name: fullReview
-              label: Full Review
-              type: rich-text
-              description: Use the image button to insert photos
-            - name: highlights
-              label: Highlights
-              type: list
-              items:
-                type: string
-            - name: verdict
-              label: Verdict
-              type: text
+      - { name: id, label: URL ID (no spaces, e.g. midnight-library), widget: string }
+      - { name: title, label: Book Title, widget: string }
+      - { name: author, label: Author, widget: string }
+      - { name: category, label: Category / Genre, widget: select, options:
+          - Fiction
+          - Fantasy
+          - Mystery
+          - Sci-Fi
+          - Romance
+          - Non-Fiction
+          - Classics
+        }
+      - { name: format, label: Format, widget: select, options:
+          - Physical
+          - E-Book
+          - Audiobook
+        }
+      - { name: rating, label: Rating (1–5), widget: number, min: 1, max: 5 }
+      - { name: date, label: Date Finished, widget: datetime }
+      - { name: coverImage, label: Book Cover — UPLOAD DIRECTLY, widget: image, required: false }
+      - { name: excerpt, label: Short Excerpt / Teaser, widget: text }
+      - { name: fullReview, label: Full Review — USE IMAGE BUTTON TO INSERT PHOTOS, widget: markdown }
+      - { name: highlights, label: Favorite Quotes / Highlights, widget: list, fields:
+          - { name: quote, label: Quote, widget: textarea }
+        }
+      - { name: verdict, label: Final Verdict, widget: textarea }
 
   - name: journal
     label: Journal Entries
-    type: file
-    path: content/journal.json
+    folder: content/journal
+    create: true
+    slug: "{{slug}}"
     fields:
-      - name: entries
-        label: Entries
-        type: list
-        items:
-          type: object
-          fields:
-            - name: id
-              label: ID
-              type: string
-              description: Simple unique slug like rainy-sunday, no spaces
-            - name: title
-              label: Title
-              type: string
-            - name: type
-              label: Type
-              type: select
-              options:
-                - OBSERVATION
-                - OPINION
-                - HOT TAKE
-                - REFLECTION
-                - QUOTE
-            - name: date
-              label: Date
-              type: date
-            - name: text
-              label: Content
-              type: rich-text
-              description: Use the image button to insert photos
-            - name: attribution
-              label: Attribution
-              type: string
-              optional: true
+      - { name: id, label: URL ID (no spaces), widget: string }
+      - { name: title, label: Entry Title, widget: string }
+      - { name: type, label: Entry Type, widget: select, options:
+          - OBSERVATION
+          - OPINION
+          - HOT TAKE
+          - REFLECTION
+          - QUOTE
+        }
+      - { name: date, label: Date, widget: datetime }
+      - { name: text, label: Entry Content — USE IMAGE BUTTON TO INSERT PHOTOS, widget: markdown }
+      - { name: attribution, label: Attribution (for quotes), widget: string, required: false }
