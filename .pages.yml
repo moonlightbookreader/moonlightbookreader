@@ -4,7 +4,7 @@ media:
 
 content:
   - name: site
-    label: Site Profile & Social
+    label: Site Profile & Social Links
     type: file
     path: content/site.json
     fields:
@@ -31,7 +31,55 @@ content:
         type: string
         optional: true
       - name: twitter
-        label: Twitter / X URL
+        label: X / Twitter URL
+        type: string
+        optional: true
+      - name: threads
+        label: Threads URL
+        type: string
+        optional: true
+      - name: tiktok
+        label: TikTok URL
+        type: string
+        optional: true
+      - name: youtube
+        label: YouTube URL
+        type: string
+        optional: true
+      - name: pinterest
+        label: Pinterest URL
+        type: string
+        optional: true
+      - name: letterboxd
+        label: Letterboxd URL
+        type: string
+        optional: true
+      - name: bloglovin
+        label: Bloglovin' URL
+        type: string
+        optional: true
+      - name: mastodon
+        label: Mastodon URL
+        type: string
+        optional: true
+      - name: redbubble
+        label: Redbubble Shop URL
+        type: string
+        optional: true
+      - name: amazon
+        label: Amazon Profile / Store URL
+        type: string
+        optional: true
+      - name: amazonWishlist
+        label: Amazon Wishlist URL
+        type: string
+        optional: true
+      - name: etsy
+        label: Etsy Shop URL
+        type: string
+        optional: true
+      - name: kofi
+        label: Ko-fi URL
         type: string
         optional: true
       - name: email
