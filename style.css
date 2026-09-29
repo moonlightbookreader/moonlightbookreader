@@ -1,12 +1,10 @@
 :root {
   --bg-deep: #1a1238;
   --accent-gold: #d4af37;
-  --accent-gold-soft: rgba(212, 175, 55, 0.25);
   --text-cream: #f5e7c8;
   --text-lavender: #b8a8d8;
   --text-warm: #c9b896;
   --text-muted: #7a7098;
-  --border-soft: rgba(100, 90, 140, 0.3);
   --font-serif: 'Playfair Display', Georgia, serif;
   --font-body: 'Lora', Georgia, serif;
 }
@@ -19,10 +17,9 @@ html, body {
   font-family: var(--font-body);
   line-height: 1.7;
   min-height: 100vh;
-  position: relative;
 }
 
-/* ⭐ TWINKLING STARS — THE MISSING CODE */
+/* ⭐ TWINKLING STARS — FULL CODE */
 .stars {
   position: fixed;
   top: 0; left: 0;
@@ -94,7 +91,6 @@ html, body {
   font-style: italic;
   margin-top: 0.25rem;
   font-size: 1.1rem;
-  font-family: var(--font-body);
 }
 
 .site-nav a {
@@ -102,7 +98,6 @@ html, body {
   text-decoration: none;
   margin-left: 1.6rem;
   font-size: 1rem;
-  font-family: var(--font-body);
   transition: all 0.25s ease;
 }
 
@@ -119,7 +114,7 @@ html, body {
   padding: 0 2rem 4rem;
 }
 
-/* HERO */
+/* HERO — EXACT FONT STYLES */
 .hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -134,7 +129,6 @@ html, body {
   font-size: 1.1rem;
   margin-bottom: 0.4rem;
   letter-spacing: 0.05em;
-  font-family: var(--font-body);
 }
 
 .hero h1 {
@@ -160,7 +154,6 @@ html, body {
   font-style: italic;
   margin: 1.5rem 0;
   font-size: 1.05rem;
-  font-family: var(--font-body);
 }
 
 .hero p {
@@ -168,13 +161,10 @@ html, body {
   font-size: 1.1rem;
   margin-bottom: 2rem;
   line-height: 1.7;
-  font-family: var(--font-body);
 }
 
 /* BUTTONS */
-.hero-buttons {
-  margin: 2rem 0;
-}
+.hero-buttons { margin: 2rem 0; }
 
 .primary-btn {
   display: inline-block;
@@ -186,15 +176,11 @@ html, body {
   text-decoration: none;
   margin-right: 1rem;
   border: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease;
   font-size: 1rem;
-  font-family: var(--font-body);
 }
 
-.primary-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.3);
-}
+.primary-btn:hover { transform: translateY(-2px); }
 
 .secondary-btn {
   display: inline-block;
@@ -206,14 +192,11 @@ html, body {
   text-decoration: none;
   transition: all 0.2s ease;
   font-size: 1rem;
-  font-family: var(--font-body);
 }
 
-.secondary-btn:hover {
-  background: rgba(212, 175, 55, 0.1);
-}
+.secondary-btn:hover { background: rgba(212, 175, 55, 0.1); }
 
-/* IMAGE & BUBBLE */
+/* IMAGE & BUBBLE — FIXED */
 .hero-image-wrapper {
   position: relative;
   margin-top: 0.5rem;
@@ -237,7 +220,6 @@ html, body {
   border-radius: 2rem;
   font-size: 0.9rem;
   font-style: italic;
-  font-family: var(--font-body);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
@@ -248,7 +230,6 @@ html, body {
   margin-top: 2.5rem;
   color: var(--text-muted);
   font-size: 0.95rem;
-  font-family: var(--font-body);
 }
 
 .stats-row strong {
@@ -256,6 +237,44 @@ html, body {
   font-size: 1.6rem;
   color: var(--accent-gold);
   font-family: var(--font-serif);
+}
+
+/* TAGS — FIX THE WHITE BOXES ON JOURNAL & REVIEWS */
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 1.5rem 0;
+}
+
+.tag {
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  color: var(--accent-gold);
+  padding: 0.4rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.tag:hover, .tag.active {
+  background: rgba(212, 175, 55, 0.25);
+  border-color: var(--accent-gold);
+}
+
+/* PAGE HEADINGS */
+.page-title {
+  font-family: var(--font-serif);
+  font-size: 2.4rem;
+  color: var(--text-cream);
+  margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+  color: var(--text-lavender);
+  font-style: italic;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
 }
 
 /* FOOTER */
@@ -266,7 +285,6 @@ html, body {
   color: var(--text-muted);
   font-size: 0.9rem;
   margin-top: 2rem;
-  font-family: var(--font-body);
 }
 
 /* RESPONSIVE */
