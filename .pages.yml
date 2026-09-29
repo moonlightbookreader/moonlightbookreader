@@ -118,24 +118,51 @@ content:
             label: Author
             type: string
           - name: category
-            label: Genre / Category
+            label: Genre / Categories (select multiple if needed)
             type: select
+            multiple: true
             options:
-              - Fiction
-              - Fantasy
-              - Mystery
-              - Sci-Fi
-              - Romance
-              - Non-Fiction
-              - Classics
+              values:
+                - Fiction
+                - Contemporary
+                - Fantasy
+                - "Epic Fantasy"
+                - "Dark Fantasy"
+                - "Urban Fantasy"
+                - "Historical Fiction"
+                - Mystery
+                - Thriller
+                - "Psychological Thriller"
+                - Sci-Fi
+                - Romance
+                - "Fantasy Romance"
+                - "Paranormal Romance"
+                - "Non-Fiction"
+                - Classics
+                - Horror
+                - Historical
+                - "Young Adult"
+                - "New Adult"
+                - Poetry
+                - "Graphic Novel"
+                - Memoir
+                - Biography
+                - Self-Help
+                - Philosophy
+                - Religion
+                - Art
+                - Cookbook
+                - Travel
+                - "Short Stories"
           - name: format
             label: Format
             type: select
             options:
-              - Physical
-              - E-Book
-              - Audiobook
-            required: false
+              values:
+                - Physical
+                - "E-Book"
+                - Audiobook
+                - "ARC (Advanced Reader Copy)"
           - name: rating
             label: Rating (1-5)
             type: number
@@ -182,11 +209,12 @@ content:
             label: Entry Type
             type: select
             options:
-              - OBSERVATION
-              - OPINION
-              - HOT TAKE
-              - REFLECTION
-              - QUOTE
+              values:
+                - OBSERVATION
+                - OPINION
+                - "HOT TAKE"
+                - REFLECTION
+                - QUOTE
           - name: date
             label: Date
             type: date
