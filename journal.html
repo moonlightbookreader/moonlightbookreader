@@ -1,57 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Reading Journal — Moonlight Book Reader</title>
-  <link rel="icon" type="image/png" href="favicon.png" />
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Journal — Moonlight Book Reader</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
-  <div class="page-wrapper">
-    <div class="container">
-      <header class="site-header">
-        <div class="site-brand">
-          <a href="index.html" class="site-title">Moonlight Book Reader</a>
-          <p class="site-tagline" id="siteTagline">your nocturnal reading companion</p>
-        </div>
-        <nav>
-          <a href="index.html">Home</a>
-          <a href="books.html">Reviews</a>
-          <a href="journal.html" class="active">Journal</a>
-          <a href="about.html">About</a>
-        </nav>
-      </header>
+  <div class="stars"></div>
+  <div class="moon-drift"></div>
 
-      <section>
-        <div class="section-header">
-          <span class="section-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-            </svg>
-          </span>
-          <h2>Moonlit Musings</h2>
-          <span class="handwritten">— my reading journal and random thoughts</span>
-        </div>
-        <div id="allJournal"></div>
-      </section>
-
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="site-brand">
+        <a href="index.html" class="site-title">Moonlight Book Reader</a>
+        <p class="site-tagline">your nocturnal reading companion</p>
+      </div>
+      <nav class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="books.html">Reviews</a>
+        <a href="journal.html" class="active">Journal</a>
+        <a href="about.html">About</a>
+      </nav>
     </div>
-    <footer class="site-footer">
-      <p><span class="handwritten">☾ Moonlight Book Reader · written under the same moon ✨</span></p>
-    </footer>
-  </div>
+  </header>
+
+  <main class="content-wrapper">
+    <section class="page-intro">
+      <h1>Reading Journal</h1>
+      <p>Thoughts, musings, and moments from my literary nights.</p>
+    </section>
+
+    <!-- JOURNAL TYPE FILTER BUTTONS -->
+    <div class="filter-container">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="OBSERVATION">Observation</button>
+      <button class="filter-btn" data-filter="OPINION">Opinion</button>
+      <button class="filter-btn" data-filter="Book Haul">Book Haul</button>
+      <button class="filter-btn" data-filter="Recommendation">Recommendation</button>
+      <button class="filter-btn" data-filter="Life">Life</button>
+      <button class="filter-btn" data-filter="QUOTE">Quote</button>
+    </div>
+
+    <div id="journal-container" class="cards-grid">
+      <!-- Journal entries load here via JavaScript -->
+      <div class="loading">Gathering thoughts by moonlight...</div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>— Read by moonlight — © 2026 Moonlight Book Reader</p>
+  </footer>
+
   <script src="script.js"></script>
-  <script>
-    loadAllData().then(() => {
-      renderProfile();
-      const container = document.getElementById('allJournal');
-      if (journalEntries.length === 0) {
-        container.innerHTML = '<div class="empty-state">No entries yet... thoughts coming soon 🌙</div>';
-      } else {
-        container.innerHTML = journalEntries.map(e => renderJournalEntry(e, false)).join('');
-      }
-    });
-  </script>
 </body>
 </html>
