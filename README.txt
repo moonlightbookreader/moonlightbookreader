@@ -1,80 +1,51 @@
 🌙 Moonlight Book Reader — Beautiful Multi-Page Website
 ========================================================
 
-📁 FILE STRUCTURE
+📁 WHAT'S INSIDE
 ----------------
-Root files (upload ALL of these to GitHub):
-  .pages.yml        → Pages CMS configuration
+Root files (upload ALL to GitHub):
+  .pages.yml        → Pages CMS config (FIXED YAML syntax!)
   .nojekyll         → Required for GitHub Pages
-  style.css         → ALL styles (cozy moonlit purple & gold theme)
-  script.js         → ALL JavaScript (stars, data loading, rendering)
-  index.html        → Home page (hero image, quote, stats, latest content)
-  books.html        → All Book Reviews listing
-  book.html         → Single book detail page (uses ?id= URL parameter)
-  journal.html      → All Journal entries listing
-  journal-entry.html → Single journal entry (uses ?id= URL parameter)
+  style.css         → WIDER layout (1100px max), cozy moonlit theme
+  script.js         → Stars, moons, data loading, all rendering
+  index.html        → Home (hero image, quote, stats, latest content)
+  books.html        → All Book Reviews
+  book.html         → Single book detail (?id= parameter)
+  journal.html      → All Journal entries
+  journal-entry.html → Single journal entry (?id= parameter)
   about.html        → About page
-  favicon.png       → Crescent moon browser tab icon
+  favicon.png       → Crescent moon tab icon
 
-content/ folder (your editable content):
-  content/site.json       → Your name, tagline, profile photo, social links
-  content/about.json      → About page bio text
-  content/books.json      → ALL your book reviews
-  content/journal.json    → ALL your journal entries
-  content/images/         → Auto-created when you upload first image
+content/ folder:
+  content/site.json       → Name, tagline, profile, 17 social links
+  content/about.json      → About page bio
+  content/books.json      → All book reviews
+  content/journal.json    → All journal entries
+  content/images/         → Auto-created on first image upload
 
-✨ DESIGN FEATURES
-----------------
-• Deep purple starry background with 85 twinkling stars ✨
-• Two decorative moons (one drifting, one slowly spinning) 🌙
-• Warm gold accent color (#d4a857) + silver-blue secondary
-• Playfair Display (elegant serif titles) + Lora (body) + Caveat (handwritten)
-• Hero reading nook image on home page
-• Smooth hover animations, custom scrollbar, responsive design
-
-🚀 HOW TO UPLOAD TO GITHUB PAGES
+🎨 DESIGN FIXES IN THIS VERSION
 -------------------------------
-1. Unzip this file
-2. Go to your GitHub repo: moonlightbookreader
-3. Delete ALL old files first (to avoid conflicts!)
-4. Click "Add file" → "Upload files"
-5. Drag and drop EVERYTHING from the unzipped folder:
-   - All root files (.pages.yml, .nojekyll, style.css, script.js, all HTML, favicon.png)
-   - The entire "content" folder
-6. Scroll down → "Commit changes" ✅
-7. Go to Settings → Pages → Source = Deploy from branch → main → / (root) → Save
-8. Wait a few minutes → your site will be live at:
-   https://moonlightbookreader.github.io/moonlightbookreader/
+• WIDER layout: max-width 1100px (fills browser much better)
+• Hero grid: 1fr : 1.1fr (image gets more space)
+• "currently reading..." sticker: fixed positioning, no longer cut off
+• .pages.yml: simplified descriptions, no special characters that break YAML
+• All fonts: Playfair Display + Lora + Caveat
+• 85 twinkling stars + 2 decorative moons
+• Deep purple (#150c2b) + warm gold (#d4a857) theme
 
-📝 HOW TO ADD CONTENT (via Pages CMS)
-------------------------------------
-1. Go to https://app.pagescms.org
-2. Sign in with GitHub → select your repo
-3. Four sections to edit:
-   • Site Profile & Social  → name, tagline, profile pic, 17 social platforms
-   • About Page            → bio paragraphs
-   • Book Reviews          → click "+ Add item" for each review
-   • Journal Entries       → click "+ Add item" for each entry
-
-4. For Book Reviews:
-   • "id" = simple slug like "midnight-library" (NO SPACES!)
-   • Fill all fields → "Full Review" uses rich-text editor
-   • Click the image icon 📷 in the editor to insert photos!
-   • "Highlights" = click "Add item" for each bullet point
-
-5. For Journal Entries:
-   • "id" = simple slug like "rainy-sunday" (NO SPACES!)
-   • "Content" = rich-text editor, insert images anywhere
-
-✅ ALL FEATURES WORKING
+🚀 UPLOAD INSTRUCTIONS
 ----------------------
-✓ Actual separate pages (Home, Reviews, Journal, About)
-✓ Each review & entry has own shareable URL
-✓ Dynamic stats on home page (auto-updates!)
-✓ Format field: Physical / Audiobook / E-Book
-✓ Images in reviews AND journal entries
-✓ 17 social platforms (icons auto-appear when URL filled)
-✓ Twinkling stars + moon decorations
-✓ Cozy purple & gold literary theme
+1. Delete ALL old files from your GitHub repo first
+2. Unzip this file → open moonlight-book-reader-v3/
+3. GitHub → Add file → Upload files
+4. Drag EVERYTHING from inside the folder (all root files + content folder)
+5. Commit changes ✅
+6. Settings → Pages → Source: Deploy from branch, Branch: main / (root) → Save
+7. Wait 2-5 minutes → visit: https://moonlightbookreader.github.io/moonlightbookreader/
 
-💛 Your cozy reading nook is ready! 🌙✨
+📝 PAGES CMS
+------------
+Go to app.pagescms.org — the .pages.yml should now work perfectly!
+If it still says "unreadable", just refresh the CMS page after your files are committed.
+
+💛 Your cozy reading nook is ready! 🌙📚✨

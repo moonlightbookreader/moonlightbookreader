@@ -1,6 +1,5 @@
 // ===== MOONLIGHT BOOK READER — SHARED JAVASCRIPT =====
 
-// ===== DATA =====
 let siteData = {};
 let aboutData = {};
 let books = [];
@@ -30,7 +29,6 @@ async function loadAllData() {
   }
 }
 
-// ===== GENERATE STARRY BACKGROUND =====
 function generateStars(count = 80) {
   const bg = document.createElement('div');
   bg.className = 'stars-bg';
@@ -54,9 +52,7 @@ function generateStars(count = 80) {
   document.body.insertBefore(bg, document.body.firstChild);
 }
 
-// ===== MOON DECORATIONS =====
 function addMoonDecorations() {
-  // Top-right moon
   const moon1 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   moon1.setAttribute('class', 'moon-deco moon-phase-anim');
   moon1.setAttribute('style', 'top:80px;right:3%;width:90px;height:90px;position:fixed;');
@@ -68,7 +64,6 @@ function addMoonDecorations() {
   `;
   document.body.appendChild(moon1);
   
-  // Bottom-right slow-spin moon
   const moon2 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   moon2.setAttribute('class', 'moon-deco slow-spin');
   moon2.setAttribute('style', 'bottom:15%;right:2%;width:60px;height:60px;position:fixed;');
@@ -80,7 +75,6 @@ function addMoonDecorations() {
   document.body.appendChild(moon2);
 }
 
-// ===== SOCIAL ICONS =====
 const socialIcons = {
   goodreads: `<svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M11.5 0C5.149 0 0 5.149 0 11.5S5.149 23 11.5 23 23 17.851 23 11.5 17.851 0 11.5 0zm4.607 17.528c-.365.166-.747.297-1.142.395v.183c0 .322.023.623.058.902h-7.31c.07-.503.14-1.006.14-1.517 0-.51-.07-1.013-.14-1.517h3.31c.14.47.21.97.21 1.484 0 .693-.14 1.34-.386 1.926h1.54c.105-.28.175-.595.175-.937v-2.37c0-.342-.07-.658-.175-.937h-1.54c.246.586.386 1.233.386 1.926 0 .514-.07 1.014-.21 1.484H7.83c.14-.47.21-.97.21-1.484 0-.514-.07-1.014-.21-1.484h3.31c-.14-.47-.21-.97-.21-1.484 0-.51.07-1.013.21-1.517H7.55c.14-.503.21-1.006.21-1.517 0-.51-.07-1.013-.21-1.517h7.31c-.035.28-.058.58-.058.902v.183c.395.098.777.229 1.142.395v-2.23h1.575v11.19h-1.575v-2.23z"/></svg>`,
   storygraph: `<svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-1.5 4.5h3v15h-3v-15zm-4 3h3v12h-3v-12zm8 1.5h3v10.5h-3V9zm4 3h3v7.5h-3V12z"/></svg>`,
@@ -101,7 +95,6 @@ const socialIcons = {
   email: `<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`
 };
 
-// ===== RENDER HELPERS =====
 function renderStars(rating) {
   let stars = '';
   for (let i = 1; i <= 5; i++) {
@@ -261,13 +254,11 @@ function renderAbout() {
   }
 }
 
-// ===== URL HELPERS =====
 function getUrlParam(name) {
   const params = new URLSearchParams(window.location.search);
   return params.get(name);
 }
 
-// ===== INIT =====
 document.addEventListener('DOMContentLoaded', function() {
   generateStars(85);
   addMoonDecorations();
