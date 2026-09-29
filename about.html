@@ -6,6 +6,68 @@
   <title>About — Moonlight Book Reader</title>
   <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Profile image + placeholder */
+    .about-profile {
+      text-align: center;
+      margin-bottom: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+    .profile-img-wrap {
+      width: 140px;
+      height: 140px;
+      margin: 0 auto 1rem;
+      border-radius: 50%;
+      border: 3px solid rgba(212, 168, 87, 0.35);
+      overflow: hidden;
+      background: linear-gradient(145deg, rgba(212, 168, 87, 0.08), rgba(168, 181, 212, 0.08));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 30px rgba(212, 168, 87, 0.15);
+    }
+    .profile-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+    .profile-img-wrap img.has-image {
+      display: block;
+    }
+    .profile-img-wrap img.has-image + .profile-placeholder {
+      display: none;
+    }
+    .profile-placeholder {
+      text-align: center;
+      color: var(--text-soft);
+    }
+    .profile-placeholder .moon-icon {
+      font-size: 3rem;
+      line-height: 1;
+      opacity: 0.6;
+      margin-bottom: 0.2rem;
+    }
+    .profile-placeholder-text {
+      font-family: 'Caveat', cursive;
+      font-size: 1rem;
+      opacity: 0.7;
+    }
+    .profile-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      font-style: italic;
+      color: var(--accent);
+      margin-bottom: 0.25rem;
+    }
+    .profile-tagline {
+      font-family: 'Caveat', cursive;
+      font-size: 1.3rem;
+      color: var(--accent2);
+    }
+  </style>
 </head>
 <body>
   <div class="page-wrapper">
@@ -24,27 +86,49 @@
       </header>
 
       <section class="about-section">
+        <!-- Profile Image with Placeholder -->
+        <div class="about-profile">
+          <div class="profile-img-wrap">
+            <img id="profileImg" src="" alt="Profile photo" />
+            <div class="profile-placeholder">
+              <div class="moon-icon">☾</div>
+              <div class="profile-placeholder-text">your photo here</div>
+            </div>
+          </div>
+          <div class="profile-name" id="profileName">Moonlight Book Reader</div>
+          <div class="profile-tagline" id="profileTagline">— nocturnal reader & tea lover</div>
+        </div>
+
         <p class="about-intro" id="aboutIntro">a little about me...</p>
         <h2 id="aboutHeading">Hello, Fellow Book Lover!</h2>
         <div class="about-bio" id="aboutBio"></div>
         <p class="about-signoff" id="aboutSignoff">— Moonlight Book Reader</p>
+
         <div class="about-social">
           <p class="about-social-label">find me elsewhere in the bookish world...</p>
           <div id="socialLinks"></div>
         </div>
       </section>
-
     </div>
+
     <footer class="site-footer">
       <p><span class="handwritten">☾ Moonlight Book Reader · written under the same moon ✨</span></p>
     </footer>
   </div>
+
   <script src="script.js"></script>
   <script>
     loadAllData().then(() => {
       renderProfile();
       renderAbout();
       renderSocialLinks('socialLinks');
+      
+      // Show profile image if one is uploaded
+      const profileImg = document.getElementById('profileImg');
+      if (siteData.profileImage && siteData.profileImage.trim() !== '') {
+        profileImg.src = siteData.profileImage;
+        profileImg.classList.add('has-image');
+      }
     });
   </script>
 </body>
