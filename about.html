@@ -1,43 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About — Moonlight Book Reader</title>
-  <link rel="icon" type="image/png" href="favicon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=999">
+  <meta name="description" content="About Moonlight Book Reader — your nocturnal reading companion." />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="stars"></div>
-  <div class="moon-drift"></div>
+  <div class="page-wrapper">
+    <div class="container">
+      <header class="site-header">
+        <a href="index.html" class="site-title">Moonlight Book Reader</a>
+        <p class="site-tagline" id="siteTagline">your nocturnal reading companion</p>
+      </header>
 
-  <header class="site-header">
-    <div class="site-brand">
-      <a href="index.html" class="site-title">Moonlight Book Reader</a>
-      <p class="site-tagline">~ a cozy reading journal ~</p>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="books.html">Reviews</a>
+        <a href="journal.html">Journal</a>
+        <a href="about.html" class="active">About</a>
+      </nav>
+
+      <section class="about-section">
+        <p class="about-intro" id="aboutIntro">a little about me...</p>
+        <h2 id="aboutHeading">Hello, Fellow Book Lover!</h2>
+        <div class="about-bio" id="aboutBio"></div>
+        <p class="about-signoff" id="aboutSignoff">— Moonlight Book Reader</p>
+        
+        <div class="about-social">
+          <p class="about-social-label">find me elsewhere in the bookish world...</p>
+          <div id="socialLinks"></div>
+        </div>
+      </section>
+
     </div>
-    <nav class="site-nav">
-      <a href="index.html">Home</a>
-      <a href="books.html">Reviews</a>
-      <a href="journal.html">Journal</a>
-      <a href="about.html" class="active">About</a>
-    </nav>
-  </header>
 
-  <main class="content-wrapper">
-    <h1 class="page-title">About Me</h1>
-    <p class="page-subtitle">A little about the reader behind the moonlight...</p>
-    <p style="color: var(--text-warm); font-size: 1.1rem; line-height: 1.8;">
-      Hello, dear reader. I'm a quiet night owl who finds the most comfort between the pages of a good book. This space is my cozy corner — where I share the stories that keep me company long after the moon has risen.<br><br>
-      Reading by night, writing by lamplight, always in search of the next story that feels like home. Welcome to my shelves.
-    </p>
-  </main>
+    <footer class="site-footer">
+      <p><span class="handwritten">☾ Moonlight Book Reader · written under the same moon ✨</span></p>
+    </footer>
+  </div>
 
-  <footer class="site-footer">
-    <p>— Read by moonlight — © 2026 Moonlight Book Reader</p>
-  </footer>
+  <script src="script.js"></script>
+  <script>
+    loadAllData().then(() => {
+      renderProfile();
+      renderAbout();
+      renderSocialLinks('socialLinks');
+    });
+  </script>
 </body>
 </html>

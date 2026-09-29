@@ -1,55 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reviews — Moonlight Book Reader</title>
-  <link rel="icon" type="image/png" href="favicon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=999">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Reviews — Moonlight Book Reader</title>
+  <meta name="description" content="All my book reviews — thoughts on fiction, fantasy, mystery, sci-fi, and more." />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="stars"></div>
-  <div class="moon-drift"></div>
+  <div class="page-wrapper">
+    <div class="container">
+      <header class="site-header">
+        <a href="index.html" class="site-title">Moonlight Book Reader</a>
+        <p class="site-tagline" id="siteTagline">your nocturnal reading companion</p>
+      </header>
 
-  <header class="site-header">
-    <div class="site-brand">
-      <a href="index.html" class="site-title">Moonlight Book Reader</a>
-      <p class="site-tagline">~ a cozy reading journal ~</p>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="books.html" class="active">Reviews</a>
+        <a href="journal.html">Journal</a>
+        <a href="about.html">About</a>
+      </nav>
+
+      <section>
+        <div class="section-header">
+          <span class="section-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+          </span>
+          <h2>My Book Reviews</h2>
+          <span class="handwritten">— thoughts from my reading journal</span>
+        </div>
+        <div id="allBooks"></div>
+      </section>
+
     </div>
-    <nav class="site-nav">
-      <a href="index.html">Home</a>
-      <a href="books.html" class="active">Reviews</a>
-      <a href="journal.html">Journal</a>
-      <a href="about.html">About</a>
-    </nav>
-  </header>
 
-  <main class="content-wrapper">
-    <h1 class="page-title">Book Reviews</h1>
-    <p class="page-subtitle">Stories explored and shared by moonlight.</p>
-    
-    <div class="tag-list">
-      <span class="tag active">All</span>
-      <span class="tag">Fiction</span>
-      <span class="tag">Contemporary</span>
-      <span class="tag">Fantasy</span>
-      <span class="tag">Mystery</span>
-      <span class="tag">Thriller</span>
-      <span class="tag">Sci-Fi</span>
-      <span class="tag">Romance</span>
-      <span class="tag">Non-Fiction</span>
-      <span class="tag">Classics</span>
-      <span class="tag">Young Adult</span>
-    </div>
-    
-    <p class="empty-state">No reviews yet... more coming soon 🌙</p>
-  </main>
+    <footer class="site-footer">
+      <p><span class="handwritten">☾ Moonlight Book Reader · written under the same moon ✨</span></p>
+    </footer>
+  </div>
 
-  <footer class="site-footer">
-    <p>— Read by moonlight — © 2026 Moonlight Book Reader</p>
-  </footer>
+  <script src="script.js"></script>
+  <script>
+    loadAllData().then(() => {
+      renderProfile();
+      const container = document.getElementById('allBooks');
+      if (books.length === 0) {
+        container.innerHTML = '<div class="empty-state">No reviews yet... your first book awaits ✨</div>';
+      } else {
+        container.innerHTML = books.map(b => renderBookCard(b, false)).join('');
+      }
+    });
+  </script>
 </body>
 </html>
