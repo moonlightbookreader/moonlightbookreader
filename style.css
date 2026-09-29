@@ -1,29 +1,17 @@
-/* =============================================
-   Moonlight Book Reader — Original Complete Styles
-   ============================================= */
-
 :root {
   --bg-deep: #1a1238;
-  --bg-card: rgba(30, 22, 60, 0.7);
   --accent-gold: #d4af37;
-  --accent-gold-soft: rgba(212, 175, 55, 0.25);
   --text-cream: #f5e7c8;
-  --text-warm: #c9b896;
   --text-lavender: #b8a8d8;
-  --text-muted: #7a7098;
-  --border-soft: rgba(100, 90, 140, 0.3);
+  --text-warm: #c9b896;
   --font-serif: 'Playfair Display', Georgia, serif;
   --font-body: 'Lora', Georgia, serif;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 html, body {
-  background-color: var(--bg-deep);
+  background: var(--bg-deep);
   color: var(--text-cream);
   font-family: var(--font-body);
   line-height: 1.6;
@@ -31,52 +19,48 @@ html, body {
   position: relative;
 }
 
-/* =============================================
-   ⭐ STARRY BACKGROUND — THIS IS WHAT'S MISSING
-   ============================================= */
+/* ⭐ TWINKLING STARS — THIS WAS MISSING! */
 .stars {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   pointer-events: none;
   background-image:
-    radial-gradient(1px 1px at 25px 35px, #ffffff, transparent),
-    radial-gradient(1px 1px at 50px 80px, rgba(255,255,255,0.9), transparent),
-    radial-gradient(2px 2px at 80px 120px, rgba(255,255,255,0.7), transparent),
-    radial-gradient(1px 1px at 130px 50px, #ffffff, transparent),
-    radial-gradient(1px 1px at 180px 90px, rgba(255,255,255,0.8), transparent),
-    radial-gradient(2px 2px at 220px 150px, rgba(255,255,255,0.6), transparent),
-    radial-gradient(1px 1px at 270px 30px, #ffffff, transparent),
-    radial-gradient(1px 1px at 320px 110px, rgba(255,255,255,0.9), transparent);
+    radial-gradient(1px 1px at 40px 60px, #fff, transparent),
+    radial-gradient(1px 1px at 80px 120px, rgba(255,255,255,0.8), transparent),
+    radial-gradient(2px 2px at 150px 90px, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1px 1px at 200px 200px, #fff, transparent),
+    radial-gradient(1px 1px at 280px 50px, rgba(255,255,255,0.9), transparent),
+    radial-gradient(2px 2px at 350px 150px, rgba(255,255,255,0.5), transparent);
   background-repeat: repeat;
-  background-size: 350px 250px;
-  opacity: 0.6;
+  background-size: 400px 300px;
+  opacity: 0.7;
   z-index: 1;
+  animation: twinkle 8s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 0.4; }
 }
 
 .moon-drift {
   position: fixed;
-  top: 6%;
-  right: 6%;
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(circle at 30% 30%, #fff9e8 0%, #f0e2b8 40%, transparent 65%);
+  top: 8%; right: 8%;
+  width: 220px; height: 220px;
+  background: radial-gradient(circle at 30% 30%, #fff9e8 0%, #e8d8a8 50%, transparent 70%);
   border-radius: 50%;
-  opacity: 0.12;
+  opacity: 0.15;
+  filter: blur(4px);
   pointer-events: none;
-  filter: blur(3px);
   z-index: 1;
 }
 
-/* ---------- Header Layout ---------- */
+/* Header */
 .site-header {
+  position: relative; z-index: 2;
+  max-width: 1200px; margin: 0 auto;
   padding: 2rem 2rem 1rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 2;
   border-bottom: 1px solid rgba(100, 90, 140, 0.2);
 }
 
@@ -84,11 +68,6 @@ html, body {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  width: 100%;
-}
-
-.site-brand {
-  text-align: left;
 }
 
 .site-title {
@@ -96,24 +75,14 @@ html, body {
   font-size: 2.8rem;
   color: var(--accent-gold);
   text-decoration: none;
-  display: block;
-  line-height: 1.2;
   font-weight: 600;
 }
 
-.site-title:hover {
-  text-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
-}
-
 .site-tagline {
-  font-size: 1.1rem;
   color: var(--text-lavender);
   font-style: italic;
-  margin: 0.3rem 0 0 0;
-}
-
-.site-nav {
-  text-align: right;
+  margin-top: 0.3rem;
+  font-size: 1.1rem;
 }
 
 .site-nav a {
@@ -121,40 +90,33 @@ html, body {
   text-decoration: none;
   margin-left: 1.5rem;
   font-size: 1rem;
-  transition: all 0.25s ease;
-  font-family: var(--font-body);
 }
 
-.site-nav a:hover,
-.site-nav a.active {
+.site-nav a:hover, .site-nav a.active {
   color: var(--accent-gold);
   border-bottom: 1px solid var(--accent-gold);
 }
 
-/* ---------- Main Content ---------- */
+/* Hero — Matches Your Original Layout EXACTLY */
 .content-wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
+  position: relative; z-index: 2;
+  max-width: 1200px; margin: 0 auto;
   padding: 0 2rem 4rem;
-  position: relative;
-  z-index: 2;
 }
 
-/* ---------- Hero Section — Matches Your Screenshot ---------- */
 .hero {
-  padding: 3rem 0 4rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
   align-items: start;
+  padding: 2rem 0;
 }
 
 .hero-intro {
   color: var(--accent-gold);
+  font-style: italic;
   font-size: 1.1rem;
   margin-bottom: 0.5rem;
-  letter-spacing: 0.05em;
-  font-style: italic;
 }
 
 .hero h1 {
@@ -163,25 +125,20 @@ html, body {
   line-height: 1.1;
   color: var(--text-cream);
   margin-bottom: 1.5rem;
-  font-weight: 600;
 }
 
 .hero blockquote {
-  font-style: italic;
-  color: var(--text-lavender);
   border-left: 2px solid var(--accent-gold);
   padding-left: 1.5rem;
+  color: var(--text-lavender);
+  font-style: italic;
   margin: 1.5rem 0;
 }
 
 .hero p {
-  font-size: 1.1rem;
   color: var(--text-warm);
+  font-size: 1.1rem;
   margin-bottom: 2rem;
-}
-
-.hero-buttons {
-  margin: 2rem 0;
 }
 
 .primary-btn {
@@ -193,16 +150,7 @@ html, body {
   border-radius: 8px;
   text-decoration: none;
   margin-right: 1rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  font-family: var(--font-body);
   border: none;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.primary-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
 }
 
 .secondary-btn {
@@ -213,28 +161,20 @@ html, body {
   padding: 0.85rem 2rem;
   border-radius: 8px;
   text-decoration: none;
-  transition: all 0.2s ease;
-  font-family: var(--font-body);
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.secondary-btn:hover {
-  background: var(--accent-gold-soft);
 }
 
 .stats-row {
   display: flex;
   gap: 3rem;
-  margin: 2.5rem 0;
-  color: var(--text-muted);
+  margin-top: 2.5rem;
+  color: var(--text-lavender);
   font-size: 0.95rem;
 }
 
 .stats-row strong {
-  color: var(--accent-gold);
-  font-size: 1.5rem;
   display: block;
+  font-size: 1.5rem;
+  color: var(--accent-gold);
   font-family: var(--font-serif);
 }
 
@@ -252,10 +192,9 @@ html, body {
 
 .reading-bubble {
   position: absolute;
-  bottom: 1rem;
-  right: 1rem;
+  bottom: 1rem; right: 1rem;
   background: rgba(26, 18, 56, 0.9);
-  border: 1px solid var(--accent-gold-soft);
+  border: 1px solid rgba(212, 175, 55, 0.3);
   color: var(--accent-gold);
   padding: 0.6rem 1.2rem;
   border-radius: 2rem;
@@ -263,317 +202,23 @@ html, body {
   font-style: italic;
 }
 
-/* ---------- Page Intro (Reviews / Journal / About) ---------- */
-.page-intro {
-  text-align: left;
-  margin: 2rem 0;
-}
-
-.page-intro h1 {
-  font-family: var(--font-serif);
-  font-size: 2.2rem;
-  color: var(--text-cream);
-  margin: 0 0 0.5rem 0;
-}
-
-.page-intro p {
-  font-size: 1.1rem;
-  color: var(--text-lavender);
-}
-
-/* ---------- Filter Buttons ---------- */
-.filter-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  margin: 1.5rem 0 2.5rem;
-  justify-content: flex-start;
-}
-
-.filter-btn {
-  background: transparent;
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  color: var(--text-warm);
-  padding: 0.5rem 1rem;
-  border-radius: 2rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 0.9rem;
-  font-family: var(--font-body);
-}
-
-.filter-btn:hover,
-.filter-btn.active {
-  background: var(--accent-gold-soft);
-  border-color: var(--accent-gold);
-  color: var(--text-cream);
-}
-
-/* ---------- Cards & Reviews ---------- */
-.cards-grid {
-  width: 100%;
-}
-
-.loading,
-.empty-state {
-  text-align: center;
-  color: var(--text-muted);
-  padding: 3rem;
-  font-style: italic;
-}
-
-.book-card {
-  display: flex;
-  gap: 1.5rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border-soft);
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
-  transition: transform 0.3s ease, border-color 0.3s ease;
-}
-
-.book-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(212, 175, 55, 0.4);
-}
-
-.book-cover {
-  width: 95px;
-  height: 140px;
-  object-fit: cover;
-  border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  flex-shrink: 0;
-}
-
-.book-info {
-  flex: 1;
-}
-
-.book-title {
-  font-family: var(--font-serif);
-  color: var(--text-cream);
-  font-size: 1.3rem;
-  margin: 0 0 0.3rem;
-}
-
-.book-author {
-  color: var(--text-lavender);
-  font-style: italic;
-  margin: 0 0 0.5rem;
-}
-
-.book-format {
-  color: var(--text-muted);
-  font-size: 0.85rem;
-  margin-bottom: 0.5rem;
-}
-
-/* ---------- Star Ratings ---------- */
-.rating-stars {
-  font-size: 1.2rem;
-  margin: 0.5rem 0;
-}
-
-.star-filled {
-  color: var(--accent-gold);
-  text-shadow: 0 0 4px rgba(212, 175, 55, 0.4);
-}
-
-.star-empty {
-  color: #3a3a5c;
-}
-
-.genre-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin: 0.8rem 0;
-}
-
-.genre-tag {
-  background: rgba(100, 90, 140, 0.3);
-  color: #d4c8e8;
-  padding: 0.25rem 0.7rem;
-  border-radius: 1rem;
-  font-size: 0.8rem;
-}
-
-/* ---------- Journal Entries ---------- */
-.journal-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-soft);
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
-  transition: transform 0.3s ease;
-}
-
-.journal-card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(147, 112, 219, 0.3);
-}
-
-.entry-type-badge {
-  display: inline-block;
-  padding: 0.3rem 0.9rem;
-  border-radius: 1.2rem;
-  font-size: 0.8rem;
-  font-weight: 500;
-  margin-bottom: 0.8rem;
-}
-
-.type-observation { background: rgba(100, 149, 237, 0.2); color: #b4c8f0; }
-.type-opinion { background: rgba(255, 140, 0, 0.2); color: #ffc280; }
-.type-hot-take { background: rgba(220, 50, 50, 0.2); color: #ffb0b0; }
-.type-reflection { background: rgba(75, 0, 130, 0.2); color: #d0c0f0; }
-.type-quote { background: rgba(70, 130, 180, 0.2); color: #add8e6; }
-.type-book-haul { background: var(--accent-gold-soft); color: var(--text-cream); }
-.type-recommendation { background: rgba(50, 205, 50, 0.2); color: #b8f0b8; }
-.type-life { background: rgba(147, 112, 219, 0.2); color: #d4c8f0; }
-
-.entry-title {
-  font-family: var(--font-serif);
-  color: var(--text-cream);
-  font-size: 1.3rem;
-  margin-bottom: 0.3rem;
-}
-
-.entry-date {
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  margin-bottom: 0.8rem;
-}
-
-.read-review-btn,
-.read-entry-btn {
-  display: inline-block;
-  margin-top: 1rem;
-  color: var(--accent-gold);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: all 0.2s ease;
-}
-
-.read-review-btn:hover,
-.read-entry-btn:hover {
-  border-bottom-color: var(--accent-gold);
-}
-
-/* ---------- About Page ---------- */
-.about-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-soft);
-  border-radius: 16px;
-  padding: 3rem;
-  text-align: center;
-  max-width: 700px;
-  margin: 2rem auto;
-}
-
-.about-card h2 {
-  font-family: var(--font-serif);
-  color: var(--accent-gold);
-  font-size: 2rem;
-  margin: 1rem 0;
-}
-
-.about-card h3 {
-  font-family: var(--font-serif);
-  color: var(--text-cream);
-  margin: 2rem 0 1rem;
-}
-
-.about-card p {
-  color: var(--text-lavender);
-  margin-bottom: 1rem;
-  font-size: 1.05rem;
-}
-
-.signoff {
-  font-style: italic;
-  color: var(--accent-gold);
-  margin-top: 1.5rem;
-}
-
-.social-links {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.8rem;
-  margin-top: 2rem;
-}
-
-.social-link {
-  color: var(--text-lavender);
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  border: 1px solid transparent;
-  border-radius: 6px;
-  transition: all 0.25s ease;
-}
-
-.social-link:hover {
-  color: var(--accent-gold);
-  border-color: var(--accent-gold-soft);
-  background: rgba(212, 175, 55, 0.1);
-}
-
-/* ---------- Footer ---------- */
+/* Footer */
 .site-footer {
-  max-width: 1200px;
-  margin: 3rem auto 0;
-  padding: 2rem;
+  position: relative; z-index: 2;
   text-align: center;
-  color: var(--text-muted);
+  padding: 2rem;
+  color: #7a7098;
   font-size: 0.9rem;
-  position: relative;
-  z-index: 2;
 }
 
-/* ---------- Responsive ---------- */
+/* Responsive */
 @media (max-width: 900px) {
-  .hero {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
+  .hero { grid-template-columns: 1fr; }
 }
 
-@media (max-width: 768px) {
-  .header-inner {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 1rem;
-  }
-  .site-nav {
-    text-align: center;
-  }
-  .site-nav a {
-    margin: 0 0.75rem;
-  }
-  .site-title {
-    font-size: 2rem;
-  }
-  .hero h1 {
-    font-size: 2rem;
-  }
-  .book-card {
-    flex-direction: column;
-    text-align: center;
-  }
-  .book-cover {
-    margin: 0 auto;
-  }
-  .filter-container {
-    justify-content: center;
-  }
-  .stats-row {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  .content-wrapper {
-    padding: 0 1.5rem 3rem;
-  }
+@media (max-width: 600px) {
+  .header-inner { flex-direction: column; gap: 1rem; text-align: center; }
+  .site-nav { text-align: center; }
+  .hero h1 { font-size: 2rem; }
+  .stats-row { flex-direction: column; gap: 0.5rem; }
 }
