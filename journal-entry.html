@@ -11,27 +11,26 @@
   <div class="page-wrapper">
     <div class="container">
       <header class="site-header">
-        <a href="index.html" class="site-title">Moonlight Book Reader</a>
-        <p class="site-tagline" id="siteTagline">your nocturnal reading companion</p>
+        <div class="site-brand">
+          <a href="index.html" class="site-title">Moonlight Book Reader</a>
+          <p class="site-tagline" id="siteTagline">your nocturnal reading companion</p>
+        </div>
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="books.html">Reviews</a>
+          <a href="journal.html" class="active">Journal</a>
+          <a href="about.html">About</a>
+        </nav>
       </header>
-
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="books.html">Reviews</a>
-        <a href="journal.html" class="active">Journal</a>
-        <a href="about.html">About</a>
-      </nav>
 
       <p class="breadcrumb"><a href="journal.html">← Back to journal</a></p>
       <div id="entryDetail"></div>
 
     </div>
-
     <footer class="site-footer">
       <p><span class="handwritten">☾ Moonlight Book Reader · written under the same moon ✨</span></p>
     </footer>
   </div>
-
   <script src="script.js"></script>
   <script>
     loadAllData().then(() => {
@@ -39,7 +38,6 @@
       const entryId = getUrlParam('id');
       const entry = journalEntries.find(e => e.id === entryId);
       const container = document.getElementById('entryDetail');
-      
       if (!entry) {
         container.innerHTML = '<div class="empty-state">Entry not found. <a href="journal.html" style="color:var(--accent);">Back to journal</a></div>';
         document.title = 'Not Found — Moonlight Book Reader';

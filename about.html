@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About — Moonlight Book Reader</title>
-  <meta name="description" content="About Moonlight Book Reader — your nocturnal reading companion." />
   <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -12,23 +11,23 @@
   <div class="page-wrapper">
     <div class="container">
       <header class="site-header">
-        <a href="index.html" class="site-title">Moonlight Book Reader</a>
-        <p class="site-tagline" id="siteTagline">your nocturnal reading companion</p>
+        <div class="site-brand">
+          <a href="index.html" class="site-title">Moonlight Book Reader</a>
+          <p class="site-tagline" id="siteTagline">your nocturnal reading companion</p>
+        </div>
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="books.html">Reviews</a>
+          <a href="journal.html">Journal</a>
+          <a href="about.html" class="active">About</a>
+        </nav>
       </header>
-
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="books.html">Reviews</a>
-        <a href="journal.html">Journal</a>
-        <a href="about.html" class="active">About</a>
-      </nav>
 
       <section class="about-section">
         <p class="about-intro" id="aboutIntro">a little about me...</p>
         <h2 id="aboutHeading">Hello, Fellow Book Lover!</h2>
         <div class="about-bio" id="aboutBio"></div>
         <p class="about-signoff" id="aboutSignoff">— Moonlight Book Reader</p>
-        
         <div class="about-social">
           <p class="about-social-label">find me elsewhere in the bookish world...</p>
           <div id="socialLinks"></div>
@@ -36,12 +35,10 @@
       </section>
 
     </div>
-
     <footer class="site-footer">
       <p><span class="handwritten">☾ Moonlight Book Reader · written under the same moon ✨</span></p>
     </footer>
   </div>
-
   <script src="script.js"></script>
   <script>
     loadAllData().then(() => {
