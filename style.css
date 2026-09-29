@@ -135,7 +135,7 @@ html, body {
   z-index: 2;
 }
 
-/* ---------- Hero Section ---------- */
+/* ---------- Hero Section (Home) ---------- */
 .hero {
   padding: 2rem 0 4rem;
 }
@@ -187,6 +187,8 @@ html, body {
   margin-right: 1rem;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   font-family: var(--font-body);
+  border: none;
+  cursor: pointer;
 }
 
 .primary-btn:hover {
@@ -204,6 +206,7 @@ html, body {
   text-decoration: none;
   transition: all 0.2s ease;
   font-family: var(--font-body);
+  cursor: pointer;
 }
 
 .secondary-btn:hover {
@@ -465,6 +468,47 @@ html, body {
   color: var(--accent-gold);
   font-size: 2rem;
   margin: 1rem 0;
+}
+
+.about-card h3 {
+  font-family: var(--font-serif);
+  color: var(--text-cream);
+  margin: 2rem 0 1rem;
+}
+
+.about-card p {
+  color: var(--text-lavender);
+  margin-bottom: 1rem;
+  font-size: 1.05rem;
+}
+
+.signoff {
+  font-style: italic;
+  color: var(--accent-gold);
+  margin-top: 1.5rem;
+}
+
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-top: 2rem;
+}
+
+.social-link {
+  color: var(--text-lavender);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  transition: all 0.25s ease;
+}
+
+.social-link:hover {
+  color: var(--accent-gold);
+  border-color: var(--accent-gold-soft);
+  background: rgba(212, 175, 55, 0.1);
 }
 
 /* ---------- Footer ---------- */
