@@ -467,3 +467,79 @@ html, body {
     padding: 0 1.5rem 3rem;
   }
 }
+/* ---------- Hero Section (Home Page) ---------- */
+.hero {
+  padding: 2rem 0 4rem;
+}
+
+.hero-intro {
+  color: var(--text-warm);
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+.hero h1 {
+  font-family: var(--font-serif);
+  font-size: 3rem;
+  line-height: 1.2;
+  color: var(--text-cream);
+  margin-bottom: 1.5rem;
+}
+
+.hero blockquote {
+  font-style: italic;
+  color: var(--text-lavender);
+  border-left: 2px solid var(--accent-gold);
+  padding-left: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: var(--text-warm);
+  max-width: 650px;
+  margin-bottom: 2rem;
+}
+
+.hero-buttons {
+  margin: 2rem 0;
+}
+
+.stats-row {
+  display: flex;
+  gap: 3rem;
+  margin: 2.5rem 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.stats-row strong {
+  color: var(--accent-gold);
+  font-size: 1.3rem;
+  display: block;
+}
+
+.hero-image-wrapper {
+  position: relative;
+  margin-top: 3rem;
+  max-width: 700px;
+}
+
+.hero-image {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+.reading-bubble {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  background: rgba(26, 18, 56, 0.9);
+  border: 1px solid var(--accent-gold-soft);
+  color: var(--accent-gold);
+  padding: 0.6rem 1.2rem;
+  border-radius: 2rem;
+  font-size: 0.9rem;
+}
