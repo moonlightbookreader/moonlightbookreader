@@ -1,11 +1,15 @@
-title: Moonlight Book Reader
+media:
+  input: content/images
+  output: /content/images
+
 content:
-  site:
+  - name: site
     label: Site Profile & Social
-    file: content/site.json
+    type: file
+    path: content/site.json
     fields:
       - name: name
-        label: Site Name
+        label: Your Name / Site Title
         type: string
       - name: tagline
         label: Tagline
@@ -13,71 +17,72 @@ content:
       - name: profileImage
         label: Profile Photo
         type: image
-        optional: true
+        required: false
       - name: goodreads
         label: Goodreads URL
         type: string
-        optional: true
+        required: false
       - name: storygraph
         label: Storygraph URL
         type: string
-        optional: true
+        required: false
       - name: instagram
         label: Instagram URL
         type: string
-        optional: true
+        required: false
       - name: twitter
-        label: Twitter / X URL
+        label: X / Twitter URL
         type: string
-        optional: true
+        required: false
       - name: threads
         label: Threads URL
         type: string
-        optional: true
+        required: false
       - name: tiktok
         label: TikTok URL
         type: string
-        optional: true
+        required: false
       - name: youtube
         label: YouTube URL
         type: string
-        optional: true
+        required: false
       - name: pinterest
         label: Pinterest URL
         type: string
-        optional: true
+        required: false
       - name: letterboxd
         label: Letterboxd URL
         type: string
-        optional: true
+        required: false
       - name: redbubble
-        label: Redbubble URL
+        label: Redbubble Shop URL
         type: string
-        optional: true
+        required: false
       - name: amazon
         label: Amazon Profile URL
         type: string
-        optional: true
+        required: false
       - name: amazonWishlist
         label: Amazon Wishlist URL
         type: string
-        optional: true
+        required: false
       - name: etsy
         label: Etsy Shop URL
         type: string
-        optional: true
+        required: false
       - name: kofi
         label: Ko-fi URL
         type: string
-        optional: true
+        required: false
       - name: email
         label: Email Address
         type: string
-        optional: true
+        required: false
 
-  about:
+  - name: about
     label: About Page
-    file: content/about.json
+    type: file
+    path: content/about.json
     fields:
       - name: introLine
         label: Intro Line
@@ -86,17 +91,17 @@ content:
         label: Heading
         type: string
       - name: bioParagraphs
-        label: Bio Paragraphs
-        type: list
-        field:
-          type: text
+        label: Biography Paragraphs
+        type: text
+        list: true
       - name: signoff
-        label: Sign-off
+        label: Sign-off Line
         type: string
 
-  books:
+  - name: books
     label: Book Reviews
-    file: content/books.json
+    type: file
+    path: content/books.json
     fields:
       - name: entries
         label: Reviews
@@ -194,9 +199,10 @@ content:
             label: Final Verdict
             type: text
 
-  journal:
+  - name: journal
     label: Journal Entries
-    file: content/journal.json
+    type: file
+    path: content/journal.json
     fields:
       - name: entries
         label: Entries
