@@ -4,7 +4,6 @@
   --bg-deep: #1a1238;
   --accent-gold: #d4af37;
   --text-cream: #f5e7c8;
-  --text-sky: #94b8ff;
   --text-lavender: #b8a8d8;
   --text-warm: #d8c8a8;
   --text-muted: #7a7098;
@@ -23,9 +22,10 @@ html, body {
   line-height: 1.7;
   min-height: 100vh;
   position: relative;
+  overflow-x: hidden;
 }
 
-/* ⭐ Stars */
+/* ⭐ TWINKLING STARS — Subtle like original */
 .stars-bg {
   position: fixed;
   top: 0; left: 0;
@@ -37,14 +37,14 @@ html, body {
 .twinkle {
   position: absolute;
   width: 2px; height: 2px;
-  background: #fff;
+  background: #ffffff;
   border-radius: 50%;
   animation: twinkle 4s ease-in-out infinite;
 }
 
 @keyframes twinkle {
-  0%, 100% { opacity: 0.2; }
-  50% { opacity: 1; }
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
 }
 
 .twinkle:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
@@ -57,8 +57,13 @@ html, body {
 .twinkle:nth-child(8) { top: 25%; left: 85%; animation-delay: 1.7s; }
 .twinkle:nth-child(9) { top: 40%; left: 8%; animation-delay: 0.4s; }
 .twinkle:nth-child(10) { top: 35%; left: 92%; animation-delay: 0.9s; }
+.twinkle:nth-child(11) { top: 55%; left: 25%; animation-delay: 1.3s; }
+.twinkle:nth-child(12) { top: 65%; left: 68%; animation-delay: 0.6s; }
+.twinkle:nth-child(13) { top: 78%; left: 42%; animation-delay: 1.1s; }
+.twinkle:nth-child(14) { top: 85%; left: 15%; animation-delay: 1.6s; }
+.twinkle:nth-child(15) { top: 72%; left: 80%; animation-delay: 0.3s; }
 
-/* 🌙 Moon glow */
+/* 🌙 MOON GLOW — Soft top-right */
 .moon-drift {
   position: fixed;
   top: 5%; right: 5%;
@@ -69,16 +74,18 @@ html, body {
   z-index: 1;
 }
 
-/* Header */
+/* HEADER — EXACT ORIGINAL STRUCTURE */
 .site-header {
   position: relative; z-index: 10;
   max-width: 1200px; margin: 0 auto;
-  padding: 2rem 2rem 1.5rem;
+  padding: 2rem 2rem 1.2rem;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   border-bottom: 1px solid var(--border-soft);
 }
+
+.site-brand { display: flex; flex-direction: column; }
 
 .site-title {
   font-family: var(--font-serif);
@@ -86,14 +93,15 @@ html, body {
   color: var(--accent-gold);
   text-decoration: none;
   font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
+/* ✅ TAGLINE — EXACTLY "~ a cozy reading journal ~" in Caveat */
 .site-tagline {
   font-family: var(--font-handwritten);
-  font-size: 1.3rem;
-  color: var(--text-sky);
+  font-size: 1.4rem;
+  color: var(--text-lavender);
   margin-top: 0.2rem;
-  font-style: italic;
 }
 
 .site-nav { display: flex; gap: 2rem; }
@@ -101,21 +109,25 @@ html, body {
 .site-nav a {
   color: var(--text-lavender);
   text-decoration: none;
+  font-family: var(--font-body);
   font-size: 1rem;
+  transition: color 0.3s ease;
 }
 
 .site-nav a:hover,
 .site-nav a.active {
   color: var(--accent-gold);
+  border-bottom: none;
 }
 
-/* Main Content */
+/* MAIN CONTENT */
 .content-wrapper {
   position: relative; z-index: 5;
   max-width: 1200px; margin: 0 auto;
   padding: 2.5rem 2rem 4rem;
 }
 
+/* HERO — EXACT FONT HIERARCHY FROM YOUR ORIGINAL */
 .hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -123,26 +135,31 @@ html, body {
   align-items: start;
 }
 
+/* ✅ Intro line — gold italic */
 .hero-intro {
-  font-family: var(--font-handwritten);
-  font-size: 1.3rem;
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 1.1rem;
   color: var(--accent-gold);
   margin-bottom: 0.5rem;
 }
 
 .hero h1 {
   font-family: var(--font-serif);
-  font-size: 3rem;
-  line-height: 1.2;
+  font-size: 3.2rem;
+  line-height: 1.15;
   margin-bottom: 1.5rem;
 }
 
+/* ✅ "by moonlight" — ALL gold gradient */
 .hero h1 span {
-  color: var(--accent-gold);
-  background: none;
-  -webkit-text-fill-color: unset;
+  background: linear-gradient(135deg, #e8c860, var(--accent-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
+/* ✅ Quote — NO left border, plain lavender italic */
 .hero blockquote {
   color: var(--text-lavender);
   font-style: italic;
@@ -154,7 +171,7 @@ html, body {
 .hero blockquote cite {
   display: block;
   margin-top: 0.3rem;
-  font-size: 0.95rem;
+  font-size: 1rem;
   opacity: 0.8;
 }
 
@@ -162,55 +179,64 @@ html, body {
   color: var(--text-warm);
   font-size: 1.05rem;
   line-height: 1.7;
-  margin-bottom: 1.8rem;
+  margin-bottom: 2rem;
 }
 
-.hero-buttons { display: flex; gap: 1rem; }
+.hero-buttons { display: flex; gap: 1rem; margin-top: 0.5rem; }
 
 .primary-btn {
   background: var(--accent-gold);
   color: var(--bg-deep);
   font-weight: 600;
-  padding: 0.8rem 1.8rem;
-  border-radius: 6px;
+  padding: 0.85rem 1.8rem;
+  border-radius: 8px;
   text-decoration: none;
   border: none;
+  transition: transform 0.2s ease;
 }
+
+.primary-btn:hover { transform: translateY(-2px); }
 
 .secondary-btn {
   background: transparent;
   border: 1px solid rgba(212,175,55,0.4);
   color: var(--accent-gold);
-  padding: 0.8rem 1.8rem;
-  border-radius: 6px;
+  padding: 0.85rem 1.8rem;
+  border-radius: 8px;
   text-decoration: none;
+  transition: all 0.2s ease;
 }
 
-.hero-image-wrapper { position: relative; margin-top: 0; }
+.secondary-btn:hover { background: rgba(212,175,55,0.1); }
+
+/* ✅ BUBBLE — EXACT pill shape, dark bg, Caveat gold text */
+.hero-image-wrapper { position: relative; margin-top: 0.5rem; }
 
 .hero-image {
   width: 100%;
-  border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  display: block;
 }
 
 .reading-bubble {
   position: absolute;
-  bottom: 1.2rem;
-  right: 1.2rem;
+  bottom: 1.5rem;
+  right: 1.5rem;
   background: rgba(26, 18, 56, 0.85);
-  border: 1px solid rgba(212,175,55,0.3);
+  border: 1px solid rgba(212,175,55,0.35);
   color: var(--accent-gold);
-  padding: 0.6rem 1.4rem;
+  padding: 0.7rem 1.5rem;
   border-radius: 2rem;
   font-family: var(--font-handwritten);
-  font-size: 1rem;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
 }
 
-/* Pages: Reviews, Journal, About */
+/* PAGES: Reviews, Journal, About */
 .page-title {
   font-family: var(--font-serif);
-  font-size: 2rem;
+  font-size: 2.2rem;
   color: var(--text-cream);
   margin-bottom: 0.5rem;
 }
@@ -225,7 +251,7 @@ html, body {
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
-  margin: 1.2rem 0 2rem;
+  margin: 1.5rem 0 2rem;
 }
 
 .tag {
@@ -245,16 +271,7 @@ html, body {
   margin-top: 1rem;
 }
 
-.about-text {
-  color: var(--text-warm);
-  font-size: 1.05rem;
-  line-height: 1.8;
-  max-width: 800px;
-}
-
-.about-text p { margin-bottom: 1.2rem; }
-
-/* Footer */
+/* FOOTER */
 .site-footer {
   position: relative; z-index: 5;
   text-align: center;
@@ -264,15 +281,14 @@ html, body {
   margin-top: 1rem;
 }
 
-/* Responsive */
+/* RESPONSIVE */
 @media (max-width: 900px) {
-  .hero { grid-template-columns: 1fr; gap: 2rem; }
+  .hero { grid-template-columns: 1fr; gap: 2.5rem; }
 }
-
 @media (max-width: 650px) {
   .site-header { flex-direction: column; gap: 1rem; text-align: center; }
   .site-nav { justify-content: center; flex-wrap: wrap; }
-  .hero h1 { font-size: 2rem; }
+  .hero h1 { font-size: 2.2rem; }
   .content-wrapper { padding: 1.5rem; }
   .moon-drift { width: 180px; height: 180px; }
 }
