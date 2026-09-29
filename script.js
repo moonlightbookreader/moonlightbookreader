@@ -1,11 +1,11 @@
-// === STAR RATING DISPLAY ===
+// === Star Rating Display ===
 function renderStars(rating) {
-  const full = Math.floor(rating);
+  const full = Math.floor(rating || 0);
   const empty = 5 - full;
   return '<span class="star-filled">★</span>'.repeat(full) + '<span class="star-empty">★</span>'.repeat(empty);
 }
 
-// === EXTRACT ALL GENRES (standard + custom) ===
+// === Get All Genres (standard + custom) ===
 function getAllGenres(entry) {
   let genres = [];
   if (entry.category && Array.isArray(entry.category)) {
@@ -18,7 +18,7 @@ function getAllGenres(entry) {
   return genres;
 }
 
-// === RENDER BOOK REVIEW CARD ===
+// === Render Book Card ===
 function renderReviewCard(entry) {
   const genres = getAllGenres(entry);
   const genreTags = genres.map(g => `<span class="genre-tag">${g}</span>`).join('');
@@ -39,20 +39,41 @@ function renderReviewCard(entry) {
   `;
 }
 
-// === RENDER JOURNAL ENTRY CARD ===
+// === Render Journal Card ===
 function renderJournalCard(entry) {
+  const typeClass = (entry.type || '').toLowerCase().replace(/\s+/g, '-');
   return `
-    <article class="journal-card" data-type="${entry.type}">
-      <span class="entry-type-badge type-${entry.type.replace(/\s+/g, '-').toLowerCase()}">${entry.type}</span>
+    <article class="journal-card" data-type="${entry.type || ''}">
+      <span class="entry-type-badge type-${typeClass}">${entry.type || 'GENERAL'}</span>
       <h3 class="entry-title">${entry.title}</h3>
-      <p class="entry-date">${new Date(entry.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-      <div class="entry-preview">${entry.text.substring(0, 200)}...</div>
+      <p class="entry-date">${entry.date ? new Date(entry.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : ''}</p>
+      <div class="entry-preview">${(entry.text || '').substring(0, 200)}...</div>
       <a href="journal-entry.html?id=${entry.id}" class="read-entry-btn">Read More →</a>
     </article>
   `;
 }
 
-// === GENRE FILTERING ===
+// === Update Stats on Homepage ===
+function updateStats() {
+  Promise.all([
+    fetch('content/books.json').then(r => r.json()).catch(() => ({ entries: [] })),
+    fetch('content/journal.json').then(r => r.json()).catch(() => ({ entries: [] }))
+  ]).then(([booksData, journalData]) => {
+    const books = booksData.entries || [];
+    const allGenres = new Set();
+    books.forEach(book => {
+      getAllGenres(book).forEach(g => allGenres.add(g));
+    });
+    
+    const statBooks = document.getElementById('stat-books');
+    const statGenres = document.getElementById('stat-genres');
+    
+    if (statBooks) statBooks.textContent = books.length;
+    if (statGenres) statGenres.textContent = allGenres.size;
+  });
+}
+
+// === Genre Filtering ===
 function setupGenreFilter() {
   const container = document.getElementById('reviews-container');
   if (!container) return;
@@ -64,6 +85,9 @@ function setupGenreFilter() {
     .then(data => {
       allReviews = data.entries || [];
       renderFilteredReviews('all');
+    })
+    .catch(() => {
+      container.innerHTML = '<p class="empty-state">No reviews yet... your first book awaits ✨</p>';
     });
 
   function renderFilteredReviews(selectedFilter) {
@@ -85,7 +109,7 @@ function setupGenreFilter() {
   });
 }
 
-// === JOURNAL TYPE FILTERING ===
+// === Journal Type Filtering ===
 function setupJournalFilter() {
   const container = document.getElementById('journal-container');
   if (!container) return;
@@ -97,6 +121,9 @@ function setupJournalFilter() {
     .then(data => {
       allEntries = data.entries || [];
       renderFilteredEntries('all');
+    })
+    .catch(() => {
+      container.innerHTML = '<p class="empty-state">No entries yet... thoughts coming soon 🌙</p>';
     });
 
   function renderFilteredEntries(selectedType) {
@@ -118,8 +145,9 @@ function setupJournalFilter() {
   });
 }
 
-// === PAGE DETECTION ===
+// === Initialize ===
 document.addEventListener('DOMContentLoaded', () => {
+  if (document.getElementById('stat-books')) updateStats();
   if (document.getElementById('reviews-container')) setupGenreFilter();
   if (document.getElementById('journal-container')) setupJournalFilter();
 });
