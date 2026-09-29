@@ -1,58 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Book Reviews — Moonlight Book Reader</title>
-  <link rel="icon" type="image/png" href="favicon.png" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
-  <div class="page-wrapper">
-    <div class="container">
-      <header class="site-header">
-        <div class="site-brand">
-          <a href="index.html" class="site-title">Moonlight Book Reader</a>
-          <p class="site-tagline" id="siteTagline">your nocturnal reading companion</p>
-        </div>
-        <nav>
-          <a href="index.html">Home</a>
-          <a href="books.html" class="active">Reviews</a>
-          <a href="journal.html">Journal</a>
-          <a href="about.html">About</a>
-        </nav>
-      </header>
+  <div class="stars"></div>
+  <div class="moon-drift"></div>
 
-      <section>
-        <div class="section-header">
-          <span class="section-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-            </svg>
-          </span>
-          <h2>My Book Reviews</h2>
-          <span class="handwritten">— thoughts from my reading journal</span>
-        </div>
-        <div id="allBooks"></div>
-      </section>
-
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="site-brand">
+        <a href="index.html" class="site-title">Moonlight Book Reader</a>
+        <p class="site-tagline">your nocturnal reading companion</p>
+      </div>
+      <nav class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="books.html" class="active">Reviews</a>
+        <a href="journal.html">Journal</a>
+        <a href="about.html">About</a>
+      </nav>
     </div>
-    <footer class="site-footer">
-      <p><span class="handwritten">☾ Moonlight Book Reader · written under the same moon ✨</span></p>
-    </footer>
-  </div>
+  </header>
+
+  <main class="content-wrapper">
+    <section class="page-intro">
+      <h1>Book Reviews</h1>
+      <p>Stories explored and shared by moonlight.</p>
+    </section>
+
+    <!-- GENRE FILTER BUTTONS -->
+    <div class="filter-container">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="Fiction">Fiction</button>
+      <button class="filter-btn" data-filter="Contemporary">Contemporary</button>
+      <button class="filter-btn" data-filter="Fantasy">Fantasy</button>
+      <button class="filter-btn" data-filter="Mystery">Mystery</button>
+      <button class="filter-btn" data-filter="Thriller">Thriller</button>
+      <button class="filter-btn" data-filter="Sci-Fi">Sci-Fi</button>
+      <button class="filter-btn" data-filter="Romance">Romance</button>
+      <button class="filter-btn" data-filter="Non-Fiction">Non-Fiction</button>
+      <button class="filter-btn" data-filter="Classics">Classics</button>
+      <button class="filter-btn" data-filter="Young Adult">Young Adult</button>
+    </div>
+
+    <div id="reviews-container" class="cards-grid">
+      <!-- Reviews load here via JavaScript -->
+      <div class="loading">Gathering reviews by moonlight...</div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>— Read by moonlight — © 2026 Moonlight Book Reader</p>
+  </footer>
+
   <script src="script.js"></script>
-  <script>
-    loadAllData().then(() => {
-      renderProfile();
-      const container = document.getElementById('allBooks');
-      if (books.length === 0) {
-        container.innerHTML = '<div class="empty-state">No reviews yet... your first book awaits ✨</div>';
-      } else {
-        container.innerHTML = books.map(b => renderBookCard(b, false)).join('');
-      }
-    });
-  </script>
 </body>
 </html>
