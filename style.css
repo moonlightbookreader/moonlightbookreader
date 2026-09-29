@@ -786,3 +786,128 @@ nav a:hover::after, nav a.active::after {
   background: rgba(212,168,87,.3);
   color: var(--text);
 }
+/* === Star Ratings === */
+.rating-stars {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+}
+.star-filled {
+  color: #d4af37;
+  text-shadow: 0 0 4px rgba(212, 175, 55, 0.4);
+}
+.star-empty {
+  color: #3a3a5c;
+}
+
+/* === Filter Buttons === */
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 2rem 0;
+}
+.filter-btn {
+  background: transparent;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  color: #c9b896;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+.filter-btn:hover, .filter-btn.active {
+  background: rgba(212, 175, 55, 0.25);
+  border-color: #d4af37;
+  color: #f5e7c8;
+}
+
+/* === Genre Tags === */
+.genre-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.8rem 0;
+}
+.genre-tag {
+  background: rgba(100, 90, 140, 0.3);
+  color: #d4c8e8;
+  padding: 0.25rem 0.7rem;
+  border-radius: 1rem;
+  font-size: 0.8rem;
+}
+
+/* === Journal Type Badges === */
+.entry-type-badge {
+  display: inline-block;
+  padding: 0.3rem 0.9rem;
+  border-radius: 1.2rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+}
+.type-observation { background: rgba(100, 149, 237, 0.2); color: #b4c8f0; }
+.type-opinion { background: rgba(255, 140, 0, 0.2); color: #ffc280; }
+.type-book-haul { background: rgba(212, 175, 55, 0.25); color: #f5e7c8; }
+.type-recommendation { background: rgba(50, 205, 50, 0.2); color: #b8f0b8; }
+.type-life { background: rgba(147, 112, 219, 0.2); color: #d4c8f0; }
+.type-quote { background: rgba(70, 130, 180, 0.2); color: #add8e6; }
+
+/* === Book Card Layout === */
+.book-card {
+  display: flex;
+  gap: 1.5rem;
+  background: rgba(30, 22, 60, 0.6);
+  border: 1px solid rgba(100, 90, 140, 0.3);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.book-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(212, 175, 55, 0.4);
+}
+.book-cover {
+  width: 95px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  flex-shrink: 0;
+}
+.book-info {
+  flex: 1;
+}
+.book-title {
+  font-family: 'Playfair Display', serif;
+  color: #f5e7c8;
+  margin: 0 0 0.3rem 0;
+  font-size: 1.3rem;
+}
+.book-author {
+  color: #9a90b8;
+  margin: 0 0 0.5rem 0;
+  font-style: italic;
+}
+.book-format {
+  color: #7a7098;
+  font-size: 0.85rem;
+}
+.read-review-btn, .read-entry-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #d4af37;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+.read-review-btn:hover, .read-entry-btn:hover {
+  border-bottom-color: #d4af37;
+}
+.empty-state {
+  text-align: center;
+  color: #7a7098;
+  padding: 3rem;
+  font-style: italic;
+}
