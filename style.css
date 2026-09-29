@@ -1,9 +1,7 @@
 /* =============================================
-   Moonlight Book Reader — Complete Style CSS
-   Cozy nocturnal theme
+   Moonlight Book Reader — Complete Stylesheet
    ============================================= */
 
-/* ---------- Base Reset & Globals ---------- */
 :root {
   --bg-deep: #1a1238;
   --bg-card: rgba(30, 22, 60, 0.7);
@@ -33,7 +31,7 @@ html, body {
   position: relative;
 }
 
-/* ---------- Background Atmosphere ---------- */
+/* ---------- Starry Background ---------- */
 .stars {
   position: fixed;
   top: 0;
@@ -50,7 +48,7 @@ html, body {
     radial-gradient(2px 2px at 160px 120px, #fff, transparent);
   background-repeat: repeat;
   background-size: 200px 200px;
-  opacity: 0.4;
+  opacity: 0.5;
   z-index: 0;
 }
 
@@ -68,7 +66,7 @@ html, body {
   z-index: 0;
 }
 
-/* ---------- Header — Perfect Left/Right Alignment ---------- */
+/* ---------- Header Layout ---------- */
 .site-header {
   padding: 2rem 2rem 1rem;
   max-width: 1200px;
@@ -95,6 +93,7 @@ html, body {
   text-decoration: none;
   display: block;
   line-height: 1.2;
+  font-weight: 600;
 }
 
 .site-title:hover {
@@ -118,6 +117,7 @@ html, body {
   margin-left: 1.5rem;
   font-size: 1rem;
   transition: all 0.25s ease;
+  font-family: var(--font-body);
 }
 
 .site-nav a:hover,
@@ -126,7 +126,7 @@ html, body {
   border-bottom: 1px solid var(--accent-gold);
 }
 
-/* ---------- Main Content Container ---------- */
+/* ---------- Main Content ---------- */
 .content-wrapper {
   max-width: 1200px;
   margin: 0 auto;
@@ -135,6 +135,123 @@ html, body {
   z-index: 2;
 }
 
+/* ---------- Hero Section ---------- */
+.hero {
+  padding: 2rem 0 4rem;
+}
+
+.hero-intro {
+  color: var(--text-warm);
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+  font-style: italic;
+}
+
+.hero h1 {
+  font-family: var(--font-serif);
+  font-size: 3rem;
+  line-height: 1.2;
+  color: var(--text-cream);
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.hero blockquote {
+  font-style: italic;
+  color: var(--text-lavender);
+  border-left: 2px solid var(--accent-gold);
+  padding-left: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: var(--text-warm);
+  max-width: 650px;
+  margin-bottom: 2rem;
+}
+
+.hero-buttons {
+  margin: 2rem 0;
+}
+
+.primary-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #c9a030, var(--accent-gold));
+  color: #1a1238;
+  font-weight: 600;
+  padding: 0.8rem 1.8rem;
+  border-radius: 8px;
+  text-decoration: none;
+  margin-right: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-family: var(--font-body);
+}
+
+.primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+}
+
+.secondary-btn {
+  display: inline-block;
+  background: transparent;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  color: var(--accent-gold);
+  padding: 0.8rem 1.8rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-family: var(--font-body);
+}
+
+.secondary-btn:hover {
+  background: var(--accent-gold-soft);
+}
+
+.stats-row {
+  display: flex;
+  gap: 3rem;
+  margin: 2.5rem 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.stats-row strong {
+  color: var(--accent-gold);
+  font-size: 1.5rem;
+  display: block;
+  font-family: var(--font-serif);
+}
+
+.hero-image-wrapper {
+  position: relative;
+  margin-top: 3rem;
+  max-width: 650px;
+}
+
+.hero-image {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  display: block;
+}
+
+.reading-bubble {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  background: rgba(26, 18, 56, 0.9);
+  border: 1px solid var(--accent-gold-soft);
+  color: var(--accent-gold);
+  padding: 0.6rem 1.2rem;
+  border-radius: 2rem;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* ---------- Page Intro (Reviews / Journal / About) ---------- */
 .page-intro {
   text-align: left;
   margin: 2rem 0;
@@ -170,6 +287,7 @@ html, body {
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 0.9rem;
+  font-family: var(--font-body);
 }
 
 .filter-btn:hover,
@@ -179,7 +297,7 @@ html, body {
   color: var(--text-cream);
 }
 
-/* ---------- Cards Grid & Layout ---------- */
+/* ---------- Cards & Reviews ---------- */
 .cards-grid {
   width: 100%;
 }
@@ -192,7 +310,6 @@ html, body {
   font-style: italic;
 }
 
-/* ---------- Book Review Cards ---------- */
 .book-card {
   display: flex;
   gap: 1.5rem;
@@ -256,7 +373,6 @@ html, body {
   color: #3a3a5c;
 }
 
-/* ---------- Genre Tags ---------- */
 .genre-tags {
   display: flex;
   flex-wrap: wrap;
@@ -318,11 +434,6 @@ html, body {
   margin-bottom: 0.8rem;
 }
 
-.entry-preview {
-  color: var(--text-warm);
-}
-
-/* ---------- Buttons & Links ---------- */
 .read-review-btn,
 .read-entry-btn {
   display: inline-block;
@@ -336,39 +447,6 @@ html, body {
 .read-review-btn:hover,
 .read-entry-btn:hover {
   border-bottom-color: var(--accent-gold);
-}
-
-.primary-btn {
-  display: inline-block;
-  background: linear-gradient(135deg, #c9a030, var(--accent-gold));
-  color: #1a1238;
-  font-weight: 600;
-  padding: 0.8rem 1.8rem;
-  border-radius: 8px;
-  text-decoration: none;
-  margin-right: 1rem;
-  margin-top: 1rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.primary-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
-}
-
-.secondary-btn {
-  display: inline-block;
-  background: transparent;
-  border: 1px solid rgba(212, 175, 55, 0.4);
-  color: var(--accent-gold);
-  padding: 0.8rem 1.8rem;
-  border-radius: 8px;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-.secondary-btn:hover {
-  background: var(--accent-gold-soft);
 }
 
 /* ---------- About Page ---------- */
@@ -389,34 +467,6 @@ html, body {
   margin: 1rem 0;
 }
 
-.about-card p {
-  color: var(--text-lavender);
-  margin-bottom: 1rem;
-}
-
-.social-links {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.8rem;
-  margin-top: 2rem;
-}
-
-.social-link {
-  color: var(--text-lavender);
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  border: 1px solid transparent;
-  border-radius: 6px;
-  transition: all 0.25s ease;
-}
-
-.social-link:hover {
-  color: var(--accent-gold);
-  border-color: var(--accent-gold-soft);
-  background: rgba(212, 175, 55, 0.1);
-}
-
 /* ---------- Footer ---------- */
 .site-footer {
   max-width: 1200px;
@@ -429,7 +479,7 @@ html, body {
   z-index: 2;
 }
 
-/* ---------- Responsive Adjustments ---------- */
+/* ---------- Responsive ---------- */
 @media (max-width: 768px) {
   .header-inner {
     flex-direction: column;
@@ -437,109 +487,33 @@ html, body {
     text-align: center;
     gap: 1rem;
   }
-
   .site-nav {
     text-align: center;
   }
-
   .site-nav a {
     margin: 0 0.75rem;
   }
-
   .site-title {
     font-size: 2rem;
   }
-
+  .hero h1 {
+    font-size: 2rem;
+  }
   .book-card {
     flex-direction: column;
     text-align: center;
   }
-
   .book-cover {
     margin: 0 auto;
   }
-
   .filter-container {
     justify-content: center;
   }
-
+  .stats-row {
+    flex-direction: column;
+    gap: 1rem;
+  }
   .content-wrapper {
     padding: 0 1.5rem 3rem;
   }
-}
-/* ---------- Hero Section (Home Page) ---------- */
-.hero {
-  padding: 2rem 0 4rem;
-}
-
-.hero-intro {
-  color: var(--text-warm);
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
-  letter-spacing: 0.05em;
-}
-
-.hero h1 {
-  font-family: var(--font-serif);
-  font-size: 3rem;
-  line-height: 1.2;
-  color: var(--text-cream);
-  margin-bottom: 1.5rem;
-}
-
-.hero blockquote {
-  font-style: italic;
-  color: var(--text-lavender);
-  border-left: 2px solid var(--accent-gold);
-  padding-left: 1.5rem;
-  margin: 1.5rem 0;
-}
-
-.hero p {
-  font-size: 1.1rem;
-  color: var(--text-warm);
-  max-width: 650px;
-  margin-bottom: 2rem;
-}
-
-.hero-buttons {
-  margin: 2rem 0;
-}
-
-.stats-row {
-  display: flex;
-  gap: 3rem;
-  margin: 2.5rem 0;
-  color: var(--text-muted);
-  font-size: 0.95rem;
-}
-
-.stats-row strong {
-  color: var(--accent-gold);
-  font-size: 1.3rem;
-  display: block;
-}
-
-.hero-image-wrapper {
-  position: relative;
-  margin-top: 3rem;
-  max-width: 700px;
-}
-
-.hero-image {
-  width: 100%;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-}
-
-.reading-bubble {
-  position: absolute;
-  bottom: 1rem;
-  right: 1rem;
-  background: rgba(26, 18, 56, 0.9);
-  border: 1px solid var(--accent-gold-soft);
-  color: var(--accent-gold);
-  padding: 0.6rem 1.2rem;
-  border-radius: 2rem;
-  font-size: 0.9rem;
 }
