@@ -117,10 +117,9 @@ content:
           - name: author
             label: Author
             type: string
-          - name: category
-            label: Genres
+          - name: mainGenre
+            label: Main Genre
             type: select
-            multiple: true
             options:
               values:
                 - Anthologies
@@ -160,8 +159,8 @@ content:
                 - Travel
                 - Urban Fantasy
                 - Young Adult
-          - name: customGenres
-            label: Custom Genres (comma separated)
+          - name: otherGenres
+            label: Other Genres (comma separated, e.g. Romance, Mystery)
             type: string
             required: false
           - name: format
