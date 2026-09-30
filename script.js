@@ -284,4 +284,25 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     }
   }
+  // ─── Render Journal Entries List ───
+  if (document.getElementById('journalContainer')) {
+    const journalContainer = document.getElementById('journalContainer');
+    journalContainer.innerHTML = '';
+    
+    journalEntries.forEach(entry => {
+      journalContainer.innerHTML += renderJournalEntry(entry, false);
+    });
+  }
+  
+  // Single journal entry page
+  const entryId = getUrlParam('id');
+  if (entryId && journalEntries.length > 0) {
+    const entry = journalEntries.find(e => e.id === entryId);
+    if (entry) {
+      const singleEntryContainer = document.getElementById('singleJournalEntry');
+      if (singleEntryContainer) {
+        singleEntryContainer.innerHTML = renderJournalEntry(entry, true);
+      }
+    }
+  }
 });
