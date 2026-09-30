@@ -216,15 +216,16 @@ function renderStats() {
 
 function renderBookCard(book, full = false) {
   const cover = book.coverImage 
-  ? `<img src="${book.coverImage}" alt="${book.title}" class="book-cover" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">` 
-    + `<div class="book-cover-placeholder" style="display:none;">📖</div>`
-  : `<div class="book-cover-placeholder">📖</div>`;
+    ? `<img src="${book.coverImage}" alt="${book.title}" class="book-cover" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">` 
+      + `<div class="book-cover-placeholder" style="display:none;">📖</div>`
+    : `<div class="book-cover-placeholder">📖</div>`;
   const fmt = book.format ? `<span class="book-format">${book.format}</span>` : '';
   const tags = buildGenreTags(book);
-  
-  let c = `<div class="book-card"><div class="book-header">${cover}<div class="book-meta"><a href="book.html?id=${book.id}" class="book-title">${book.title}</a><p class="book-author">by ${book.author}</p><div class="book-rating">${renderStars(book.rating || 0)}</div>${tags}<div class="book-tags">${fmt}</div></div></div>`;
+
+  let c = `<div class="book-card"><div class="book-header">${cover}<div class="book-meta"><a href="book/${book.id}" class="book-title">${book.title}</a><p class="book-author">by ${book.author}</p>${tags}${fmt}<div class="book-rating">${'★'.repeat(book.rating || 0)}${'☆'.repeat(5 - (book.rating || 0))}</div></div></div>`;
+
   if (full) {
-    if (book.excerpt) c += `<p class="book-excerpt">"${book.excerpt}"</p>`;
+    if (book.excerpt) c += `<p class="book-excerpt">${book.excerpt}</p>`;
     if (book.fullReview) c += `<div class="book-full-content">${parseRichText(book.fullReview)}</div>`;
     if (book.highlights && book.highlights.length) {
       c += `<ul class="book-highlights"><strong style="color:var(--accent);font-family:'Playfair Display',serif;font-style:italic;">Highlights</strong>`;
@@ -233,9 +234,10 @@ function renderBookCard(book, full = false) {
     }
     if (book.verdict) c += `<p class="book-verdict"><strong style="color:var(--accent);">Verdict:</strong> ${book.verdict}</p>`;
   } else {
-    if (book.excerpt) c += `<p class="book-excerpt">"${book.excerpt}"</p>`;
-    c += `<a href="book.html?id=${book.id}" class="read-more">Read full review →</a>`;
+    if (book.excerpt) c += `<p class="book-excerpt">${book.excerpt}</p>`;
+    c += `<a href="book/${book.id}" class="read-more">Read full review →</a>`;
   }
+
   return c + `</div>`;
 }
 
@@ -254,7 +256,7 @@ function renderBooksList() {
 }
 
 function renderJournalEntry(e, full = false) {
-  let c = `<div class="journal-entry"><span class="journal-type">${e.type}</span><a href="journal-entry.html?id=${e.id}" class="journal-title">${e.title}</a>`;
+  let c = `<div class="journal-entry"><span class="journal-type">${e.type}</span><a href="journal/${e.id}" class="journal-title">${e.title}</a>`;
 
   if (full) {
     // Full entry — show formatted links & bold ✨
@@ -268,7 +270,7 @@ function renderJournalEntry(e, full = false) {
     const txt = t.textContent || '';
 
     c += `<p style="color:var(--text-soft);margin-bottom:.5rem;">${txt.length > 220 ? txt.substring(0, 220) + '...' : txt}</p>`;
-    c += `<a href="journal-entry.html?id=${e.id}" class="read-more">Continue reading →</a>`;
+    c += `<a href="journal/${e.id}" class="read-more">Continue reading →</a>`;
   }
 
   return c + `</div>`;
