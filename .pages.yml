@@ -118,9 +118,9 @@ content:
             label: Author
             type: string
           - name: category
-            label: Genres (tick all that apply)
-            type: string
-            list: true
+            label: Genres
+            type: select
+            multiple: true
             options:
               values:
                 - Anthologies
