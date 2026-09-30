@@ -786,3 +786,78 @@ nav a:hover::after, nav a.active::after {
   background: rgba(212,168,87,.3);
   color: var(--text);
 }
+/* ──────────────────────────────────────
+   GENRE TAGS — Celestial Color Palette
+────────────────────────────────────── */
+
+.genre-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.75rem 0;
+}
+
+.genre-tag {
+  display: inline-block;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  font-family: 'Lora', serif;
+  border: 1px solid transparent;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.genre-tag:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.15);
+}
+
+/* Individual Genre Colors */
+.genre-tag.anthologies       { background: rgba(212, 168, 87, 0.15); border-color: rgba(212, 168, 87, 0.35); color: #d4a857; }
+.genre-tag.art               { background: rgba(212, 139, 172, 0.15); border-color: rgba(212, 139, 172, 0.35); color: #d48bac; }
+.genre-tag.biography         { background: rgba(139, 152, 212, 0.15); border-color: rgba(139, 152, 212, 0.35); color: #8b98d4; }
+.genre-tag.children          { background: rgba(139, 212, 194, 0.15); border-color: rgba(139, 212, 194, 0.35); color: #64c9b0; }
+.genre-tag.classics          { background: rgba(168, 139, 212, 0.15); border-color: rgba(168, 139, 212, 0.35); color: #9d7fd4; }
+.genre-tag.comfort-reads     { background: rgba(212, 189, 139, 0.15); border-color: rgba(212, 189, 139, 0.35); color: #d4bd64; }
+.genre-tag.contemporary      { background: rgba(139, 180, 212, 0.15); border-color: rgba(139, 180, 212, 0.35); color: #64a8d4; }
+.genre-tag.cookbook          { background: rgba(212, 159, 87, 0.15); border-color: rgba(212, 159, 87, 0.35); color: #d49f57; }
+.genre-tag.cozy-books        { background: rgba(212, 189, 139, 0.15); border-color: rgba(212, 189, 139, 0.35); color: #d4bd64; }
+.genre-tag.dark-fantasy      { background: rgba(121, 107, 163, 0.20); border-color: rgba(121, 107, 163, 0.40); color: #917fd4; }
+.genre-tag.drama             { background: rgba(212, 121, 152, 0.15); border-color: rgba(212, 121, 152, 0.35); color: #d47f98; }
+.genre-tag.epic-fantasy      { background: rgba(168, 139, 212, 0.18); border-color: rgba(168, 139, 212, 0.40); color: #9d7fd4; }
+.genre-tag.fantasy           { background: rgba(168, 139, 212, 0.15); border-color: rgba(168, 139, 212, 0.35); color: #9d7fd4; }
+.genre-tag.fantasy-romance   { background: rgba(199, 121, 172, 0.15); border-color: rgba(199, 121, 172, 0.35); color: #c77fac; }
+.genre-tag.fiction           { background: rgba(212, 168, 87, 0.15); border-color: rgba(212, 168, 87, 0.35); color: #d4a857; }
+.genre-tag.graphic-novel     { background: rgba(139, 194, 212, 0.15); border-color: rgba(139, 194, 212, 0.35); color: #64c2d4; }
+.genre-tag.historical        { background: rgba(189, 159, 107, 0.15); border-color: rgba(189, 159, 107, 0.35); color: #bd9f6b; }
+.genre-tag.historical-fiction { background: rgba(189, 159, 107, 0.15); border-color: rgba(189, 159, 107, 0.35); color: #bd9f6b; }
+.genre-tag.horror            { background: rgba(107, 107, 139, 0.20); border-color: rgba(107, 107, 139, 0.40); color: #8b8bd4; }
+.genre-tag.memoir            { background: rgba(139, 180, 212, 0.15); border-color: rgba(139, 180, 212, 0.35); color: #64a8d4; }
+.genre-tag.middle-grade      { background: rgba(139, 212, 194, 0.15); border-color: rgba(139, 212, 194, 0.35); color: #64c9b0; }
+.genre-tag.mystery           { background: rgba(139, 152, 212, 0.15); border-color: rgba(139, 152, 212, 0.35); color: #8b98d4; }
+.genre-tag.new-adult         { background: rgba(212, 139, 172, 0.15); border-color: rgba(212, 139, 172, 0.35); color: #d48bac; }
+.genre-tag.non-fiction       { background: rgba(139, 212, 168, 0.15); border-color: rgba(139, 212, 168, 0.35); color: #64d4a8; }
+.genre-tag.paranormal-romance { background: rgba(199, 121, 199, 0.15); border-color: rgba(199, 121, 199, 0.35); color: #c77fc7; }
+.genre-tag.philosophy        { background: rgba(180, 168, 212, 0.15); border-color: rgba(180, 168, 212, 0.35); color: #b4a8d4; }
+.genre-tag.poetry            { background: rgba(212, 189, 212, 0.15); border-color: rgba(212, 189, 212, 0.35); color: #d4bdd4; }
+.genre-tag.psychological-thriller { background: rgba(107, 121, 163, 0.18); border-color: rgba(107, 121, 163, 0.38); color: #7f8fc7; }
+.genre-tag.religion          { background: rgba(212, 199, 139, 0.15); border-color: rgba(212, 199, 139, 0.35); color: #d4c78b; }
+.genre-tag.romance           { background: rgba(212, 139, 172, 0.15); border-color: rgba(212, 139, 172, 0.35); color: #d48bac; }
+.genre-tag.sci-fi            { background: rgba(139, 180, 212, 0.15); border-color: rgba(139, 180, 212, 0.35); color: #64a8d4; }
+.genre-tag.self-help         { background: rgba(139, 212, 168, 0.15); border-color: rgba(139, 212, 168, 0.35); color: #64d4a8; }
+.genre-tag.short-stories     { background: rgba(212, 189, 139, 0.15); border-color: rgba(212, 189, 139, 0.35); color: #d4bd64; }
+.genre-tag.thriller          { background: rgba(139, 152, 212, 0.15); border-color: rgba(139, 152, 212, 0.35); color: #8b98d4; }
+.genre-tag.travel            { background: rgba(139, 194, 212, 0.15); border-color: rgba(139, 194, 212, 0.35); color: #64c2d4; }
+.genre-tag.urban-fantasy     { background: rgba(168, 139, 212, 0.15); border-color: rgba(168, 139, 212, 0.35); color: #9d7fd4; }
+.genre-tag.young-adult       { background: rgba(212, 139, 172, 0.15); border-color: rgba(212, 139, 172, 0.35); color: #d48bac; }
+
+/* Catch-all for any custom genre */
+.genre-tag.custom-genre      { background: rgba(168, 172, 212, 0.15); border-color: rgba(168, 172, 212, 0.35); color: #a8acd4; }
+
+/* Active filter state */
+.genre-tag.active {
+  box-shadow: inset 0 0 0 1px currentColor, 0 0 8px rgba(255,255,255,0.15);
+  font-weight: 600;
+}
