@@ -57,13 +57,13 @@ function getGenreClass(name) {
 function buildGenreTags(bookOrEntry) {
   let tags = [];
 
-  // Primary genre
+  // Main genre
   if (bookOrEntry.mainGenre || bookOrEntry.genre) {
     const mainG = bookOrEntry.mainGenre || bookOrEntry.genre;
     tags.push(`<span class="genre-tag ${getGenreClass(mainG)}">${mainG.trim()}</span>`);
   }
 
-  // Additional genres — ALSO as pills ✨
+  // Additional genres — ALSO as proper pill tags ✨
   if (bookOrEntry.otherGenres) {
     bookOrEntry.otherGenres.split(',').forEach(g => {
       g = g.trim();
