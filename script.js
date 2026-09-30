@@ -201,7 +201,7 @@ function renderJournalEntry(e, full = false) {
   let c = `<div class="journal-entry">
     <span class="journal-type">${e.type || 'THOUGHTS'}</span>
     <a href="journal/${e.id}" class="journal-title">${e.title}</a>
-    <p class="journal-date">${e.date || ''}</p>`;
+    <p class="journal-date">${e.date ? new Date(e.date + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : ''}</p>`;
 
   if (full) {
     c += `<div class="journal-content">${parseRichText(e.text)}</div>`;
