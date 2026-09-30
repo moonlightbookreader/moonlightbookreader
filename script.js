@@ -122,26 +122,21 @@ function renderAbout() {
 }
 
 function renderStats() {
-  const bookCountEl = document.getElementById('bookCount');
-  const genreCountEl = document.getElementById('genreCount');
+  const bookCountEl = document.getElementById('statBooks');
+  const genreCountEl = document.getElementById('statGenres');
   
-  // Make sure data exists before counting
   if (!books || books.length === 0) {
     if (bookCountEl) bookCountEl.textContent = '0';
     if (genreCountEl) genreCountEl.textContent = '0';
     return;
   }
   
-  // Count books
   if (bookCountEl) bookCountEl.textContent = books.length;
   
-  // Count unique genres
   const allGenres = new Set();
   books.forEach(b => {
-    // Main genre
     if (b.mainGenre) allGenres.add(b.mainGenre.trim().toLowerCase());
     if (b.genre) allGenres.add(b.genre.trim().toLowerCase());
-    // Additional genres — split & add each one
     if (b.otherGenres) {
       b.otherGenres.split(',').forEach(g => {
         g = g.trim().toLowerCase();
