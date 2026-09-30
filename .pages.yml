@@ -1,6 +1,6 @@
 media:
   input: content/images
-  output: /content/images
+  output: content/images
 
 content:
   - name: site
