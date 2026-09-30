@@ -231,9 +231,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderAbout();
   renderStats(); // ← Now runs AFTER data loads ✅
   
-  // ... rest stays the same
-});
-
   // Home page — show latest reviews
   const latestReviewsContainer = document.getElementById('latestReviewsContainer');
   if (latestReviewsContainer) {
