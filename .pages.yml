@@ -122,43 +122,80 @@ content:
             type: select
             multiple: true
             options:
-              - Anthologies
-              - Art
-              - Biography
-              - Children
-              - Classics
-              - Comfort Reads
-              - Contemporary
-              - Cookbook
-              - Cozy Books
-              - "Dark Fantasy"
-              - Drama
-              - "Epic Fantasy"
-              - Fantasy
-              - "Fantasy Romance"
-              - Fiction
-              - "Graphic Novel"
-              - Historical
-              - "Historical Fiction"
-              - Horror
-              - Memoir
-              - Middle Grade
-              - Mystery
-              - "New Adult"
-              - "Non-Fiction"
-              - "Paranormal Romance"
-              - Philosophy
-              - Poetry
-              - "Psychological Thriller"
-              - Religion
-              - Romance
-              - Sci-Fi
-              - Self-Help
-              - "Short Stories"
-              - Thriller
-              - Travel
-              - "Urban Fantasy"
-              - "Young Adult"
+              - label: Anthologies
+                value: Anthologies
+              - label: Art
+                value: Art
+              - label: Biography
+                value: Biography
+              - label: Children
+                value: Children
+              - label: Classics
+                value: Classics
+              - label: Comfort Reads
+                value: Comfort Reads
+              - label: Contemporary
+                value: Contemporary
+              - label: Cookbook
+                value: Cookbook
+              - label: Cozy Books
+                value: Cozy Books
+              - label: Dark Fantasy
+                value: Dark Fantasy
+              - label: Drama
+                value: Drama
+              - label: Epic Fantasy
+                value: Epic Fantasy
+              - label: Fantasy
+                value: Fantasy
+              - label: Fantasy Romance
+                value: Fantasy Romance
+              - label: Fiction
+                value: Fiction
+              - label: Graphic Novel
+                value: Graphic Novel
+              - label: Historical
+                value: Historical
+              - label: Historical Fiction
+                value: Historical Fiction
+              - label: Horror
+                value: Horror
+              - label: Memoir
+                value: Memoir
+              - label: Middle Grade
+                value: Middle Grade
+              - label: Mystery
+                value: Mystery
+              - label: New Adult
+                value: New Adult
+              - label: Non-Fiction
+                value: Non-Fiction
+              - label: Paranormal Romance
+                value: Paranormal Romance
+              - label: Philosophy
+                value: Philosophy
+              - label: Poetry
+                value: Poetry
+              - label: Psychological Thriller
+                value: Psychological Thriller
+              - label: Religion
+                value: Religion
+              - label: Romance
+                value: Romance
+              - label: Sci-Fi
+                value: Sci-Fi
+              - label: Self-Help
+                value: Self-Help
+              - label: Short Stories
+                value: Short Stories
+              - label: Thriller
+                value: Thriller
+              - label: Travel
+                value: Travel
+              - label: Urban Fantasy
+                value: Urban Fantasy
+              - label: Young Adult
+                value: Young Adult
           - name: customGenres
             label: Custom Genres (comma separated)
             type: string
@@ -167,10 +204,14 @@ content:
             label: Format
             type: select
             options:
-              - Physical
-              - "E-Book"
-              - Audiobook
-              - "ARC (Advanced Reader Copy)"
+              - label: Physical
+                value: Physical
+              - label: E-Book
+                value: E-Book
+              - label: Audiobook
+                value: Audiobook
+              - label: ARC (Advanced Reader Copy)
+                value: ARC (Advanced Reader Copy)
           - name: rating
             label: Rating (1-5)
             type: number
@@ -217,14 +258,22 @@ content:
             label: Entry Type
             type: select
             options:
-              - OBSERVATION
-              - OPINION
-              - "HOT TAKE"
-              - REFLECTION
-              - QUOTE
-              - "BOOK HAUL"
-              - RECOMMENDATION
-              - LIFE
+              - label: OBSERVATION
+                value: OBSERVATION
+              - label: OPINION
+                value: OPINION
+              - label: HOT TAKE
+                value: HOT TAKE
+              - label: REFLECTION
+                value: REFLECTION
+              - label: QUOTE
+                value: QUOTE
+              - label: BOOK HAUL
+                value: BOOK HAUL
+              - label: RECOMMENDATION
+                value: RECOMMENDATION
+              - label: LIFE
+                value: LIFE
           - name: date
             label: Date
             type: date
