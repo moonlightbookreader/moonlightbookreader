@@ -196,7 +196,10 @@ function renderStats() {
 }
 
 function renderBookCard(book, full = false) {
-  const cover = book.coverImage ? `<img src="${book.coverImage}" alt="${book.title}" class="book-cover">` : `<div class="book-cover-placeholder">📖</div>`;
+  const cover = book.coverImage 
+  ? `<img src="${book.coverImage}" alt="${book.title}" class="book-cover" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">` 
+    + `<div class="book-cover-placeholder" style="display:none;">📖</div>`
+  : `<div class="book-cover-placeholder">📖</div>`;
   const fmt = book.format ? `<span class="book-format">${book.format}</span>` : '';
   const tags = buildGenreTags(book);
   
