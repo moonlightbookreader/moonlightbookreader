@@ -224,12 +224,15 @@ function renderBooksList() {
 
 // ─── Page Load ───
 document.addEventListener('DOMContentLoaded', async () => {
-  await loadAllData();
-
+  await loadAllData(); // ← This MUST come FIRST ✅
+  
   renderProfile();
   renderSocialLinks('socialLinks');
   renderAbout();
-  renderStats();
+  renderStats(); // ← Now runs AFTER data loads ✅
+  
+  // ... rest stays the same
+});
 
   // Home page — show latest reviews
   const latestReviewsContainer = document.getElementById('latestReviewsContainer');
