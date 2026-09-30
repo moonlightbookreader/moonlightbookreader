@@ -118,9 +118,9 @@ content:
             label: Author
             type: string
           - name: category
-            label: Genres
-            type: select
-            multiple: true
+            label: Genres (tick all that apply)
+            type: string
+            list: true
             options:
               values:
                 - Anthologies
@@ -132,34 +132,34 @@ content:
                 - Contemporary
                 - Cookbook
                 - Cozy Books
-                - "Dark Fantasy"
+                - Dark Fantasy
                 - Drama
-                - "Epic Fantasy"
+                - Epic Fantasy
                 - Fantasy
-                - "Fantasy Romance"
+                - Fantasy Romance
                 - Fiction
-                - "Graphic Novel"
+                - Graphic Novel
                 - Historical
-                - "Historical Fiction"
+                - Historical Fiction
                 - Horror
                 - Memoir
                 - Middle Grade
                 - Mystery
-                - "New Adult"
-                - "Non-Fiction"
-                - "Paranormal Romance"
+                - New Adult
+                - Non-Fiction
+                - Paranormal Romance
                 - Philosophy
                 - Poetry
-                - "Psychological Thriller"
+                - Psychological Thriller
                 - Religion
                 - Romance
                 - Sci-Fi
                 - Self-Help
-                - "Short Stories"
+                - Short Stories
                 - Thriller
                 - Travel
-                - "Urban Fantasy"
-                - "Young Adult"
+                - Urban Fantasy
+                - Young Adult
           - name: customGenres
             label: Custom Genres (comma separated)
             type: string
@@ -170,9 +170,9 @@ content:
             options:
               values:
                 - Physical
-                - "E-Book"
+                - E-Book
                 - Audiobook
-                - "ARC (Advanced Reader Copy)"
+                - ARC (Advanced Reader Copy)
           - name: rating
             label: Rating (1-5)
             type: number
@@ -222,10 +222,10 @@ content:
               values:
                 - OBSERVATION
                 - OPINION
-                - "HOT TAKE"
+                - HOT TAKE
                 - REFLECTION
                 - QUOTE
-                - "BOOK HAUL"
+                - BOOK HAUL
                 - RECOMMENDATION
                 - LIFE
           - name: date
