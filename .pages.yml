@@ -118,7 +118,7 @@ content:
             label: Author
             type: string
           - name: category
-            label: Genres (hold Ctrl/Cmd to select multiple)
+            label: Genres
             type: select
             multiple: true
             options:
