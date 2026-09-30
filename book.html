@@ -23,28 +23,41 @@
         </nav>
       </header>
 
-      <p class="breadcrumb"><a href="books.html">← Back to all reviews</a></p>
-      <div id="bookDetail"></div>
-
+      <section>
+        <a href="books.html" class="back-link">← Back to Reviews</a>
+        <div id="singleBook">
+          <!-- Full review loads here -->
+          <div class="empty-state">Loading review... ✨</div>
+        </div>
+      </section>
     </div>
+
     <footer class="site-footer">
       <p><span class="handwritten">☾ Moonlight Book Reader · written under the same moon ✨</span></p>
     </footer>
   </div>
+
   <script src="script.js"></script>
   <script>
     loadAllData().then(() => {
       renderProfile();
+      renderSocialLinks('socialLinks');
+      
       const bookId = getUrlParam('id');
-      const book = books.find(b => b.id === bookId);
-      const container = document.getElementById('bookDetail');
-      if (!book) {
-        container.innerHTML = '<div class="empty-state">Book not found. <a href="books.html" style="color:var(--accent);">Back to reviews</a></div>';
-        document.title = 'Not Found — Moonlight Book Reader';
-      } else {
-        document.title = `${book.title} — Moonlight Book Reader`;
-        container.innerHTML = renderBookCard(book, true);
+      const container = document.getElementById('singleBook');
+      
+      if (!bookId) {
+        container.innerHTML = '<div class="empty-state">Book not found ✨</div>';
+        return;
       }
+      
+      const book = books.find(b => b.id === bookId);
+      if (!book) {
+        container.innerHTML = '<div class="empty-state">Book not found ✨</div>';
+        return;
+      }
+      
+      container.innerHTML = renderBookCard(book, true);
     });
   </script>
 </body>
