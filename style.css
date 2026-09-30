@@ -804,3 +804,24 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   background: rgba(212,168,87,.3);
   color: var(--text);
 }
+/* ===== Back Link Button Style ===== */
+.back-link {
+  display: inline-block;
+  padding: 0.8rem 1.8rem;
+  background: rgba(45, 35, 80, 0.6);
+  border: 1px solid rgba(168, 139, 212, 0.25);
+  border-radius: 999px;
+  color: var(--text-soft);
+  font-family: 'Caveat', cursive;
+  font-size: 1.25rem;
+  text-decoration: none;
+  margin: 1rem 0 2rem 0; /* ← Spacing above and below */
+  transition: all 0.25s ease;
+}
+
+.back-link:hover {
+  background: rgba(60, 48, 105, 0.7);
+  border-color: rgba(168, 139, 212, 0.45);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
