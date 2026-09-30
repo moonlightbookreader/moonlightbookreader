@@ -118,47 +118,48 @@ content:
             label: Author
             type: string
           - name: category
-            label: Genres (tick all that apply)
+            label: Genres
             type: select
             multiple: true
             options:
-              - Anthologies
-              - Art
-              - Biography
-              - Children
-              - Classics
-              - Comfort Reads
-              - Contemporary
-              - Cookbook
-              - Cozy Books
-              - Dark Fantasy
-              - Drama
-              - Epic Fantasy
-              - Fantasy
-              - Fantasy Romance
-              - Fiction
-              - Graphic Novel
-              - Historical
-              - Historical Fiction
-              - Horror
-              - Memoir
-              - Middle Grade
-              - Mystery
-              - New Adult
-              - Non-Fiction
-              - Paranormal Romance
-              - Philosophy
-              - Poetry
-              - Psychological Thriller
-              - Religion
-              - Romance
-              - Sci-Fi
-              - Self-Help
-              - Short Stories
-              - Thriller
-              - Travel
-              - Urban Fantasy
-              - Young Adult
+              values:
+                - Anthologies
+                - Art
+                - Biography
+                - Children
+                - Classics
+                - Comfort Reads
+                - Contemporary
+                - Cookbook
+                - Cozy Books
+                - Dark Fantasy
+                - Drama
+                - Epic Fantasy
+                - Fantasy
+                - Fantasy Romance
+                - Fiction
+                - Graphic Novel
+                - Historical
+                - Historical Fiction
+                - Horror
+                - Memoir
+                - Middle Grade
+                - Mystery
+                - New Adult
+                - Non-Fiction
+                - Paranormal Romance
+                - Philosophy
+                - Poetry
+                - Psychological Thriller
+                - Religion
+                - Romance
+                - Sci-Fi
+                - Self-Help
+                - Short Stories
+                - Thriller
+                - Travel
+                - Urban Fantasy
+                - Young Adult
           - name: customGenres
             label: Custom Genres (comma separated)
             type: string
@@ -167,10 +168,11 @@ content:
             label: Format
             type: select
             options:
-              - Physical
-              - E-Book
-              - Audiobook
-              - ARC (Advanced Reader Copy)
+              values:
+                - Physical
+                - E-Book
+                - Audiobook
+                - ARC (Advanced Reader Copy)
           - name: rating
             label: Rating (1-5)
             type: number
@@ -217,14 +219,15 @@ content:
             label: Entry Type
             type: select
             options:
-              - OBSERVATION
-              - OPINION
-              - HOT TAKE
-              - REFLECTION
-              - QUOTE
-              - BOOK HAUL
-              - RECOMMENDATION
-              - LIFE
+              values:
+                - OBSERVATION
+                - OPINION
+                - HOT TAKE
+                - REFLECTION
+                - QUOTE
+                - BOOK HAUL
+                - RECOMMENDATION
+                - LIFE
           - name: date
             label: Date
             type: date
