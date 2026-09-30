@@ -1,5 +1,81 @@
 let siteData = {}, aboutData = {}, books = [], journalEntries = [];
 
+// ─── GENRE TAG HELPERS ───
+let activeGenreFilter = null;
+
+function getGenreClass(name) {
+  if (!name) return 'custom-genre';
+  return name
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-');
+}
+
+function buildGenreTags(book) {
+  const tags = [];
+  
+  // Main Genre (supports both 'category' and 'mainGenre' for backward compatibility)
+  const mainG = book.mainGenre || book.category;
+  if (mainG) {
+    tags.push({ name: mainG.trim(), class: getGenreClass(mainG) });
+  }
+  
+  // Additional Genres (comma-separated)
+  if (book.otherGenres) {
+    book.otherGenres.split(',')
+      .map(g => g.trim())
+      .filter(g => g)
+      .forEach(name => {
+        tags.push({ name, class: getGenreClass(name) });
+      });
+  }
+  
+  if (!tags.length) return '';
+  
+  return `
+    <div class="genre-tags">
+      ${tags.map(t => `
+        <span class="genre-tag ${t.class}" data-genre="${t.name}">
+          ${t.name}
+        </span>
+      `).join('')}
+    </div>
+  `;
+}
+
+function setGenreFilter(genreName) {
+  activeGenreFilter = (activeGenreFilter === genreName) ? null : genreName;
+  renderBooksList();
+}
+
+function bookMatchesGenre(book) {
+  if (!activeGenreFilter) return true;
+  
+  const allGenres = [];
+  const mainG = book.mainGenre || book.category;
+  if (mainG) allGenres.push(mainG.trim());
+  if (book.otherGenres) {
+    book.otherGenres.split(',').map(g => g.trim()).filter(g => g).forEach(g => allGenres.push(g));
+  }
+  
+  return allGenres.includes(activeGenreFilter);
+}
+
+function attachGenreListeners() {
+  document.querySelectorAll('.genre-tag').forEach(tag => {
+    tag.addEventListener('click', () => {
+      setGenreFilter(tag.dataset.genre);
+    });
+    
+    if (tag.dataset.genre === activeGenreFilter) {
+      tag.classList.add('active');
+    } else {
+      tag.classList.remove('active');
+    }
+  });
+}
+
 async function loadAllData() {
   try {
     const [s, a, b, j] = await Promise.all([
@@ -60,8 +136,11 @@ const socialIcons = {
   youtube: `<svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>`,
   pinterest: `<svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.913 2.168-2.913 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.088.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg>`,
   letterboxd: `<svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M8.29 14.286a10.282 10.282 0 0 1-4.27 2.555V7.18a10.282 10.282 0 0 1 4.27 2.555v4.551zm11.918-6.18v8.027a10.282 10.282 0 0 1-4.27-2.556v-4.55a10.282 10.282 0 0 1 4.27-2.556zM12 18.51a9.98 9.98 0 0 0-4.27-.976v-4.551c1.355.336 2.78.514 4.27.514 1.49 0 2.915-.178 4.27-.514v4.55A9.98 9.98 0 0 0 12 18.51zm0-13.02c1.49 0 2.915.178 4.27.514v4.551a9.98 9.98 0 0 0-4.27-.977 9.98 9.98 0 0 0-4.27.977v-4.55A9.98 9.98 0 0 1 12 5.49z"/></svg>`,
-  bloglovin: `<svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24c-3.313 0-6-2.687-6-6v-4.784c0-3.312 2.687-6 6-6s6 2.688 6 6V18c0 3.313-2.687 6-6 6zm0-14.47c-1.916 0-3.47 1.554-3.47 3.47V18c0 1.916 1.554 3.47 3.47 3.47s3.47-1.554 3.47-3.47v-4.784c0-1.916-1.554-3.47-3.47-3.47zM11.094 0l2.074 1.23-2.074 3.588L9.02 1.23 11.094 0z"/></svg>`,
-  mastodon: `<svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M23.268 5.313c-.35-1.624-2.564-2.969-5.243-2.969-1.76 0-3.465.515-4.915 1.478C11.977 4.29 10.535 4.72 9 4.719c-2.758 0-5.09.97-6.618 2.748C.817 9.112 0 11.415 0 13.907c0 4.408 2.855 8.125 6.822 9.545.763.274 1.579.513 2.437.712 1.31.296 2.686.458 4.087.458.835 0 1.657-.048 2.46-.143a3.38 3.38 0 0 0 1.722-1.298c.064-.1.12-.203.17-.309.048-.103.09-.208.125-.314.082-.246.145-.504.188-.77.116-.73.174-1.476.174-2.227v-.793c0-1.553-.026-3.025-.067-4.418-.017-.588-.078-1.166-.183-1.732zm-4.057 5.447c-.096 1.253-.28 2.47-.547 3.647-.195.852-.424 1.66-.688 2.42-.192.55-.423 1.073-.69 1.567-.072.13-.148.257-.227.38-.066.102-.136.202-.21.3-.074.097-.152.19-.233.28-.088.096-.18.186-.275.272-.102.093-.208.18-.318.262-.114.085-.232.164-.354.238-.127.077-.259.148-.394.213-.14.068-.285.128-.433.182-.152.055-.309.1-.469.138-.164.04-.332.07-.503.09-.174.02-.351.03-.53.03-.187 0-.372-.01-.555-.03-.185-.02-.367-.05-.545-.09-.178-.04-.353-.09-.523-.148-.168-.058-.33-.127-.486-.206-.156-.078-.304-.167-.444-.265-.138-.097-.267-.205-.387-.322-.117-.114-.226-.238-.326-.37-.102-.134-.193-.277-.274-.428-.082-.15-.153-.31-.213-.476-.06-.166-.11-.34-.148-.52-.04-.18-.068-.366-.085-.557-.018-.19-.027-.385-.027-.583 0-.198.01-.393.027-.583.017-.19.046-.376.085-.557.038-.18.088-.354.148-.52.06-.166.13-.326.213-.476.08-.15.172-.293.274-.428.1-.132.209-.256.326-.37.12-.117.25-.225.387-.322.14-.098.288-.187.444-.265.156-.08.318-.148.486-.206.17-.06.345-.108.523-.148.178-.04.36-.07.545-.09.183-.02.368-.03.555-.03.179 0 .356.01.53.03.171.02.339.05.503.09.16.038.317.083.469.138.148.054.293.114.433.182.135.065.267.136.394.213.122.074.24.153.354.238.11.082.216.169.318.262.095.086.187.176.275.272.081.09.159.183.233.28.074.098.144.198.21.3.079.123.155.25.227.38.267.494.498 1.017.69 1.567.264.76.452 1.604.547 2.42.09.76.135 1.54.135 2.32 0 .78-.045 1.56-.135 2.32z"/></svg>`,
+  redbubble: `<svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><path d="M9.5 8.5h5v1h-5zm0 2h5v1h-5zm0 2h3v1h-3z"/></svg>`,
+  amazon: `<svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M15.93 17.09c-2.31 1.06-4.73 1.58-7.22 1.58-3.36 0-6.55-1.24-9.08-3.48-.19-.17-.02-.42.21-.28 2.59 1.5 5.78 2.41 9.09 2.41 2.24 0 4.69-.49 6.95-1.42.34-.14.63.22.05.58z"/><path d="M16.54 15.47c-.29-.36-1.89-.17-2.61-.1-.22.02-.25-.17-.06-.31.13-.09.38-.26.58-.35.19-.09.4-.27.57-.4.23-.17.4-.39.52-.64.12-.25.18-.52.18-.79 0-.42-.09-.79-.27-1.11-.18-.32-.44-.57-.76-.74-.32-.17-.68-.25-1.08-.25-.58 0-1.12.11-1.6.33-.48.22-.88.53-1.19.93-.31.4-.53.87-.65 1.4-.12.53-.18 1.09-.18 1.66 0 .57.06 1.12.18 1.65.12.53.34 1 .65 1.4.31.4.71.73 1.19.95.48.22 1.02.33 1.6.33.53 0 1.06-.07 1.58-.21.52-.14.99-.35 1.41-.63.42-.28.76-.62 1.02-1.02.26-.4.39-.85.39-1.33 0-.37-.07-.7-.21-1-.14-.3-.34-.54-.6-.72z"/><path d="M19.74 14.53c-.35-.45-.77-.82-1.26-1.1-.49-.28-1.03-.42-1.62-.42-.52 0-1.01.09-1.47.27-.46.18-.87.43-1.22.75-.35.32-.63.7-.83 1.14-.2.44-.3.92-.3 1.43 0 .51.1 1 .3 1.43.2.43.48.82.83 1.14.35.32.76.57 1.22.75.46.18.95.27 1.47.27.59 0 1.13-.14 1.62-.42.49-.28.91-.65 1.26-1.1.35-.45.6-.96.75-1.52.15-.56.23-1.14.23-1.74 0-.6-.08-1.18-.23-1.74-.15-.56-.4-1.07-.75-1.52z"/></svg>`,
+  amazonWishlist: `<svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`,
+  etsy: `<svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-.5 19H8.5v-5H6.5V9h2v-2.5c0-1.93 1.57-3.5 3.5-3.5h2v4h-1c-.55 0-1 .45-1 1V9h2.5v5H12v5z"/></svg>`,
+  kofi: `<svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`,
   email: `<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`
 };
 
@@ -104,13 +183,24 @@ function renderProfile() {
 function renderStats() {
   const b = document.getElementById('statBooks'), g = document.getElementById('statGenres');
   if (b) b.textContent = books.length;
-  if (g) g.textContent = [...new Set(books.map(x => x.category))].length;
+  // Count all genres including additional ones
+  const allGenres = new Set();
+  books.forEach(book => {
+    const mainG = book.mainGenre || book.category;
+    if (mainG) allGenres.add(mainG.trim());
+    if (book.otherGenres) {
+      book.otherGenres.split(',').map(g => g.trim()).filter(g => g).forEach(g => allGenres.add(g));
+    }
+  });
+  if (g) g.textContent = allGenres.size;
 }
 
 function renderBookCard(book, full = false) {
   const cover = book.coverImage ? `<img src="${book.coverImage}" alt="${book.title}" class="book-cover">` : `<div class="book-cover-placeholder">📖</div>`;
   const fmt = book.format ? `<span class="book-format">${book.format}</span>` : '';
-  let c = `<div class="book-card"><div class="book-header">${cover}<div class="book-meta"><a href="book.html?id=${book.id}" class="book-title">${book.title}</a><p class="book-author">by ${book.author}</p><div class="book-rating">${renderStars(book.rating || 0)}</div><div class="book-tags"><span class="book-category">${book.category}</span>${fmt}</div></div></div>`;
+  const tags = buildGenreTags(book);
+  
+  let c = `<div class="book-card"><div class="book-header">${cover}<div class="book-meta"><a href="book.html?id=${book.id}" class="book-title">${book.title}</a><p class="book-author">by ${book.author}</p><div class="book-rating">${renderStars(book.rating || 0)}</div>${tags}<div class="book-tags">${fmt}</div></div></div>`;
   if (full) {
     if (book.excerpt) c += `<p class="book-excerpt">"${book.excerpt}"</p>`;
     if (book.fullReview) c += `<div class="book-full-content">${book.fullReview}</div>`;
@@ -125,6 +215,20 @@ function renderBookCard(book, full = false) {
     c += `<a href="book.html?id=${book.id}" class="read-more">Read full review →</a>`;
   }
   return c + `</div>`;
+}
+
+function renderBooksList() {
+  const container = document.getElementById('booksContainer');
+  if (!container) return;
+  container.innerHTML = '';
+  
+  books.forEach(book => {
+    if (!bookMatchesGenre(book)) return;
+    container.innerHTML += renderBookCard(book, false);
+  });
+  
+  attachGenreListeners();
+  renderStats();
 }
 
 function renderJournalEntry(e, full = false) {
@@ -154,4 +258,30 @@ function renderAbout() {
 
 function getUrlParam(n) { return new URLSearchParams(window.location.search).get(n); }
 
-document.addEventListener('DOMContentLoaded', () => { generateStars(85); addMoonDecorations(); });
+document.addEventListener('DOMContentLoaded', async () => {
+  generateStars(85);
+  addMoonDecorations();
+  await loadAllData();
+  
+  renderProfile();
+  renderSocialLinks('socialLinks');
+  renderAbout();
+  renderStats();
+  
+  // Render books list if on home/books page
+  if (document.getElementById('booksContainer')) {
+    renderBooksList();
+  }
+  
+  // Single book page
+  const bookId = getUrlParam('id');
+  if (bookId && books.length > 0) {
+    const book = books.find(b => b.id === bookId);
+    if (book) {
+      const singleContainer = document.getElementById('singleBook');
+      if (singleContainer) {
+        singleContainer.innerHTML = renderBookCard(book, true);
+      }
+    }
+  }
+});
