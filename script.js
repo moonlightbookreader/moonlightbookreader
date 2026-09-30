@@ -1,15 +1,32 @@
-// ─── Parse Markdown: links, bold, line breaks ───
 function parseRichText(text) {
   if (!text) return '';
 
   let parsed = text;
 
-  // Convert [link text](url) → clickable link
-  parsed = parsed.replace(/\[([^\]]+)\]\(([^)]+)\)/g,
-    '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+  // Remove stray ++ markers
+  parsed = parsed.replace(/\+\+/g, '');
 
-  // Convert **bold text** → bold
+  // Blockquotes: lines starting with >
+  parsed = parsed.split('\n').map(line => {
+    if (line.trim().startsWith('>')) {
+      const content = line.trim().replace(/^>\s*/, '');
+      return `<blockquote>${content}</blockquote>`;
+    }
+    return line;
+  }).join('\n');
+
+  // Convert ***bold italic*** → bold + italic
+  parsed = parsed.replace(/\*\*\*([^*]+)\*\*\*/g, '<em><strong>$1</strong></em>');
+
+  // Convert **bold** → bold
   parsed = parsed.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+
+  // Convert *italic* → italic
+  parsed = parsed.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+
+  // Convert [link text](url) → clickable link
+  parsed = parsed.replace(/\[([^\]]+)\]\(([^)]+)\)/g, 
+    '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
 
   // Convert line breaks
   parsed = parsed.replace(/\n/g, '<br>');
