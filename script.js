@@ -1,11 +1,8 @@
 function parseRichText(text) {
   if (!text) return '';
-
   let parsed = text;
-
   // Remove stray ++ markers
   parsed = parsed.replace(/\+\+/g, '');
-
   // Blockquotes: lines starting with >
   parsed = parsed.split('\n').map(line => {
     if (line.trim().startsWith('>')) {
@@ -14,23 +11,17 @@ function parseRichText(text) {
     }
     return line;
   }).join('\n');
-
   // Convert ***bold italic*** → bold + italic
   parsed = parsed.replace(/\*\*\*([^*]+)\*\*\*/g, '<em><strong>$1</strong></em>');
-
   // Convert **bold** → bold
   parsed = parsed.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-
   // Convert *italic* → italic
   parsed = parsed.replace(/\*([^*]+)\*/g, '<em>$1</em>');
-
   // Convert [link text](url) → clickable link
   parsed = parsed.replace(/\[([^\]]+)\]\(([^)]+)\)/g, 
     '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
-
   // Convert line breaks
   parsed = parsed.replace(/\n/g, '<br>');
-
   return parsed;
 }
 
@@ -56,19 +47,16 @@ function getGenreClass(name) {
 
 function buildGenreTags(bookOrEntry) {
   let tags = [];
-
   if (bookOrEntry.mainGenre || bookOrEntry.genre) {
     const mainG = bookOrEntry.mainGenre || bookOrEntry.genre;
     tags.push(`<span class="genre-tag ${getGenreClass(mainG)}">${mainG.trim()}</span>`);
   }
-
   if (bookOrEntry.otherGenres) {
     bookOrEntry.otherGenres.split(',').forEach(g => {
       g = g.trim();
       if (g) tags.push(`<span class="genre-tag ${getGenreClass(g)}">${g}</span>`);
     });
   }
-
   return tags.join('');
 }
 
@@ -81,13 +69,10 @@ async function loadAllData() {
       fetch('content/journal.json'),
       fetch('content/about.json').catch(() => ({ ok: false }))
     ]);
-
     if (siteRes.ok) siteData = await siteRes.json();
     if (aboutRes.ok) aboutData = await aboutRes.json();
-
     const booksData = await booksRes.json();
     books = booksData.entries || [];
-
     const journalData = await journalRes.json();
     journalEntries = journalData.entries || [];
   } catch (err) {
@@ -151,7 +136,6 @@ function renderBookCard(book, full = false) {
     ? `<img src="${book.coverImage}" alt="${book.title}" class="book-cover" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">`
       + `<div class="book-cover-placeholder" style="display:none;">📖</div>`
     : `<div class="book-cover-placeholder">📖</div>`;
-
   const tags = buildGenreTags(book);
   const stars = '★'.repeat(book.rating || 0) + '☆'.repeat(5 - (book.rating || 0));
   
@@ -159,13 +143,12 @@ function renderBookCard(book, full = false) {
   const fmt = book.format 
     ? `<p class="book-format-line"><strong>Book Format:</strong> <span class="book-format">${book.format}</span></p>` 
     : '';
-
   // Dates — elegant display
   const startDate = book.startDate 
-    ? `<span class="reading-date">Started: ${new Date(book.startDate).toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' })}</span>` 
+    ? `<span class="reading-date">Started: ${new Date(book.startDate + 'T00:00:00').toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' })}</span>` 
     : '';
   const endDate = book.date 
-    ? `<span class="reading-date">Finished: ${new Date(book.date).toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' })}</span>` 
+    ? `<span class="reading-date">Finished: ${new Date(book.date + 'T00:00:00').toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' })}</span>` 
     : '';
   const dateLine = (startDate || endDate) 
     ? `<div class="reading-dates">${startDate}${startDate && endDate ? ' · ' : ''}${endDate}</div>` 
@@ -193,7 +176,6 @@ function renderBookCard(book, full = false) {
     if (book.excerpt) c += `<p class="book-excerpt">${book.excerpt}</p>`;
     c += `<a href="book/${book.id}" class="read-more">Read full review →</a>`;
   }
-
   return c + `</div>`;
 }
 
@@ -213,34 +195,65 @@ function renderJournalEntry(e, full = false) {
     c += `<p style="color:var(--text-soft);margin-bottom:.5rem;">${txt.length > 220 ? txt.substring(0, 220) + '...' : txt}</p>`;
     c += `<a href="journal/${e.id}" class="read-more">Continue reading →</a>`;
   }
-
   return c + `</div>`;
 }
 
 function renderBooksList() {
   const container = document.getElementById('booksContainer');
   if (!container) return;
-
   const filtered = activeGenreFilter
     ? books.filter(b => getGenreClass(b.mainGenre || '') === activeGenreFilter)
     : books;
-
   if (filtered.length === 0) {
     container.innerHTML = '<div class="empty-state">No reviews yet... your first book awaits ✨</div>';
     return;
   }
-
   container.innerHTML = filtered.map(book => renderBookCard(book, false)).join('');
+}
+
+// ─── Starry Background Generator ✨ ───
+function generateStars(count = 80) {
+  const container = document.querySelector('.stars-bg');
+  if (!container) return;
+  
+  for (let i = 0; i < count; i++) {
+    const star = document.createElement('div');
+    star.classList.add('twinkle');
+    star.style.setProperty('--dur', `${(Math.random() * 3) + 2}s`);
+    star.style.setProperty('--delay', `${Math.random() * 4}s`);
+    star.style.left = `${Math.random() * 100}%`;
+    star.style.top = `${Math.random() * 100}%`;
+    container.appendChild(star);
+  }
+}
+
+function addMoonDecorations(count = 6) {
+  const container = document.querySelector('.stars-bg');
+  if (!container) return;
+  
+  const moons = ['☾', '✧', '☽', '✦', '☆', '⁂'];
+  for (let i = 0; i < count; i++) {
+    const moon = document.createElement('div');
+    moon.classList.add('moon-deco');
+    moon.textContent = moons[Math.floor(Math.random() * moons.length)];
+    moon.style.left = `${Math.random() * 90 + 5}%`;
+    moon.style.top = `${Math.random() * 90 + 5}%`;
+    container.appendChild(moon);
+  }
 }
 
 // ─── Page Load ───
 document.addEventListener('DOMContentLoaded', async () => {
-  await loadAllData(); // ← This MUST come FIRST ✅
+  await loadAllData(); // MUST be FIRST ✅
   
   renderProfile();
   renderSocialLinks('socialLinks');
   renderAbout();
-  renderStats(); // ← Now runs AFTER data loads ✅
+  renderStats();
+  
+  // Stars & Moons ✨
+  generateStars();
+  addMoonDecorations();
   
   // Home page — show latest reviews
   const latestReviewsContainer = document.getElementById('latestReviewsContainer');
