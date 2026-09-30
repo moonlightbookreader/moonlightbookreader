@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Redirecting...</title>
+  <script>
+    // Extract path and convert to query-based routing
+    (function() {
+      var path = window.location.pathname;
+      var repo = '/moonlightbookreader/';
+      
+      // Remove repo prefix if present
+      if (path.indexOf(repo) === 0) path = path.slice(repo.length);
+      
+      var parts = path.split('/').filter(Boolean);
+      
+      // Route: book/xxx → book.html?id=xxx
+      if (parts[0] === 'book' && parts[1]) {
+        window.location.replace(repo + 'book.html?id=' + encodeURIComponent(parts[1]));
+        return;
+      }
+      
+      // Route: journal/xxx → journal-entry.html?id=xxx
+      if (parts[0] === 'journal' && parts[1]) {
+        window.location.replace(repo + 'journal-entry.html?id=' + encodeURIComponent(parts[1]));
+        return;
+      }
+      
+      // Fallback — go home
+      window.location.replace(repo);
+    })();
+  </script>
+  <noscript>Redirecting... <a href="/moonlightbookreader/">Go home</a></noscript>
+</head>
+</html>
