@@ -26,32 +26,33 @@
       <section>
         <div class="section-header">
           <span class="section-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--accent)" stroke="var(--accent)" stroke-width="1">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
             </svg>
           </span>
-          <h2>My Book Reviews</h2>
-          <span class="handwritten">— thoughts from my reading journal</span>
+          <h2>Book Reviews</h2>
+          <span class="handwritten">— stories loved under moonlight</span>
         </div>
-        <div id="allBooks"></div>
-      </section>
 
+        <div id="booksContainer">
+          <!-- Book cards + genre tags/filter will appear here -->
+          <div class="empty-state">Loading reviews... ✨</div>
+        </div>
+      </section>
     </div>
+
     <footer class="site-footer">
       <p><span class="handwritten">☾ Moonlight Book Reader · written under the same moon ✨</span></p>
     </footer>
   </div>
+
   <script src="script.js"></script>
   <script>
     loadAllData().then(() => {
       renderProfile();
-      const container = document.getElementById('allBooks');
-      if (books.length === 0) {
-        container.innerHTML = '<div class="empty-state">No reviews yet... your first book awaits ✨</div>';
-      } else {
-        container.innerHTML = books.map(b => renderBookCard(b, false)).join('');
-      }
+      renderSocialLinks('socialLinks');
+      renderStats();
+      renderBooksList(); // This includes genre tags + filter automatically
     });
   </script>
 </body>
