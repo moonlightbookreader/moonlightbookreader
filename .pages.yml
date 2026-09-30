@@ -180,6 +180,10 @@ content:
           - name: date
             label: Date Finished
             type: date
+          - name: startDate
+            label: Date Started
+            type: date
+            required: false
           - name: coverImage
             label: Book Cover Image
             type: image
