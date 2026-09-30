@@ -63,7 +63,7 @@ function buildGenreTags(bookOrEntry) {
     tags.push(`<span class="genre-tag ${getGenreClass(mainG)}">${mainG.trim()}</span>`);
   }
 
-  // Additional genres (comma-separated)
+  // Additional genres — ALSO as pills ✨
   if (bookOrEntry.otherGenres) {
     bookOrEntry.otherGenres.split(',').forEach(g => {
       g = g.trim();
@@ -141,22 +141,39 @@ function renderBookCard(book, full = false) {
       + `<div class="book-cover-placeholder" style="display:none;">📖</div>`
     : `<div class="book-cover-placeholder">📖</div>`;
 
-  const fmt = book.format ? `<span class="book-format">${book.format}</span>` : '';
   const tags = buildGenreTags(book);
   const stars = '★'.repeat(book.rating || 0) + '☆'.repeat(5 - (book.rating || 0));
+  
+  // Format line — on its own row
+  const fmt = book.format 
+    ? `<p class="book-format-line"><strong>Book Format:</strong> <span class="book-format">${book.format}</span></p>` 
+    : '';
+
+  // Dates — elegant display
+  const startDate = book.startDate 
+    ? `<span class="reading-date">Started: ${new Date(book.startDate).toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' })}</span>` 
+    : '';
+  const endDate = book.date 
+    ? `<span class="reading-date">Finished: ${new Date(book.date).toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' })}</span>` 
+    : '';
+  const dateLine = (startDate || endDate) 
+    ? `<div class="reading-dates">${startDate}${startDate && endDate ? ' · ' : ''}${endDate}</div>` 
+    : '';
 
   let c = `<div class="book-card"><div class="book-header">${cover}<div class="book-meta">
     <a href="book/${book.id}" class="book-title">${book.title}</a>
     <p class="book-author">by ${book.author}</p>
     <div class="book-rating">${stars}</div>
-    <div class="book-tags">${tags}${fmt}</div>
+    <div class="book-tags">${tags}</div>
+    ${fmt}
+    ${dateLine}
   </div></div>`;
 
   if (full) {
     if (book.excerpt) c += `<p class="book-excerpt">${book.excerpt}</p>`;
     if (book.fullReview) c += `<div class="book-full-content">${parseRichText(book.fullReview)}</div>`;
     if (book.highlights && book.highlights.length) {
-      c += `<ul class="book-highlights"><strong style="color:var(--accent);font-family:'Playfair Display',serif;font-style:italic;">Highlights</strong>`;
+      c += `<ul class="book-highlights"><strong style="color:var(--accent);font-family:'Playfair Display',serif;font-style:italic;">Quotes</strong>`;
       book.highlights.forEach(h => { c += `<li>${h}</li>`; });
       c += `</ul>`;
     }
