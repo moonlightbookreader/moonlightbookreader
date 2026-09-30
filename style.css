@@ -888,3 +888,15 @@ nav a:hover::after, nav a.active::after {
   color: #f0e6ff;
   transform: translateX(-3px);
 }
+.book-format-line {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+.reading-dates {
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  font-style: italic;
+}
