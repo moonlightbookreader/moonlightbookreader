@@ -1,3 +1,11 @@
 {
-  "entries": []
+  "entries": [
+    {
+      "id": "welcome",
+      "title": "Welcome",
+      "type": "LIFE",
+      "date": "2026-09-30",
+      "text": "Welcome to my little corner"
+    }
+  ]
 }
