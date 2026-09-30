@@ -124,15 +124,33 @@ function renderAbout() {
 function renderStats() {
   const bookCountEl = document.getElementById('bookCount');
   const genreCountEl = document.getElementById('genreCount');
-  if (bookCountEl) bookCountEl.textContent = books.length;
-  if (genreCountEl) {
-    const allGenres = new Set();
-    books.forEach(b => {
-      if (b.mainGenre) allGenres.add(b.mainGenre.trim().toLowerCase());
-      if (b.otherGenres) b.otherGenres.split(',').forEach(g => allGenres.add(g.trim().toLowerCase()));
-    });
-    genreCountEl.textContent = allGenres.size;
+  
+  // Make sure data exists before counting
+  if (!books || books.length === 0) {
+    if (bookCountEl) bookCountEl.textContent = '0';
+    if (genreCountEl) genreCountEl.textContent = '0';
+    return;
   }
+  
+  // Count books
+  if (bookCountEl) bookCountEl.textContent = books.length;
+  
+  // Count unique genres
+  const allGenres = new Set();
+  books.forEach(b => {
+    // Main genre
+    if (b.mainGenre) allGenres.add(b.mainGenre.trim().toLowerCase());
+    if (b.genre) allGenres.add(b.genre.trim().toLowerCase());
+    // Additional genres — split & add each one
+    if (b.otherGenres) {
+      b.otherGenres.split(',').forEach(g => {
+        g = g.trim().toLowerCase();
+        if (g) allGenres.add(g);
+      });
+    }
+  });
+  
+  if (genreCountEl) genreCountEl.textContent = allGenres.size;
 }
 
 function renderBookCard(book, full = false) {
