@@ -118,48 +118,49 @@ content:
             label: Author
             type: string
           - name: category
-            label: Genres
-            type: select
-            multiple: true
-            options:
-              values:
-                - Anthologies
-                - Art
-                - Biography
-                - Children
-                - Classics
-                - Comfort Reads
-                - Contemporary
-                - Cookbook
-                - Cozy Books
-                - Dark Fantasy
-                - Drama
-                - Epic Fantasy
-                - Fantasy
-                - Fantasy Romance
-                - Fiction
-                - Graphic Novel
-                - Historical
-                - Historical Fiction
-                - Horror
-                - Memoir
-                - Middle Grade
-                - Mystery
-                - New Adult
-                - Non-Fiction
-                - Paranormal Romance
-                - Philosophy
-                - Poetry
-                - Psychological Thriller
-                - Religion
-                - Romance
-                - Sci-Fi
-                - Self-Help
-                - Short Stories
-                - Thriller
-                - Travel
-                - Urban Fantasy
-                - Young Adult
+            label: Genres (tick all that apply)
+            type: list
+            field:
+              type: select
+              options:
+                values:
+                  - Anthologies
+                  - Art
+                  - Biography
+                  - Children
+                  - Classics
+                  - Comfort Reads
+                  - Contemporary
+                  - Cookbook
+                  - Cozy Books
+                  - Dark Fantasy
+                  - Drama
+                  - Epic Fantasy
+                  - Fantasy
+                  - Fantasy Romance
+                  - Fiction
+                  - Graphic Novel
+                  - Historical
+                  - Historical Fiction
+                  - Horror
+                  - Memoir
+                  - Middle Grade
+                  - Mystery
+                  - New Adult
+                  - Non-Fiction
+                  - Paranormal Romance
+                  - Philosophy
+                  - Poetry
+                  - Psychological Thriller
+                  - Religion
+                  - Romance
+                  - Sci-Fi
+                  - Self-Help
+                  - Short Stories
+                  - Thriller
+                  - Travel
+                  - Urban Fantasy
+                  - Young Adult
           - name: customGenres
             label: Custom Genres (comma separated)
             type: string
