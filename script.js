@@ -1,3 +1,22 @@
+// ─── Parse Markdown: links, bold, line breaks ───
+function parseRichText(text) {
+  if (!text) return '';
+
+  let parsed = text;
+
+  // Convert [link text](url) → clickable link
+  parsed = parsed.replace(/\[([^\]]+)\]\(([^)]+)\)/g, 
+    '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+
+  // Convert **bold text** → bold
+  parsed = parsed.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+
+  // Convert line breaks
+  parsed = parsed.replace(/\n/g, '<br>');
+
+  return parsed;
+}
+
 let siteData = {}, aboutData = {}, books = [], journalEntries = [];
 
 // ─── GENRE TAG HELPERS ───
@@ -206,7 +225,7 @@ function renderBookCard(book, full = false) {
   let c = `<div class="book-card"><div class="book-header">${cover}<div class="book-meta"><a href="book.html?id=${book.id}" class="book-title">${book.title}</a><p class="book-author">by ${book.author}</p><div class="book-rating">${renderStars(book.rating || 0)}</div>${tags}<div class="book-tags">${fmt}</div></div></div>`;
   if (full) {
     if (book.excerpt) c += `<p class="book-excerpt">"${book.excerpt}"</p>`;
-    if (book.fullReview) c += `<div class="book-full-content">${book.fullReview}</div>`;
+    if (book.fullReview) c += `<div class="book-full-content">${parseRichText(book.fullReview)}</div>`;
     if (book.highlights && book.highlights.length) {
       c += `<ul class="book-highlights"><strong style="color:var(--accent);font-family:'Playfair Display',serif;font-style:italic;">Highlights</strong>`;
       book.highlights.forEach(h => { c += `<li>${h}</li>`; });
@@ -235,16 +254,23 @@ function renderBooksList() {
 }
 
 function renderJournalEntry(e, full = false) {
-  let c = `<div class="journal-entry"><span class="journal-type">${e.type}</span><a href="journal-entry.html?id=${e.id}" class="journal-title">${e.title}</a><p class="journal-date">${formatDate(e.date)}</p>`;
+  let c = `<div class="journal-entry"><span class="journal-type">${e.type}</span><a href="journal-entry.html?id=${e.id}" class="journal-title">${e.title}</a>`;
+
   if (full) {
-    c += `<div class="journal-content">${e.text}</div>`;
+    // Full entry — show formatted links & bold ✨
+    c += `<div class="journal-content">${parseRichText(e.text)}</div>`;
+
     if (e.attribution) c += `<p class="journal-attribution">— ${e.attribution}</p>`;
   } else {
-    const t = document.createElement('div'); t.innerHTML = e.text;
+    // Preview — show clean plain text 📝
+    const t = document.createElement('div');
+    t.innerHTML = parseRichText(e.text);
     const txt = t.textContent || '';
+
     c += `<p style="color:var(--text-soft);margin-bottom:.5rem;">${txt.length > 220 ? txt.substring(0, 220) + '...' : txt}</p>`;
     c += `<a href="journal-entry.html?id=${e.id}" class="read-more">Continue reading →</a>`;
   }
+
   return c + `</div>`;
 }
 
