@@ -46,24 +46,22 @@ function getUrlParam(name) {
 let activeGenreFilter = null;
 
 function getGenreClass(name) {
-  if (!name) return 'genre-custom';
+  if (!name) return 'custom-genre';
   return name
     .trim()
     .toLowerCase()
-    .replace(/[^a-z0-9\-]/g, '')
+    .replace(/[^a-z0-9\- ]/g, '')
     .replace(/\s+/g, '-');
 }
 
 function buildGenreTags(bookOrEntry) {
   let tags = [];
 
-  // Main genre
   if (bookOrEntry.mainGenre || bookOrEntry.genre) {
     const mainG = bookOrEntry.mainGenre || bookOrEntry.genre;
     tags.push(`<span class="genre-tag ${getGenreClass(mainG)}">${mainG.trim()}</span>`);
   }
 
-  // Additional genres — ALSO as proper pill tags ✨
   if (bookOrEntry.otherGenres) {
     bookOrEntry.otherGenres.split(',').forEach(g => {
       g = g.trim();
