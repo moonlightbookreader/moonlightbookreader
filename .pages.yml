@@ -1,7 +1,6 @@
 media:
   input: content/images
   output: content/images
-
 content:
   - name: site
     label: Site Profile & Social
@@ -78,7 +77,6 @@ content:
         label: Email Address
         type: string
         required: false
-
   - name: about
     label: About Page
     type: file
@@ -97,7 +95,6 @@ content:
       - name: signoff
         label: Sign-off Line
         type: string
-
   - name: books
     label: Book Reviews
     type: file
@@ -111,6 +108,11 @@ content:
           - name: id
             label: URL ID (no spaces)
             type: string
+          - name: featured
+            label: Mark as Featured Review
+            type: boolean
+            required: false
+            default: false
           - name: title
             label: Book Title
             type: string
@@ -201,7 +203,6 @@ content:
           - name: verdict
             label: Final Verdict
             type: text
-
   - name: journal
     label: Journal Entries
     type: file
