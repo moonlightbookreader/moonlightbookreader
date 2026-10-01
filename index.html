@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Moonlight Book Reader — Home</title>
   <link rel="icon" type="image/png" href="favicon.png" />
-  <link rel="stylesheet" href="style.css?v=4" />
+  <link rel="stylesheet" href="style.css?v=5" />
 </head>
 <body>
   <div class="stars-bg"></div>
@@ -70,7 +70,7 @@
         </div>
       </section>
 
-      <!-- ⭐ Featured Review — GOLDEN FRAME + 3D BOOK -->
+      <!-- ⭐ Featured Review — EXACT MATCH STRUCTURE -->
       <section class="featured-section">
         <div class="featured-review">
           <div class="featured-book-wrap">
@@ -92,10 +92,15 @@
               <a href="book.html?id=the-midnight-library" class="btn btn-primary featured-btn">Read Full Review →</a>
             </div>
             
-            <!-- ✅ GOLDEN ORNATE FRAME + 3D BOOK MOCKUP -->
+            <!-- ✅ GOLDEN FRAME + 3D BOOK — CORRECT IMAGE PATH -->
             <div class="book-frame-wrapper">
               <div class="golden-ornate-frame"></div>
-              <img src="content/images/midnight-library-cover.jpg" alt="The Midnight Library" class="featured-book-3d" onerror="this.src='https://via.placeholder.com/220x330/2a1a52/d4af37?text=📖'"/>
+              <img 
+                src="content/images/midnight-library.jpg" 
+                alt="The Midnight Library" 
+                class="featured-book-3d"
+                onerror="this.style.display='none'"
+              />
             </div>
           </div>
         </div>
@@ -152,6 +157,6 @@
       }
     }
   </script>
-  <script src="script.js?v=4"></script>
+  <script src="script.js?v=5"></script>
 </body>
 </html>
