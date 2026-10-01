@@ -242,34 +242,40 @@ function renderBooksList() {
   }
   container.innerHTML = filtered.map(book => renderBookCard(book, false)).join('');
 }
-// --- ⭐ Featured Review — CELESTIAL FRAME ✨ ---
+// --- ⭐ Featured Review — CELESTIAL EMBRACE FRAME ✨ ---
 function renderFeaturedReview() {
   const featured = books.find(b => b.featured === true);
   const section = document.getElementById('featuredSection');
   const container = document.getElementById('featuredContainer');
+
   if (!section || !container) return;
+
   if (!featured) {
     section.style.display = 'none';
     return;
   }
+
   section.style.display = 'block';
-  
-  // Get genres properly
+
+  // Build genre pills properly
   const genrePills = [];
-  if (featured.mainGenre) genrePills.push(`<span class="genre-pill">${featured.mainGenre.trim()}</span>`);
+  if (featured.mainGenre) {
+    genrePills.push(`<span class="genre-pill">${featured.mainGenre.trim()}</span>`);
+  }
   if (featured.otherGenres) {
     featured.otherGenres.split(',').forEach(g => {
       g = g.trim();
       if (g) genrePills.push(`<span class="genre-pill">${g}</span>`);
     });
   }
-  
+
+  // ✅ COMPLETE HTML WITH ALL 4 DECORATION DIVS ✅
   container.innerHTML = `
     <div class="featured-book-wrap">
       <div class="featured-book-container">
-        <!-- Left sparkles & glow decoration -->
+        <!-- LEFT SIDE — embraces the spine -->
         <div class="featured-decoration-left"></div>
-        
+
         <!-- The book cover -->
         <div class="featured-book-mockup">
           <img src="${featured.coverImage || 'hero-image.jpg'}" 
@@ -278,19 +284,19 @@ function renderFeaturedReview() {
                class="featured-cover" />
           <div class="book-spine-glow"></div>
         </div>
-        
-        <!-- Right moon & stars decoration -->
+
+        <!-- RIGHT SIDE — moon + stars running vertically -->
         <div class="featured-decoration-right">
           <span class="moon">☾</span>
           <span class="star">✦</span>
           <span class="star">✧</span>
           <span class="star">✦</span>
         </div>
-        
-        <!-- Bottom sparkle line -->
+
+        <!-- BOTTOM — sparkle border -->
         <div class="featured-decoration-bottom">✧ ✦ ☾ ✦ ✧</div>
       </div>
-      
+
       <div class="featured-content">
         <span class="featured-tag">⭐ Featured Review</span>
         <h3 class="featured-title">${featured.title}</h3>
