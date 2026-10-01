@@ -1,18 +1,21 @@
 // ==============================
 // 🌙 MOONLIGHT BOOK READER — SCRIPT
-// Preserved original functions + added: Celestial Frame Decorations, 4 Journal Cards, Auto Featured
+// Paths corrected: journal-icons → content/images/journal-icons
+// Cleaned: stray moon decorations removed
 // ==============================
-// --- Icon Mapping ---
+
+// --- Icon Mapping — ✅ PATH FIXED ---
 const iconMap = {
-  'OBSERVATION': 'images/journal-icons/icon-observation.png',
-  'OPINION': 'images/journal-icons/icon-opinion.png',
-  'HOT TAKE': 'images/journal-icons/icon-hottake.png',
-  'REFLECTION': 'images/journal-icons/icon-reflection.png',
-  'QUOTE': 'images/journal-icons/icon-quote.png',
-  'BOOK HAUL': 'images/journal-icons/icon-bookhaul.png',
-  'RECOMMENDATION': 'images/journal-icons/icon-recommendation.png',
-  'LIFE': 'images/journal-icons/icon-life.png'
+  'OBSERVATION': 'content/images/journal-icons/icon-observation.png',
+  'OPINION': 'content/images/journal-icons/icon-opinion.png',
+  'HOT TAKE': 'content/images/journal-icons/icon-hottake.png',
+  'REFLECTION': 'content/images/journal-icons/icon-reflection.png',
+  'QUOTE': 'content/images/journal-icons/icon-quote.png',
+  'BOOK HAUL': 'content/images/journal-icons/icon-bookhaul.png',
+  'RECOMMENDATION': 'content/images/journal-icons/icon-recommendation.png',
+  'LIFE': 'content/images/journal-icons/icon-life.png'
 };
+
 // --- Helper: Format Date ---
 function formatDateDisplay(dateStr) {
   if (!dateStr) return '';
@@ -20,6 +23,7 @@ function formatDateDisplay(dateStr) {
     day: 'numeric', month: 'long', year: 'numeric' 
   });
 }
+
 // --- Helper: Generate Stars ---
 function renderStars(rating) {
   const full = Math.floor(rating || 0);
@@ -27,7 +31,8 @@ function renderStars(rating) {
   const empty = 5 - full - half;
   return '★'.repeat(full) + (half ? '☆' : '') + '✧'.repeat(empty);
 }
-// --- Rich Text Parser (ORIGINAL — preserved) ---
+
+// --- Rich Text Parser ---
 function parseRichText(text) {
   if (!text) return '';
   let parsed = text;
@@ -47,15 +52,18 @@ function parseRichText(text) {
   parsed = parsed.replace(/\n/g, '<br>');
   return parsed;
 }
-// --- State (ORIGINAL — preserved) ---
+
+// --- State ---
 let siteData = {}, aboutData = {}, books = [], journalEntries = [];
 let activeGenreFilter = null;
-// --- Get URL Parameter Helper (ORIGINAL — preserved) ---
+
+// --- Get URL Parameter Helper ---
 function getUrlParam(name) {
   const params = new URLSearchParams(window.location.search);
   return params.get(name);
 }
-// --- GENRE TAG HELPERS (ORIGINAL — preserved) ---
+
+// --- GENRE TAG HELPERS ---
 function getGenreClass(name) {
   if (!name) return 'custom-genre';
   return name
@@ -64,6 +72,7 @@ function getGenreClass(name) {
     .replace(/[^a-z0-9\- ]/g, '')
     .replace(/\s+/g, '-');
 }
+
 function buildGenreTags(bookOrEntry) {
   let tags = [];
   if (bookOrEntry.mainGenre || bookOrEntry.genre) {
@@ -78,7 +87,8 @@ function buildGenreTags(bookOrEntry) {
   }
   return tags.join('');
 }
-// --- Load Data (ORIGINAL — preserved & extended) ---
+
+// --- Load Data ---
 async function loadAllData() {
   try {
     const [siteRes, booksRes, journalRes, aboutRes] = await Promise.all([
@@ -88,7 +98,7 @@ async function loadAllData() {
       fetch('content/about.json').catch(() => ({ ok: false }))
     ]);
     if (siteRes.ok) siteData = await siteRes.json();
-    if (aboutRes.ok) aboutData = await aboutRes.json();
+    if (aboutRes.ok) aboutData = await aboutData.json();
     const booksData = await booksRes.json();
     books = booksData.entries || [];
     const journalData = await journalRes.json();
@@ -97,14 +107,16 @@ async function loadAllData() {
     console.error('Error loading data:', err);
   }
 }
-// --- Render Profile (ORIGINAL — preserved) ---
+
+// --- Render Profile ---
 function renderProfile() {
   const titleEl = document.getElementById('siteTitle');
   const taglineEl = document.getElementById('siteTagline');
   if (titleEl && siteData.title) titleEl.textContent = siteData.title;
   if (taglineEl && siteData.tagline) taglineEl.textContent = siteData.tagline;
 }
-// --- Render Social Links (ORIGINAL — preserved) ---
+
+// --- Render Social Links ---
 function renderSocialLinks(containerId) {
   const container = document.getElementById(containerId);
   if (!container) return;
@@ -113,14 +125,16 @@ function renderSocialLinks(containerId) {
     `<a href="${link.url}" target="_blank" rel="noopener" class="social-link">${link.platform}</a>`
   ).join('');
 }
-// --- Render About (ORIGINAL — preserved) ---
+
+// --- Render About ---
 function renderAbout() {
   const bioEl = document.getElementById('aboutBio');
   if (bioEl && aboutData.bio) {
     bioEl.innerHTML = aboutData.bio;
   }
 }
-// --- Render Stats (ORIGINAL — preserved) ---
+
+// --- Render Stats ---
 function renderStats() {
   const bookCountEl = document.getElementById('statBooks');
   const genreCountEl = document.getElementById('statGenres');
@@ -147,7 +161,8 @@ function renderStats() {
   
   if (genreCountEl) genreCountEl.textContent = allGenres.size;
 }
-// --- Render Book Card (ORIGINAL — preserved) ---
+
+// --- Render Book Card ---
 function renderBookCard(book, full = false) {
   const cover = book.coverImage
     ? `<img src="${book.coverImage}" alt="${book.title}" class="book-cover" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">`
@@ -193,7 +208,8 @@ function renderBookCard(book, full = false) {
   }
   return c + `</div>`;
 }
-// --- 📖 Render Journal Entry — UPDATED with Icons ---
+
+// --- Render Journal Entry ---
 function renderJournalEntry(e, full = false) {
   const iconSrc = iconMap[e.type] || '';
   const iconHtml = iconSrc 
@@ -229,7 +245,8 @@ function renderJournalEntry(e, full = false) {
   }
   return c + `</div>`;
 }
-// --- Render Books List (ORIGINAL — preserved) ---
+
+// --- Render Books List ---
 function renderBooksList() {
   const container = document.getElementById('booksContainer');
   if (!container) return;
@@ -242,22 +259,18 @@ function renderBooksList() {
   }
   container.innerHTML = filtered.map(book => renderBookCard(book, false)).join('');
 }
-// --- ⭐ Featured Review — CELESTIAL EMBRACE FRAME ✨ ---
+
+// --- ⭐ Featured Review — Clean Layout ---
 function renderFeaturedReview() {
   const featured = books.find(b => b.featured === true);
-  const section = document.getElementById('featuredSection');
   const container = document.getElementById('featuredContainer');
-
-  if (!section || !container) return;
-
+  if (!container) return;
+  
   if (!featured) {
-    section.style.display = 'none';
+    container.innerHTML = '';
     return;
   }
-
-  section.style.display = 'block';
-
-  // Build genre pills properly
+  
   const genrePills = [];
   if (featured.mainGenre) {
     genrePills.push(`<span class="genre-pill">${featured.mainGenre.trim()}</span>`);
@@ -269,34 +282,8 @@ function renderFeaturedReview() {
     });
   }
 
-  // ✅ COMPLETE HTML WITH ALL 4 DECORATION DIVS ✅
   container.innerHTML = `
     <div class="featured-book-wrap">
-      <div class="featured-book-container">
-        <!-- LEFT SIDE — embraces the spine -->
-        <div class="featured-decoration-left"></div>
-
-        <!-- The book cover -->
-        <div class="featured-book-mockup">
-          <img src="${featured.coverImage || 'hero-image.jpg'}" 
-               alt="${featured.title}" 
-               loading="lazy"
-               class="featured-cover" />
-          <div class="book-spine-glow"></div>
-        </div>
-
-        <!-- RIGHT SIDE — moon + stars running vertically -->
-        <div class="featured-decoration-right">
-          <span class="moon">☾</span>
-          <span class="star">✦</span>
-          <span class="star">✧</span>
-          <span class="star">✦</span>
-        </div>
-
-        <!-- BOTTOM — sparkle border -->
-        <div class="featured-decoration-bottom">✧ ✦ ☾ ✦ ✧</div>
-      </div>
-
       <div class="featured-content">
         <span class="featured-tag">⭐ Featured Review</span>
         <h3 class="featured-title">${featured.title}</h3>
@@ -311,14 +298,22 @@ function renderFeaturedReview() {
         <p class="featured-excerpt">${featured.excerpt || ''}</p>
         <a href="book/${featured.id}" class="btn btn-primary">Read Full Review →</a>
       </div>
+      <div class="book-frame-wrapper">
+        <img src="content/images/book-decoration.png" alt="Golden Frame" class="book-decoration" />
+        <img src="${featured.coverImage || 'content/images/featured-cover.jpg'}" 
+             alt="${featured.title}" 
+             class="book-cover" />
+      </div>
     </div>
   `;
 }
+
 // --- 🔍 Search Functionality ---
 function initSearch() {
   const input = document.getElementById('searchInput');
   const results = document.getElementById('searchResults');
   if (!input || !results) return;
+  
   input.addEventListener('input', () => {
     const q = input.value.trim().toLowerCase();
     if (!q) {
@@ -331,6 +326,7 @@ function initSearch() {
       (b.author && b.author.toLowerCase().includes(q)) ||
       (b.mainGenre && b.mainGenre.toLowerCase().includes(q))
     ).slice(0, 5);
+    
     if (matches.length === 0) {
       results.innerHTML = '<p class="no-results">No matches found ✨</p>';
       results.style.display = 'block';
@@ -344,14 +340,15 @@ function initSearch() {
     `).join('');
     results.style.display = 'block';
   });
-  // Close on outside click
+  
   document.addEventListener('click', (e) => {
     if (!input.contains(e.target) && !results.contains(e.target)) {
       results.style.display = 'none';
     }
   });
 }
-// --- Starry Background Generator ✨ (ORIGINAL — preserved) ---
+
+// --- Starry Background Generator ✨ ---
 function generateStars(count = 80) {
   const container = document.querySelector('.stars-bg');
   if (!container) return;
@@ -366,20 +363,7 @@ function generateStars(count = 80) {
     container.appendChild(star);
   }
 }
-function addMoonDecorations(count = 6) {
-  const container = document.querySelector('.stars-bg');
-  if (!container) return;
-  
-  const moons = ['☾', '✧', '☽', '✦', '☆', '⁂'];
-  for (let i = 0; i < count; i++) {
-    const moon = document.createElement('div');
-    moon.classList.add('moon-deco');
-    moon.textContent = moons[Math.floor(Math.random() * moons.length)];
-    moon.style.left = `${Math.random() * 90 + 5}%`;
-    moon.style.top = `${Math.random() * 90 + 5}%`;
-    container.appendChild(moon);
-  }
-}
+
 // --- Page Load ---
 document.addEventListener('DOMContentLoaded', async () => {
   await loadAllData();
@@ -390,12 +374,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderStats();
   
   generateStars();
-  addMoonDecorations();
+  // addMoonDecorations(); — removed (caused stray symbols) ✅
   
-  // Featured Review — now with celestial frame ✨
   renderFeaturedReview();
   
-  // Home page — latest reviews (4 cards)
+  // Latest Reviews
   const latestReviewsContainer = document.getElementById('latestReviewsContainer');
   if (latestReviewsContainer) {
     const latest = books.slice(0, 4);
@@ -406,7 +389,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
   
-  // Home page — latest journal entries (4 cards — 2x2 grid)
+  // Latest Journal
   const latestJournalContainer = document.getElementById('latestJournalContainer');
   if (latestJournalContainer) {
     const latest = journalEntries.slice(0, 4);
@@ -417,12 +400,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
   
-  // Books list page
+  // Books Page
   if (document.getElementById('booksContainer')) {
     renderBooksList();
   }
   
-  // Journal list page
+  // Journal Page
   if (document.getElementById('journalContainer')) {
     const container = document.getElementById('journalContainer');
     if (journalEntries.length === 0) {
@@ -432,7 +415,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
   
-  // Single book page
+  // Single Book
   const bookId = getUrlParam('id');
   if (bookId && books.length > 0) {
     const book = books.find(b => b.id === bookId);
@@ -444,7 +427,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
   
-  // Single journal entry page
+  // Single Journal Entry
   const entryId = getUrlParam('id');
   if (entryId && journalEntries.length > 0) {
     const entry = journalEntries.find(e => e.id === entryId);
