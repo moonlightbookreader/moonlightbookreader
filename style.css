@@ -309,7 +309,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   border-color: var(--accent);
 }
 
-/* Genre-specific color variations */
+/* Genre-specific color variations — matches script.js class output */
 .genre-pill.contemporary { background: rgba(100, 149, 237, 0.25); border-color: rgba(100, 149, 237, 0.4); }
 .genre-pill.fantasy { background: rgba(75, 0, 130, 0.25); border-color: rgba(147, 112, 219, 0.4); }
 .genre-pill.magical-realism { background: rgba(255, 215, 0, 0.15); border-color: rgba(255, 223, 100, 0.4); }
@@ -495,7 +495,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   align-items: center;
   gap: 0.5rem;
   padding: 0.6rem 1.4rem;
-  margin-bottom: 2rem;
+  margin: 2rem 0;
   background: var(--pill-bg);
   border: 1px solid var(--pill-border);
   border-radius: 20px;
@@ -663,7 +663,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   margin-bottom: 1.5rem;
 }
 
-/* ✨ GOLDEN FRAME — Larger, sits behind ✅ */
+/* ✨ GOLDEN FRAME — Larger, visible, glowing ✅ */
 .book-frame-wrapper {
   position: relative;
   flex-shrink: 0;
@@ -683,7 +683,8 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   object-fit: contain;
   z-index: 1;
   pointer-events: none;
-  opacity: 1;
+  opacity: 1 !important;
+  display: block;
   filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.4));
   transition: all 0.4s ease;
 }
