@@ -498,7 +498,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   flex-wrap: nowrap;
 }
 
-/* === LEFT: TEXT CONTENT === */
+/* Featured Text Content */
 .featured-content {
   flex: 1;
   min-width: 0;
@@ -558,7 +558,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   margin-bottom: 1.5rem;
 }
 
-/* === RIGHT: BOOK + GOLDEN FRAME === */
+/* Golden Frame + Book */
 .book-frame-wrapper {
   position: relative;
   flex-shrink: 0;
@@ -607,8 +607,25 @@ nav a:hover::after, nav a.active::after { width: 100%; }
           drop-shadow(0 0 20px rgba(255, 215, 0, 0.4));
 }
 
+/* ===== FOOTER ===== */
+.site-footer {
+  text-align: center;
+  padding: 2rem;
+  margin-top: 3rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-soft);
+}
+.site-footer .handwritten {
+  font-family: 'Caveat', cursive;
+  font-size: 1.2rem;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
   .featured-review {
     padding: 2rem;
   }
@@ -631,8 +648,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   .featured-title {
     font-size: 1.6rem;
   }
-  .hero {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+  .container {
+    padding: 0 1rem;
   }
 }
