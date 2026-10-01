@@ -1,7 +1,9 @@
 // ==============================
 // 🌙 MOONLIGHT BOOK READER — SCRIPT
-// Fully Updated: Pills, Sizing, Classes, Back Links, 3D Book
+// Updated: Clickable Genre Pills, Rectangular Format/Journal Types, 
+//          Handwritten Dates, Journal Icon Sizes, 3D Book Ready
 // ==============================
+
 // --- Icon Mapping ---
 const iconMap = {
   'OBSERVATION': 'content/images/journal-icons/icon-observation.png',
@@ -13,6 +15,10 @@ const iconMap = {
   'RECOMMENDATION': 'content/images/journal-icons/icon-recommendation.png',
   'LIFE': 'content/images/journal-icons/icon-life.png'
 };
+
+// --- State ---
+let siteData = {}, aboutData = {}, books = [], journalEntries = [];
+let activeGenreFilter = null;
 
 // --- Helper: Format Date ---
 function formatDateDisplay(dateStr) {
@@ -51,10 +57,6 @@ function parseRichText(text) {
   return parsed;
 }
 
-// --- State ---
-let siteData = {}, aboutData = {}, books = [], journalEntries = [];
-let activeGenreFilter = null;
-
 // --- Get URL Parameter Helper ---
 function getUrlParam(name) {
   const params = new URLSearchParams(window.location.search);
@@ -71,19 +73,37 @@ function getGenreClass(name) {
     .replace(/\s+/g, '-');
 }
 
-function buildGenreTags(bookOrEntry) {
+// Build clickable genre pill links
+function buildGenreTags(bookOrEntry, filterLink = true) {
   let tags = [];
+  const makePill = (g) => {
+    const cls = getGenreClass(g);
+    const label = g.trim();
+    if (filterLink) {
+      return `<a href="?genre=${encodeURIComponent(cls)}" class="genre-pill ${cls}" data-genre="${cls}">${label}</a>`;
+    }
+    return `<span class="genre-pill ${cls}">${label}</span>`;
+  };
+
   if (bookOrEntry.mainGenre || bookOrEntry.genre) {
     const mainG = bookOrEntry.mainGenre || bookOrEntry.genre;
-    tags.push(`<span class="genre-pill ${getGenreClass(mainG)}">${mainG.trim()}</span>`);
+    tags.push(makePill(mainG));
   }
   if (bookOrEntry.otherGenres) {
     bookOrEntry.otherGenres.split(',').forEach(g => {
       g = g.trim();
-      if (g) tags.push(`<span class="genre-pill ${getGenreClass(g)}">${g}</span>`);
+      if (g) tags.push(makePill(g));
     });
   }
   return tags.join('');
+}
+
+// --- Filter by Genre ---
+function applyGenreFilterFromURL() {
+  const genre = getUrlParam('genre');
+  if (genre) {
+    activeGenreFilter = genre;
+  }
 }
 
 // --- Load Data ---
@@ -169,17 +189,20 @@ function renderBookCard(book, full = false) {
     ? `<img src="${book.coverImage}" alt="${book.title}" class="book-cover" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">`
       + `<div class="book-cover-placeholder" style="display:none;">📖</div>`
     : `<div class="book-cover-placeholder">📖</div>`;
-  const tags = buildGenreTags(book);
+  
+  // Cards = clickable pills; single page = plain labels
+  const tags = buildGenreTags(book, !full);
   const stars = renderStars(book.rating || 0);
   
   const fmt = book.format 
-    ? `<p class="book-format-line"><strong>Book Format:</strong> <span class="format-pill">${book.format}</span></p>` 
+    ? `<p class="book-format-line"><span class="format-pill">${book.format.toUpperCase()}</span></p>` 
     : '';
+  
   const startDate = book.startDate 
-    ? `<span class="reading-date">Started: ${formatDateDisplay(book.startDate)}</span>` 
+    ? `<span>Started: ${formatDateDisplay(book.startDate)}</span>` 
     : '';
   const endDate = book.date 
-    ? `<span class="reading-date">Finished: ${formatDateDisplay(book.date)}</span>` 
+    ? `<span>Finished: ${formatDateDisplay(book.date)}</span>` 
     : '';
   const dateLine = (startDate || endDate) 
     ? `<div class="reading-dates">${startDate}${startDate && endDate ? ' · ' : ''}${endDate}</div>` 
@@ -189,7 +212,7 @@ function renderBookCard(book, full = false) {
     <a href="book/${book.id}" class="book-title">${book.title}</a>
     <p class="book-author">by ${book.author}</p>
     <div class="book-rating">${stars}</div>
-    <div class="book-tags">${tags}</div>
+    <div class="book-genres">${tags}</div>
     ${fmt}
     ${dateLine}
   </div></div>`;
@@ -223,7 +246,7 @@ function renderJournalEntry(e, full = false) {
     c += `<div class="journal-full-header">
       <div class="journal-icon-column">${iconHtml}</div>
       <div class="journal-meta-column">
-        <span class="journal-type">${e.type || 'THOUGHTS'}</span>
+        <span class="journal-type">${(e.type || 'THOUGHTS').toUpperCase()}</span>
         <h3 class="journal-title">${e.title}</h3>
         <p class="journal-date">${e.date ? formatDateDisplay(e.date) : ''}</p>
       </div>
@@ -235,7 +258,7 @@ function renderJournalEntry(e, full = false) {
     c += `<div class="journal-card-header">
       ${iconHtml}
       <div>
-        <span class="journal-type">${e.type || 'THOUGHTS'}</span>
+        <span class="journal-type">${(e.type || 'THOUGHTS').toUpperCase()}</span>
         <a href="journal/${e.id}" class="journal-title">${e.title}</a>
         <p class="journal-date">${e.date ? formatDateDisplay(e.date) : ''}</p>
       </div>
@@ -253,11 +276,18 @@ function renderJournalEntry(e, full = false) {
 function renderBooksList() {
   const container = document.getElementById('booksContainer');
   if (!container) return;
+  
+  applyGenreFilterFromURL();
   const filtered = activeGenreFilter
-    ? books.filter(b => getGenreClass(b.mainGenre || '') === activeGenreFilter)
+    ? books.filter(b => {
+        const main = getGenreClass(b.mainGenre || b.genre || '');
+        const others = (b.otherGenres || '').split(',').map(g => getGenreClass(g));
+        return main === activeGenreFilter || others.includes(activeGenreFilter);
+      })
     : books;
+  
   if (filtered.length === 0) {
-    container.innerHTML = '<div class="empty-state">No reviews yet... your first book awaits ✨</div>';
+    container.innerHTML = '<div class="empty-state">No matching reviews ✨</div>';
     return;
   }
   container.innerHTML = filtered.map(book => renderBookCard(book, false)).join('');
@@ -274,14 +304,20 @@ function renderFeaturedReview() {
     return;
   }
   
+  // Featured pills also clickable
   const genrePills = [];
+  const makeFeaturedPill = (g) => {
+    const cls = getGenreClass(g);
+    return `<a href="?genre=${encodeURIComponent(cls)}" class="genre-pill ${cls}" data-genre="${cls}">${g.trim()}</a>`;
+  };
+  
   if (featured.mainGenre) {
-    genrePills.push(`<span class="genre-pill ${getGenreClass(featured.mainGenre)}">${featured.mainGenre.trim()}</span>`);
+    genrePills.push(makeFeaturedPill(featured.mainGenre));
   }
   if (featured.otherGenres) {
     featured.otherGenres.split(',').forEach(g => {
       g = g.trim();
-      if (g) genrePills.push(`<span class="genre-pill ${getGenreClass(g)}">${g}</span>`);
+      if (g) genrePills.push(makeFeaturedPill(g));
     });
   }
   
