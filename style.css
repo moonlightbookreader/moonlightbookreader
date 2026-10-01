@@ -448,18 +448,19 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   color: var(--text-soft);
   font-style: italic;
 }
-/* ===== FEATURED REVIEW — Celestial Frame ✨ FIXED ===== */
+/* ===== FEATURED REVIEW — CELESTIAL EMBRACE FRAME ✨ ===== */
 .featured-review {
   background: linear-gradient(135deg, rgba(44, 26, 82, 0.7), rgba(26, 16, 51, 0.9));
   border-radius: 20px;
-  padding: 2.5rem;
+  padding: 2.75rem 3rem;
   margin: 2rem 0 3rem;
   border: 1px solid rgba(212, 168, 87, 0.25);
   position: relative;
   overflow: visible;
   width: 100%;
 }
-/* Background stars */
+
+/* Background twinkling stars across the whole card */
 .featured-review::before {
   content: '';
   position: absolute;
@@ -477,112 +478,145 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   opacity: 0.6;
   z-index: 1;
 }
-/* Main flex container — CRITICAL for layout */
+
 .featured-book-wrap {
   display: flex !important;
   flex-direction: row !important;
-  gap: 2.5rem !important;
+  gap: 3rem !important;
   align-items: center !important;
   position: relative !important;
   z-index: 2 !important;
   width: 100% !important;
   flex-wrap: nowrap !important;
 }
-/* Book container with decorations */
+
+/* ============================================== */
+/* FULL EMBRACE DECORATIONS — BOTH SIDES ✨ */
+/* ============================================== */
 .featured-book-container {
   position: relative !important;
   flex-shrink: 0 !important;
   width: 240px !important;
+  height: 340px !important;
   z-index: 3 !important;
 }
-/* LEFT DECORATION — MUST SHOW */
+
+/* LEFT SIDE — FULL SPINE EMBRACE (covers entire edge) */
 .featured-decoration-left {
   position: absolute !important;
-  top: -15px !important;
-  left: -20px !important;
-  width: 60px !important;
-  height: calc(100% + 30px) !important;
+  top: -25px !important;
+  left: -30px !important;
+  width: 70px !important;
+  height: calc(100% + 50px) !important;
   background:
-    radial-gradient(ellipse at left center, rgba(255,255,255,0.25) 0%, rgba(212,175,87,0.12) 45%, transparent 70%),
-    radial-gradient(circle at 15% 20%, rgba(255,255,255,0.9) 1.2px, transparent 1.2px),
-    radial-gradient(circle at 25% 45%, rgba(255,255,255,0.7) 1px, transparent 1px),
-    radial-gradient(circle at 10% 70%, rgba(255,220,100,0.7) 1.2px, transparent 1.2px),
-    radial-gradient(circle at 20% 88%, rgba(255,255,255,0.8) 1px, transparent 1px);
-  background-size: 100% 100%, 90px 90px, 70px 70px, 80px 80px, 100px 100px;
+    /* Glow along the spine edge */
+    linear-gradient(90deg, 
+      rgba(212, 168, 87, 0.35) 0%, 
+      rgba(212, 168, 87, 0.15) 30%, 
+      transparent 60%),
+    /* Sparkles running vertically along the spine */
+    radial-gradient(circle at 30% 15%, rgba(255,255,255,0.9) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 25% 30%, rgba(255,220,100,0.7) 1px, transparent 1px),
+    radial-gradient(circle at 35% 45%, rgba(255,255,255,0.8) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 20% 55%, rgba(255,255,255,0.6) 1px, transparent 1px),
+    radial-gradient(circle at 32% 68%, rgba(255,220,100,0.8) 1.2px, transparent 1.2px),
+    radial-gradient(circle at 28% 82%, rgba(255,255,255,0.9) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 33% 92%, rgba(255,220,100,0.6) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
   pointer-events: none !important;
   z-index: 4 !important;
   display: block !important;
 }
-/* RIGHT DECORATION — MUST SHOW */
+
+/* RIGHT SIDE — full flowing cluster, not just top corner */
 .featured-decoration-right {
   position: absolute !important;
-  top: -10px !important;
-  right: -20px !important;
-  font-size: 1.8rem !important;
-  color: rgba(212, 168, 87, 0.7) !important;
-  filter: drop-shadow(0 0 10px rgba(212,168,87,0.4)) !important;
-  line-height: 1 !important;
+  top: -15px !important;
+  right: -28px !important;
+  height: calc(100% + 30px) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 8px !important;
   z-index: 4 !important;
-  display: block !important;
 }
 .featured-decoration-right .moon {
-  font-size: 2rem !important;
+  font-size: 2.4rem !important;
+  color: rgba(212, 168, 87, 0.75) !important;
+  filter: drop-shadow(0 0 12px rgba(212,168,87,0.45)) !important;
   display: block !important;
-  margin-bottom: 4px !important;
 }
 .featured-decoration-right .star {
+  font-size: 1rem !important;
+  color: rgba(255, 220, 100, 0.65) !important;
+  opacity: 0.9 !important;
   display: block !important;
-  font-size: 0.9rem !important;
-  margin: 2px 0 !important;
-  opacity: 0.8 !important;
 }
-/* BOTTOM DECORATION */
+
+/* BOTTOM — full width sparkle border */
 .featured-decoration-bottom {
   position: absolute !important;
-  bottom: -10px !important;
+  bottom: -15px !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
-  font-size: 1rem !important;
-  color: rgba(212, 168, 87, 0.5) !important;
-  letter-spacing: 3px !important;
+  font-size: 1.1rem !important;
+  color: rgba(212, 168, 87, 0.55) !important;
+  letter-spacing: 6px !important;
   z-index: 4 !important;
   display: block !important;
   white-space: nowrap !important;
 }
-/* The book itself */
+
+/* The book itself — clean, no weird hover glow */
 .featured-book-mockup {
   position: relative !important;
   width: 100% !important;
   transform: rotate(-5deg) scale(1.05) !important;
   transition: transform 0.4s ease !important;
   z-index: 5 !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 .featured-book-mockup:hover {
-  transform: rotate(-2deg) scale(1.1) !important;
+  transform: rotate(-3deg) scale(1.08) !important;
+  background: transparent !important;
 }
+/* Remove any weird background/shadow on hover */
+.featured-book-mockup::before,
+.featured-book-mockup::after {
+  display: none !important;
+}
+
 .featured-cover {
   width: 100% !important;
   height: auto !important;
   border-radius: 6px !important;
   box-shadow:
-    -12px 10px 26px rgba(0, 0, 0, 0.55),
-    0 8px 20px rgba(0, 0, 0, 0.35) !important;
+    -14px 12px 30px rgba(0, 0, 0, 0.6),
+    0 10px 24px rgba(0, 0, 0, 0.4) !important;
   display: block !important;
+  position: relative !important;
+  z-index: 2 !important;
 }
 .book-spine-glow {
   position: absolute !important;
   top: 0 !important;
   left: 0 !important;
   bottom: 0 !important;
-  width: 6px !important;
+  width: 5px !important;
   background: linear-gradient(90deg,
-    rgba(212, 168, 87, 0.5),
-    rgba(212, 168, 87, 0.15) 60%,
+    rgba(212, 168, 87, 0.55),
+    rgba(212, 168, 87, 0.15) 50%,
     transparent) !important;
   border-radius: 4px 0 0 4px !important;
   pointer-events: none !important;
+  z-index: 3 !important;
 }
-/* Content side */
+
+/* ============================================== */
+/* CONTENT SIDE — Polished */
+/* ============================================== */
 .featured-content {
   flex: 1 !important;
   min-width: 0 !important;
@@ -603,7 +637,9 @@ nav a:hover::after, nav a.active::after { width: 100%; }
 }
 .featured-title {
   font-family: 'Playfair Display', serif !important;
-  font-size: 1.9rem !important;
+  font-size: 2rem !important;
+  font-weight: 600 !important;
+  font-style: italic !important;
   color: var(--accent) !important;
   margin: 0 0 0.4rem !important;
   line-height: 1.2 !important;
@@ -615,21 +651,21 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   font-size: 1.05rem !important;
 }
 .featured-rating {
-  font-size: 1.15rem !important;
+  font-size: 1.2rem !important;
   color: var(--accent) !important;
-  margin: 0 0 0.75rem !important;
+  margin: 0 0 0.85rem !important;
   letter-spacing: 0.1em !important;
 }
 .featured-genres {
   display: flex !important;
   flex-wrap: wrap !important;
-  gap: 0.5rem !important;
+  gap: 0.6rem !important;
   margin-bottom: 1.25rem !important;
 }
 .genre-pill {
-  background: rgba(147, 112, 219, 0.25) !important;
+  background: rgba(147, 112, 219, 0.3) !important;
   color: var(--text) !important;
-  padding: 0.3rem 0.9rem !important;
+  padding: 0.4rem 1rem !important;
   border-radius: 20px !important;
   font-size: 0.85rem !important;
 }
@@ -640,40 +676,9 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   color: #c8b8e0 !important;
   margin-bottom: 1.5rem !important;
 }
-/* ===== FOOTER ===== */
-.site-footer {
-  text-align: center;
-  padding: 2rem 0 2.5rem;
-  color: var(--text-soft);
-  font-size: .9rem;
-  border-top: 1px solid var(--border);
-  margin-top: 3.5rem;
-}
-.site-footer .handwritten {
-  font-family: 'Caveat', cursive;
-  font-size: 1.25rem;
-  color: var(--accent2);
-}
-.empty-state {
-  text-align: center;
-  padding: 3rem;
-  color: var(--text-soft);
-  font-style: italic;
-  font-family: 'Caveat', cursive;
-  font-size: 1.5rem;
-}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
-  .container { padding: 0 1.5rem; }
-  .site-header {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  .site-brand { text-align: center; }
-  nav { justify-content: center; }
-  .hero { grid-template-columns: 1fr; gap: 2.5rem; }
-  .hero-text h1 { font-size: 2.2rem; }
   .featured-review { padding: 2rem; }
   .featured-book-wrap {
     flex-direction: column !important;
@@ -689,8 +694,6 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   .featured-genres { justify-content: center !important; }
 }
 @media (max-width: 600px) {
-  .container { padding: 0 1rem; }
-  .site-title { font-size: 1.9rem; }
-  .hero-text h1 { font-size: 1.9rem; }
-  .featured-title { font-size: 1.5rem !important; }
+  .featured-review { padding: 1.5rem; }
+  .featured-title { font-size: 1.6rem !important; }
 }
