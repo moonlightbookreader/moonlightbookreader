@@ -17,6 +17,8 @@
   --pill-bg: rgba(147, 112, 219, 0.3);
   --pill-border: rgba(212, 168, 87, 0.25);
   --pill-hover-bg: rgba(212, 168, 87, 0.15);
+  --pill-rect-bg: rgba(45, 30, 80, 0.85);
+  --pill-rect-border: rgba(212, 168, 87, 0.4);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -287,12 +289,10 @@ nav a:hover::after, nav a.active::after { width: 100%; }
 }
 
 /* ===== PILL BADGE SHARED STYLES ===== */
-.genre-pill,
-.journal-type-pill,
-.format-pill,
-.journal-type {
+/* Genre pills — rounded, clickable */
+.genre-pill {
   display: inline-block;
-  padding: 0.35rem 1rem;
+  padding: 0.4rem 1.1rem;
   border-radius: 20px;
   font-size: 0.85rem;
   font-family: 'Lora', serif;
@@ -301,25 +301,57 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   color: var(--text);
   transition: all 0.25s ease;
   white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
 }
-.genre-pill:hover,
-.journal-type-pill:hover,
-.format-pill:hover {
+.genre-pill:hover {
   background: var(--pill-hover-bg);
   border-color: var(--accent);
+  transform: translateY(-1px);
 }
 
-/* Genre-specific color variations — matches script.js class output */
-.genre-pill.contemporary { background: rgba(100, 149, 237, 0.25); border-color: rgba(100, 149, 237, 0.4); }
-.genre-pill.fantasy { background: rgba(75, 0, 130, 0.25); border-color: rgba(147, 112, 219, 0.4); }
-.genre-pill.magical-realism { background: rgba(255, 215, 0, 0.15); border-color: rgba(255, 223, 100, 0.4); }
-.genre-pill.fiction { background: rgba(138, 43, 226, 0.2); border-color: rgba(186, 145, 255, 0.35); }
-.genre-pill.non-fiction { background: rgba(72, 209, 204, 0.2); border-color: rgba(127, 255, 212, 0.35); }
-.genre-pill.mystery { background: rgba(75, 0, 130, 0.2); border-color: rgba(123, 104, 238, 0.35); }
-.genre-pill.thriller { background: rgba(178, 34, 34, 0.2); border-color: rgba(220, 20, 60, 0.35); }
-.genre-pill.romance { background: rgba(255, 105, 180, 0.2); border-color: rgba(255, 182, 193, 0.35); }
-.genre-pill.classics { background: rgba(218, 165, 32, 0.2); border-color: rgba(255, 215, 0, 0.35); }
-.genre-pill.young-adult { background: rgba(255, 165, 0, 0.2); border-color: rgba(255, 218, 185, 0.35); }
+/* Format pill — rectangular, uppercase */
+.format-pill {
+  display: inline-block;
+  padding: 0.35rem 1.2rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-family: 'Lora', serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: var(--pill-rect-bg);
+  border: 1px solid var(--pill-rect-border);
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+/* Journal type pill — rectangular, uppercase */
+.journal-type {
+  display: inline-block;
+  padding: 0.35rem 1.2rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-family: 'Lora', serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: var(--pill-rect-bg);
+  border: 1px solid var(--pill-rect-border);
+  color: var(--accent);
+  white-space: nowrap;
+  margin-bottom: 0.5rem;
+}
+
+/* Genre-specific color variations */
+.genre-pill.contemporary { background: rgba(100, 149, 237, 0.25); border-color: rgba(100, 149, 237, 0.5); color: #b8d4ff; }
+.genre-pill.fantasy { background: rgba(75, 0, 130, 0.3); border-color: rgba(147, 112, 219, 0.5); color: #d4b8ff; }
+.genre-pill.magical-realism { background: rgba(255, 215, 0, 0.18); border-color: rgba(255, 223, 100, 0.5); color: #ffe88a; }
+.genre-pill.fiction { background: rgba(138, 43, 226, 0.25); border-color: rgba(186, 145, 255, 0.5); color: #d4b8ff; }
+.genre-pill.non-fiction { background: rgba(72, 209, 204, 0.25); border-color: rgba(127, 255, 212, 0.5); color: #a8fff0; }
+.genre-pill.mystery { background: rgba(75, 0, 130, 0.25); border-color: rgba(123, 104, 238, 0.5); color: #c8d4ff; }
+.genre-pill.thriller { background: rgba(178, 34, 34, 0.25); border-color: rgba(220, 20, 60, 0.5); color: #ffb8c0; }
+.genre-pill.romance { background: rgba(255, 105, 180, 0.25); border-color: rgba(255, 182, 193, 0.5); color: #ffc8e0; }
+.genre-pill.classics { background: rgba(218, 165, 32, 0.25); border-color: rgba(255, 215, 0, 0.5); color: #ffed8a; }
+.genre-pill.young-adult { background: rgba(255, 165, 0, 0.25); border-color: rgba(255, 218, 185, 0.5); color: #ffd4a0; }
 
 /* ===== BOOK CARDS & GRID ===== */
 .book-card {
@@ -382,7 +414,16 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin: 0.75rem 0;
+  margin: 0.5rem 0 0.75rem;
+}
+.book-format-line {
+  margin: 0.75rem 0 0.25rem;
+}
+.reading-dates {
+  font-family: 'Caveat', cursive;
+  font-size: 1.05rem;
+  color: var(--accent2);
+  margin: 0.5rem 0;
 }
 .book-excerpt {
   color: var(--text-soft);
@@ -405,7 +446,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   margin: 1rem 0 2.5rem;
 }
 
-/* ===== JOURNAL ICONS — SIZED CORRECTLY ✅ ===== */
+/* ===== JOURNAL ICONS — SIZED PER SPEC ✅ ===== */
 .journal-icon {
   width: 56px;
   height: 56px;
@@ -413,8 +454,10 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   flex-shrink: 0;
 }
 .journal-icon-large {
-  width: 100px;
-  height: 100px;
+  width: 135px;
+  height: 135px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 /* ===== JOURNAL GRID ===== */
@@ -440,15 +483,6 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   align-items: flex-start;
   gap: 1rem;
   margin-bottom: 0.75rem;
-}
-.journal-type {
-  display: inline-block;
-  padding: 0.3rem 0.9rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 0.4rem;
 }
 .journal-title {
   font-family: 'Playfair Display', serif;
@@ -574,12 +608,12 @@ nav a:hover::after, nav a.active::after { width: 100%; }
 
 /* ===== FEATURED REVIEW — 3D BOOK + GOLDEN FRAME ✨ ===== */
 .featured-section {
-  margin: 3rem 0;
+  margin: 2rem 0 3rem;
 }
 .featured-review {
   background: linear-gradient(135deg, rgba(44, 26, 82, 0.7), rgba(26, 16, 51, 0.9));
   border-radius: 20px;
-  padding: 2.5rem 3rem;
+  padding: 2rem 2.5rem;
   border: 1px solid rgba(212, 168, 87, 0.25);
   position: relative;
   overflow: visible;
@@ -605,7 +639,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
 .featured-book-wrap {
   display: flex;
   flex-direction: row;
-  gap: 3rem;
+  gap: 2.5rem;
   align-items: center;
   position: relative;
   z-index: 2;
@@ -663,12 +697,12 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   margin-bottom: 1.5rem;
 }
 
-/* ✨ GOLDEN FRAME — Larger, visible, glowing ✅ */
+/* ✨ GOLDEN FRAME — Taller, embraces the book properly ✅ */
 .book-frame-wrapper {
   position: relative;
   flex-shrink: 0;
-  width: 380px;
-  height: 480px;
+  width: 340px;
+  height: 440px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -676,10 +710,10 @@ nav a:hover::after, nav a.active::after { width: 100%; }
 }
 .book-decoration {
   position: absolute;
-  top: -10%;
-  left: -10%;
-  width: 120%;
-  height: 120%;
+  top: -8%;
+  left: -8%;
+  width: 116%;
+  height: 116%;
   object-fit: contain;
   z-index: 1;
   pointer-events: none;
@@ -693,24 +727,44 @@ nav a:hover::after, nav a.active::after { width: 100%; }
           drop-shadow(0 0 35px rgba(255, 215, 0, 0.4));
 }
 
-/* 📖 3D BOOK COVER — Proper lifted/mockup effect ✅ */
+/* 📖 CSS 3D BOOK MOCKUP — Angled, lifted, proper spine ✅ */
 .featured-book-cover {
   position: relative;
   z-index: 2;
-  width: 240px;
-  height: 360px;
+  width: 220px;
+  height: 330px;
   object-fit: cover;
-  border-radius: 4px 8px 8px 4px;
+  border-radius: 3px 8px 8px 3px;
+  
+  transform: 
+    perspective(900px) 
+    rotateY(-12deg)
+    rotateX(4deg)
+    translateZ(15px);
+  
   box-shadow:
-    -12px 12px 30px rgba(0, 0, 0, 0.5),
-    -4px 0 8px rgba(0, 0, 0, 0.2),
-    0 0 20px rgba(0, 0, 0, 0.15),
-    inset -3px 0 6px rgba(0, 0, 0, 0.1);
-  transform: perspective(900px) rotateY(-7deg) rotateX(2deg) translateZ(10px);
-  transition: transform 0.4s ease;
+    inset 12px 0 15px -8px rgba(255, 255, 255, 0.12),
+    inset -10px 0 20px -5px rgba(0, 0, 0, 0.6),
+    -18px 15px 35px rgba(0, 0, 0, 0.55),
+    0 8px 25px rgba(0, 0, 0, 0.35),
+    5px 0 15px rgba(0, 0, 0, 0.2);
+  
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 .book-frame-wrapper:hover .featured-book-cover {
-  transform: perspective(900px) rotateY(-4deg) rotateX(1deg) translateZ(20px) scale(1.05);
+  transform: 
+    perspective(900px) 
+    rotateY(-8deg)
+    rotateX(2deg)
+    translateZ(30px)
+    scale(1.04);
+  
+  box-shadow:
+    inset 12px 0 15px -8px rgba(255, 255, 255, 0.15),
+    inset -10px 0 20px -5px rgba(0, 0, 0, 0.6),
+    -22px 18px 40px rgba(0, 0, 0, 0.6),
+    0 12px 30px rgba(0, 0, 0, 0.4),
+    8px 0 20px rgba(0, 0, 0, 0.25);
 }
 
 /* ===== FOOTER ===== */
@@ -733,7 +787,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
     gap: 2rem;
   }
   .featured-review {
-    padding: 2rem;
+    padding: 1.5rem;
   }
   .featured-book-wrap {
     flex-direction: column;
@@ -744,7 +798,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
     justify-content: center;
   }
   .book-frame-wrapper {
-    width: 320px;
+    width: 300px;
     height: 400px;
   }
   .book-decoration {
@@ -752,24 +806,24 @@ nav a:hover::after, nav a.active::after { width: 100%; }
     height: 115%;
   }
   .featured-book-cover {
-    width: 200px;
-    height: 300px;
+    width: 190px;
+    height: 285px;
   }
 }
 @media (max-width: 600px) {
   .featured-review {
-    padding: 1.5rem;
+    padding: 1.25rem;
   }
   .featured-title {
     font-size: 1.6rem;
   }
   .book-frame-wrapper {
-    width: 280px;
+    width: 260px;
     height: 340px;
   }
   .featured-book-cover {
-    width: 170px;
-    height: 255px;
+    width: 160px;
+    height: 240px;
   }
   .container {
     padding: 0 1rem;
@@ -779,7 +833,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
     height: 48px;
   }
   .journal-icon-large {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
   }
 }
