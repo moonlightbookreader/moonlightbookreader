@@ -1,10 +1,10 @@
 // ==============================
 // 🌙 MOONLIGHT BOOK READER — SCRIPT
+// FIXED: aboutData.json() typo → aboutRes.json()
 // Paths corrected: journal-icons → content/images/journal-icons
-// Cleaned: stray moon decorations removed
 // ==============================
 
-// --- Icon Mapping — ✅ PATH FIXED ---
+// --- Icon Mapping ---
 const iconMap = {
   'OBSERVATION': 'content/images/journal-icons/icon-observation.png',
   'OPINION': 'content/images/journal-icons/icon-opinion.png',
@@ -88,7 +88,7 @@ function buildGenreTags(bookOrEntry) {
   return tags.join('');
 }
 
-// --- Load Data ---
+// --- Load Data — ✅ FIXED: aboutRes.json() typo ---
 async function loadAllData() {
   try {
     const [siteRes, booksRes, journalRes, aboutRes] = await Promise.all([
@@ -97,10 +97,13 @@ async function loadAllData() {
       fetch('content/journal.json'),
       fetch('content/about.json').catch(() => ({ ok: false }))
     ]);
+    
     if (siteRes.ok) siteData = await siteRes.json();
-    if (aboutRes.ok) aboutData = await aboutData.json();
+    if (aboutRes.ok) aboutData = await aboutRes.json(); // ✅ FIXED
+    
     const booksData = await booksRes.json();
     books = booksData.entries || [];
+    
     const journalData = await journalRes.json();
     journalEntries = journalData.entries || [];
   } catch (err) {
@@ -260,7 +263,7 @@ function renderBooksList() {
   container.innerHTML = filtered.map(book => renderBookCard(book, false)).join('');
 }
 
-// --- ⭐ Featured Review — Clean Layout ---
+// --- ⭐ Featured Review ---
 function renderFeaturedReview() {
   const featured = books.find(b => b.featured === true);
   const container = document.getElementById('featuredContainer');
@@ -299,10 +302,10 @@ function renderFeaturedReview() {
         <a href="book/${featured.id}" class="btn btn-primary">Read Full Review →</a>
       </div>
       <div class="book-frame-wrapper">
-        <img src="content/images/book-decoration.png" alt="Golden Frame" class="book-decoration" />
+        <img src="content/images/book-decoration.png" alt="Golden Frame" class="book-decoration" onerror="this.style.display='none';">
         <img src="${featured.coverImage || 'content/images/featured-cover.jpg'}" 
              alt="${featured.title}" 
-             class="book-cover" />
+             class="featured-book-cover" />
       </div>
     </div>
   `;
@@ -366,7 +369,7 @@ function generateStars(count = 80) {
 
 // --- Page Load ---
 document.addEventListener('DOMContentLoaded', async () => {
-  await loadAllData();
+  await loadAllData(); // ✅ Error fixed → rest runs now
   
   renderProfile();
   renderSocialLinks('socialLinks');
@@ -374,11 +377,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderStats();
   
   generateStars();
-  // addMoonDecorations(); — removed (caused stray symbols) ✅
   
   renderFeaturedReview();
   
-  // Latest Reviews
+  // Latest Reviews — ✅ Will show now
   const latestReviewsContainer = document.getElementById('latestReviewsContainer');
   if (latestReviewsContainer) {
     const latest = books.slice(0, 4);
@@ -389,7 +391,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
   
-  // Latest Journal
+  // Latest Journal — ✅ Will show now
   const latestJournalContainer = document.getElementById('latestJournalContainer');
   if (latestJournalContainer) {
     const latest = journalEntries.slice(0, 4);
