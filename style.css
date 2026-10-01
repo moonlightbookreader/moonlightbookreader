@@ -450,21 +450,20 @@ nav a:hover::after, nav a.active::after { width: 100%; }
 }
 /* ===== FEATURED REVIEW — CELESTIAL EMBRACE FRAME ✨ ===== */
 .featured-review {
-  background: linear-gradient(135deg, rgba(44, 26, 82, 0.7), rgba(26, 16, 51, 0.9));
-  border-radius: 20px;
-  padding: 2.75rem 3rem;
-  margin: 2rem 0 3rem;
-  border: 1px solid rgba(212, 168, 87, 0.25);
-  position: relative;
-  overflow: visible;
-  width: 100%;
+  background: linear-gradient(135deg, rgba(44, 26, 82, 0.7), rgba(26, 16, 51, 0.9)) !important;
+  border-radius: 20px !important;
+  padding: 2.75rem 3rem !important;
+  margin: 2rem 0 3rem !important;
+  border: 1px solid rgba(212, 168, 87, 0.25) !important;
+  position: relative !important;
+  overflow: visible !important;
+  width: 100% !important;
 }
 
-/* Background twinkling stars across the whole card */
 .featured-review::before {
-  content: '';
-  position: absolute;
-  inset: 0;
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
   background:
     radial-gradient(circle at 12% 18%, rgba(255,255,255,0.7) 1px, transparent 1px),
     radial-gradient(circle at 38% 8%, rgba(255,255,255,0.5) 1px, transparent 1px),
@@ -472,11 +471,11 @@ nav a:hover::after, nav a.active::after { width: 100%; }
     radial-gradient(circle at 86% 30%, rgba(255,255,255,0.6) 1px, transparent 1px),
     radial-gradient(circle at 20% 82%, rgba(255,255,255,0.45) 1px, transparent 1px),
     radial-gradient(circle at 66% 86%, rgba(255,220,100,0.45) 1px, transparent 1px),
-    radial-gradient(circle at 84% 74%, rgba(255,255,255,0.5) 1px, transparent 1px);
-  background-size: 180px 180px;
-  pointer-events: none;
-  opacity: 0.6;
-  z-index: 1;
+    radial-gradient(circle at 84% 74%, rgba(255,255,255,0.5) 1px, transparent 1px) !important;
+  background-size: 180px 180px !important;
+  pointer-events: none !important;
+  opacity: 0.6 !important;
+  z-index: 1 !important;
 }
 
 .featured-book-wrap {
@@ -490,9 +489,6 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   flex-wrap: nowrap !important;
 }
 
-/* ============================================== */
-/* FULL EMBRACE DECORATIONS — BOTH SIDES ✨ */
-/* ============================================== */
 .featured-book-container {
   position: relative !important;
   flex-shrink: 0 !important;
@@ -501,7 +497,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   z-index: 3 !important;
 }
 
-/* LEFT SIDE — FULL SPINE EMBRACE (covers entire edge) */
+/* LEFT SIDE — FULL SPINE EMBRACE */
 .featured-decoration-left {
   position: absolute !important;
   top: -25px !important;
@@ -509,26 +505,24 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   width: 70px !important;
   height: calc(100% + 50px) !important;
   background:
-    /* Glow along the spine edge */
     linear-gradient(90deg, 
       rgba(212, 168, 87, 0.35) 0%, 
       rgba(212, 168, 87, 0.15) 30%, 
       transparent 60%),
-    /* Sparkles running vertically along the spine */
     radial-gradient(circle at 30% 15%, rgba(255,255,255,0.9) 1.5px, transparent 1.5px),
     radial-gradient(circle at 25% 30%, rgba(255,220,100,0.7) 1px, transparent 1px),
     radial-gradient(circle at 35% 45%, rgba(255,255,255,0.8) 1.5px, transparent 1.5px),
     radial-gradient(circle at 20% 55%, rgba(255,255,255,0.6) 1px, transparent 1px),
     radial-gradient(circle at 32% 68%, rgba(255,220,100,0.8) 1.2px, transparent 1.2px),
     radial-gradient(circle at 28% 82%, rgba(255,255,255,0.9) 1.5px, transparent 1.5px),
-    radial-gradient(circle at 33% 92%, rgba(255,220,100,0.6) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+    radial-gradient(circle at 33% 92%, rgba(255,220,100,0.6) 1px, transparent 1px) !important;
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100% !important;
   pointer-events: none !important;
   z-index: 4 !important;
   display: block !important;
 }
 
-/* RIGHT SIDE — full flowing cluster, not just top corner */
+/* RIGHT SIDE — VERTICAL MOON + STARS */
 .featured-decoration-right {
   position: absolute !important;
   top: -15px !important;
@@ -541,12 +535,14 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   gap: 8px !important;
   z-index: 4 !important;
 }
+
 .featured-decoration-right .moon {
   font-size: 2.4rem !important;
   color: rgba(212, 168, 87, 0.75) !important;
   filter: drop-shadow(0 0 12px rgba(212,168,87,0.45)) !important;
   display: block !important;
 }
+
 .featured-decoration-right .star {
   font-size: 1rem !important;
   color: rgba(255, 220, 100, 0.65) !important;
@@ -554,7 +550,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   display: block !important;
 }
 
-/* BOTTOM — full width sparkle border */
+/* BOTTOM SPARKLE BORDER */
 .featured-decoration-bottom {
   position: absolute !important;
   bottom: -15px !important;
@@ -568,7 +564,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   white-space: nowrap !important;
 }
 
-/* The book itself — clean, no weird hover glow */
+/* BOOK MOCKUP — NO WEIRD HOVER BOX */
 .featured-book-mockup {
   position: relative !important;
   width: 100% !important;
@@ -578,11 +574,12 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   background: transparent !important;
   box-shadow: none !important;
 }
+
 .featured-book-mockup:hover {
   transform: rotate(-3deg) scale(1.08) !important;
   background: transparent !important;
 }
-/* Remove any weird background/shadow on hover */
+
 .featured-book-mockup::before,
 .featured-book-mockup::after {
   display: none !important;
@@ -599,6 +596,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   position: relative !important;
   z-index: 2 !important;
 }
+
 .book-spine-glow {
   position: absolute !important;
   top: 0 !important;
@@ -614,15 +612,14 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   z-index: 3 !important;
 }
 
-/* ============================================== */
-/* CONTENT SIDE — Polished */
-/* ============================================== */
+/* CONTENT SIDE */
 .featured-content {
   flex: 1 !important;
   min-width: 0 !important;
   padding-left: 0.5rem !important;
   z-index: 2 !important;
 }
+
 .featured-tag {
   display: inline-flex !important;
   align-items: center !important;
@@ -635,6 +632,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   margin-bottom: 0.85rem !important;
   font-family: 'Caveat', cursive !important;
 }
+
 .featured-title {
   font-family: 'Playfair Display', serif !important;
   font-size: 2rem !important;
@@ -644,24 +642,28 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   margin: 0 0 0.4rem !important;
   line-height: 1.2 !important;
 }
+
 .featured-author {
   color: var(--text-soft) !important;
   font-style: italic !important;
   margin: 0 0 0.75rem !important;
   font-size: 1.05rem !important;
 }
+
 .featured-rating {
   font-size: 1.2rem !important;
   color: var(--accent) !important;
   margin: 0 0 0.85rem !important;
   letter-spacing: 0.1em !important;
 }
+
 .featured-genres {
   display: flex !important;
   flex-wrap: wrap !important;
   gap: 0.6rem !important;
   margin-bottom: 1.25rem !important;
 }
+
 .genre-pill {
   background: rgba(147, 112, 219, 0.3) !important;
   color: var(--text) !important;
@@ -669,6 +671,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   border-radius: 20px !important;
   font-size: 0.85rem !important;
 }
+
 .featured-excerpt {
   line-height: 1.75 !important;
   font-size: 1rem !important;
@@ -679,21 +682,45 @@ nav a:hover::after, nav a.active::after { width: 100%; }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
-  .featured-review { padding: 2rem; }
+  .featured-review {
+    padding: 2rem !important;
+  }
+
   .featured-book-wrap {
     flex-direction: column !important;
     text-align: center !important;
     gap: 2rem !important;
   }
-  .featured-book-container { width: 200px !important; }
+
+  .featured-book-container {
+    width: 200px !important;
+  }
+
   .featured-decoration-left,
   .featured-decoration-right,
-  .featured-decoration-bottom { display: none !important; }
-  .featured-book-mockup { transform: rotate(-3deg) scale(1) !important; }
-  .featured-book-mockup:hover { transform: rotate(-1deg) scale(1.05) !important; }
-  .featured-genres { justify-content: center !important; }
+  .featured-decoration-bottom {
+    display: none !important;
+  }
+
+  .featured-book-mockup {
+    transform: rotate(-3deg) scale(1) !important;
+  }
+
+  .featured-book-mockup:hover {
+    transform: rotate(-1deg) scale(1.05) !important;
+  }
+
+  .featured-genres {
+    justify-content: center !important;
+  }
 }
+
 @media (max-width: 600px) {
-  .featured-review { padding: 1.5rem; }
-  .featured-title { font-size: 1.6rem !important; }
+  .featured-review {
+    padding: 1.5rem !important;
+  }
+
+  .featured-title {
+    font-size: 1.6rem !important;
+  }
 }
