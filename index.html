@@ -82,26 +82,37 @@
           <h2>Featured Review</h2>
           <span class="handwritten">— a story that stayed with me</span>
         </div>
+
         <div class="featured-review">
           <div class="featured-book-wrap">
             <div class="featured-content">
+              <!-- ✅ Featured tag — sized to stand out but not compete with title -->
               <span class="featured-tag">⭐ Featured Review</span>
+              
               <h3 class="featured-title">The Midnight Library</h3>
               <p class="featured-author">by Matt Haig</p>
               <div class="featured-rating">★★★★★ 5/5</div>
+              
+              <!-- ✅ Genre pills — NOW CLICKABLE links to filter -->
               <div class="featured-genres">
-                <span class="genre-pill">Contemporary</span>
-                <span class="genre-pill magical-realism">Magical Realism</span>
+                <a href="books.html?genre=Contemporary" class="genre-pill">Contemporary</a>
+                <a href="books.html?genre=Magical%20Realism" class="genre-pill magical-realism">Magical Realism</a>
               </div>
+              
               <p class="featured-excerpt">
                 Between life and death there is a library, and within that library, the shelves go on forever. Every book provides a chance to try another life you could have lived...
               </p>
+              
               <a href="book.html?id=the-midnight-library" class="btn btn-primary">Read Full Review →</a>
             </div>
+
+            <!-- ✅ Golden frame + 3D book — paths ready for your uploaded files -->
             <div class="book-frame-wrapper">
               <div class="golden-ornate-frame"></div>
-              <img src="content/images/book-decoration.png" alt="Golden Frame" class="book-decoration" />
-              <img src="content/images/featured-cover.jpg" alt="The Midnight Library" class="featured-book-3d" />
+              <!-- Upload your frame/decoration image here as: content/images/book-decoration.png -->
+              <img src="content/images/book-decoration.png" alt="Golden decorative frame" class="book-decoration" />
+              <!-- Upload your featured book cover here as: content/images/featured-cover.jpg -->
+              <img src="content/images/featured-cover.jpg" alt="The Midnight Library book cover" class="featured-book-3d" />
             </div>
           </div>
         </div>
@@ -143,6 +154,24 @@
       <p><span class="handwritten">☾ Moonlight Book Reader · written under the same moon ✨</span></p>
     </footer>
   </div>
+
+  <!-- ✨ Star generation script -->
+  <script>
+    // Generate twinkling stars automatically
+    const starsBg = document.querySelector('.stars-bg');
+    if (starsBg) {
+      const starCount = 80;
+      for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.className = 'twinkle';
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.animationDelay = `${Math.random() * 3}s`;
+        star.style.width = star.style.height = `${Math.random() * 2 + 1}px`;
+        starsBg.appendChild(star);
+      }
+    }
+  </script>
   <script src="script.js"></script>
 </body>
 </html>
