@@ -283,7 +283,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   align-items: center;
 }
 
-/* ===== BOOK CARDS & GRID ===== */
+/* ===== BOOK CARDS & GRID — Fixed sizing ===== */
 .book-card {
   background: linear-gradient(145deg, var(--card), var(--card-alt));
   border: 1px solid var(--border);
@@ -299,7 +299,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
 }
 .books-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
 }
 .books-grid .book-card { margin-bottom: 0; }
@@ -309,12 +309,14 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   margin-bottom: 1rem;
 }
 .book-cover {
-  width: 95px; height: 140px;
+  width: 100px;
+  height: 150px;
   object-fit: cover;
   border-radius: 6px;
   flex-shrink: 0;
   box-shadow: 0 4px 15px rgba(0,0,0,.3);
   display: block;
+  transform: none;
 }
 .book-meta { flex: 1; min-width: 0; }
 .book-title {
@@ -337,6 +339,12 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   letter-spacing: 2px;
   font-size: 1rem;
   margin-bottom: .5rem;
+}
+.book-genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.5rem 0;
 }
 .book-excerpt {
   color: var(--text-soft);
@@ -459,14 +467,14 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   font-style: italic;
 }
 
-/* ===== FEATURED REVIEW — GOLDEN CELESTIAL FRAME ✨ ===== */
+/* ===== FEATURED REVIEW — 3D BOOK + GOLDEN FRAME ✨ ===== */
 .featured-section {
   margin: 3rem 0;
 }
 .featured-review {
   background: linear-gradient(135deg, rgba(44, 26, 82, 0.7), rgba(26, 16, 51, 0.9));
   border-radius: 20px;
-  padding: 2.75rem 3rem;
+  padding: 2.5rem 3rem;
   border: 1px solid rgba(212, 168, 87, 0.25);
   position: relative;
   overflow: visible;
@@ -489,6 +497,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   z-index: 1;
   border-radius: 20px;
 }
+/* ⭐ SWAPPED: Text on LEFT, Book+Frame on RIGHT ⭐ */
 .featured-book-wrap {
   display: flex;
   flex-direction: row;
@@ -499,55 +508,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   flex-wrap: wrap;
 }
 
-/* ✨ Golden Frame + Book Wrapper */
-.book-frame-wrapper {
-  position: relative;
-  flex-shrink: 0;
-  width: 360px;
-  height: 360px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Golden Decorative Frame (background layer) */
-.book-decoration {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  z-index: 2;
-  pointer-events: none;
-  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.35));
-  transition: all 0.4s ease;
-}
-.book-frame-wrapper:hover .book-decoration {
-  filter: drop-shadow(0 0 15px rgba(255, 223, 100, 0.7)) 
-          drop-shadow(0 0 25px rgba(255, 215, 0, 0.4));
-}
-
-/* Book Cover (inside frame) */
-.book-cover {
-  position: relative;
-  z-index: 1;
-  width: 60%;
-  height: auto;
-  aspect-ratio: 2 / 3;
-  object-fit: cover;
-  border-radius: 3px;
-  box-shadow:
-    0 4px 12px rgba(0, 0, 0, 0.25),
-    0 15px 35px rgba(0, 0, 0, 0.3);
-  transform: perspective(800px) rotateY(-5deg);
-  transition: transform 0.4s ease;
-}
-.book-frame-wrapper:hover .book-cover {
-  transform: perspective(800px) rotateY(-3deg) scale(1.03);
-}
-
-/* Featured Text Content */
+/* Featured Text Content — LEFT */
 .featured-content {
   flex: 1;
   min-width: 300px;
@@ -567,7 +528,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
 }
 .featured-title {
   font-family: 'Playfair Display', serif;
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 600;
   font-style: italic;
   color: var(--accent);
@@ -581,7 +542,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   font-size: 1.05rem;
 }
 .featured-rating {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   color: var(--accent);
   margin: 0 0 0.85rem;
   letter-spacing: 0.1em;
@@ -607,6 +568,53 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   margin-bottom: 1.5rem;
 }
 
+/* ✨ 3D BOOK + GOLDEN FRAME — RIGHT, BIGGER ✨ */
+.book-frame-wrapper {
+  position: relative;
+  flex-shrink: 0;
+  width: 400px;
+  height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Golden Decorative Frame — sits behind the book */
+.book-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 1;
+  pointer-events: none;
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.4));
+  transition: all 0.4s ease;
+}
+.book-frame-wrapper:hover .book-decoration {
+  filter: drop-shadow(0 0 18px rgba(255, 223, 100, 0.75)) 
+          drop-shadow(0 0 30px rgba(255, 215, 0, 0.45));
+}
+
+/* 📖 3D Book Cover — lifted, tilted, in front of frame */
+.book-cover {
+  position: relative;
+  z-index: 2;
+  width: 260px;
+  height: 390px;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow:
+    -8px 8px 20px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(0, 0, 0, 0.2);
+  transform: perspective(800px) rotateY(-6deg) rotateX(3deg);
+  transition: transform 0.4s ease;
+}
+.book-frame-wrapper:hover .book-cover {
+  transform: perspective(800px) rotateY(-3deg) rotateX(2deg) scale(1.03);
+}
+
 /* ===== FOOTER ===== */
 .site-footer {
   text-align: center;
@@ -630,7 +638,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
     padding: 2rem;
   }
   .featured-book-wrap {
-    flex-direction: column-reverse;
+    flex-direction: column;
     text-align: center;
     gap: 2rem;
   }
@@ -638,8 +646,12 @@ nav a:hover::after, nav a.active::after { width: 100%; }
     justify-content: center;
   }
   .book-frame-wrapper {
-    width: 300px;
-    height: 300px;
+    width: 340px;
+    height: 360px;
+  }
+  .book-cover {
+    width: 220px;
+    height: 330px;
   }
 }
 @media (max-width: 600px) {
@@ -650,8 +662,12 @@ nav a:hover::after, nav a.active::after { width: 100%; }
     font-size: 1.6rem;
   }
   .book-frame-wrapper {
-    width: 260px;
-    height: 260px;
+    width: 280px;
+    height: 300px;
+  }
+  .book-cover {
+    width: 180px;
+    height: 270px;
   }
   .container {
     padding: 0 1rem;
