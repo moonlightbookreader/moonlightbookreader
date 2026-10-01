@@ -1,9 +1,7 @@
 // ==============================
 // 🌙 MOONLIGHT BOOK READER — SCRIPT
-// FIXED: aboutData.json() typo → aboutRes.json()
-// Paths corrected: journal-icons → content/images/journal-icons
+// Fully Updated: Pills, Sizing, Classes, Back Links, 3D Book
 // ==============================
-
 // --- Icon Mapping ---
 const iconMap = {
   'OBSERVATION': 'content/images/journal-icons/icon-observation.png',
@@ -29,7 +27,7 @@ function renderStars(rating) {
   const full = Math.floor(rating || 0);
   const half = (rating || 0) % 1 >= 0.5 ? 1 : 0;
   const empty = 5 - full - half;
-  return '★'.repeat(full) + (half ? '☆' : '') + '✧'.repeat(empty);
+  return '★'.repeat(full) + (half ? '½' : '') + '☆'.repeat(empty);
 }
 
 // --- Rich Text Parser ---
@@ -77,18 +75,18 @@ function buildGenreTags(bookOrEntry) {
   let tags = [];
   if (bookOrEntry.mainGenre || bookOrEntry.genre) {
     const mainG = bookOrEntry.mainGenre || bookOrEntry.genre;
-    tags.push(`<span class="genre-tag ${getGenreClass(mainG)}">${mainG.trim()}</span>`);
+    tags.push(`<span class="genre-pill ${getGenreClass(mainG)}">${mainG.trim()}</span>`);
   }
   if (bookOrEntry.otherGenres) {
     bookOrEntry.otherGenres.split(',').forEach(g => {
       g = g.trim();
-      if (g) tags.push(`<span class="genre-tag ${getGenreClass(g)}">${g}</span>`);
+      if (g) tags.push(`<span class="genre-pill ${getGenreClass(g)}">${g}</span>`);
     });
   }
   return tags.join('');
 }
 
-// --- Load Data — ✅ FIXED: aboutRes.json() typo ---
+// --- Load Data ---
 async function loadAllData() {
   try {
     const [siteRes, booksRes, journalRes, aboutRes] = await Promise.all([
@@ -99,7 +97,7 @@ async function loadAllData() {
     ]);
     
     if (siteRes.ok) siteData = await siteRes.json();
-    if (aboutRes.ok) aboutData = await aboutRes.json(); // ✅ FIXED
+    if (aboutRes.ok) aboutData = await aboutRes.json();
     
     const booksData = await booksRes.json();
     books = booksData.entries || [];
@@ -175,7 +173,7 @@ function renderBookCard(book, full = false) {
   const stars = renderStars(book.rating || 0);
   
   const fmt = book.format 
-    ? `<p class="book-format-line"><strong>Book Format:</strong> <span class="book-format">${book.format}</span></p>` 
+    ? `<p class="book-format-line"><strong>Book Format:</strong> <span class="format-pill">${book.format}</span></p>` 
     : '';
   const startDate = book.startDate 
     ? `<span class="reading-date">Started: ${formatDateDisplay(book.startDate)}</span>` 
@@ -205,6 +203,7 @@ function renderBookCard(book, full = false) {
       c += `</ul>`;
     }
     if (book.verdict) c += `<p class="book-verdict"><strong style="color:var(--accent);">Verdict:</strong> ${book.verdict}</p>`;
+    c += `<a href="javascript:history.back()" class="back-link">← Back to All Reviews</a>`;
   } else {
     if (book.excerpt) c += `<p class="book-excerpt">${book.excerpt}</p>`;
     c += `<a href="book/${book.id}" class="read-more">Read full review →</a>`;
@@ -231,6 +230,7 @@ function renderJournalEntry(e, full = false) {
     </div>`;
     c += `<div class="journal-content-full">${parseRichText(e.text)}</div>`;
     if (e.attribution) c += `<p class="journal-attribution">— ${e.attribution}</p>`;
+    c += `<a href="javascript:history.back()" class="back-link">← Back to Journal</a>`;
   } else {
     c += `<div class="journal-card-header">
       ${iconHtml}
@@ -276,15 +276,15 @@ function renderFeaturedReview() {
   
   const genrePills = [];
   if (featured.mainGenre) {
-    genrePills.push(`<span class="genre-pill">${featured.mainGenre.trim()}</span>`);
+    genrePills.push(`<span class="genre-pill ${getGenreClass(featured.mainGenre)}">${featured.mainGenre.trim()}</span>`);
   }
   if (featured.otherGenres) {
     featured.otherGenres.split(',').forEach(g => {
       g = g.trim();
-      if (g) genrePills.push(`<span class="genre-pill">${g}</span>`);
+      if (g) genrePills.push(`<span class="genre-pill ${getGenreClass(g)}">${g}</span>`);
     });
   }
-
+  
   container.innerHTML = `
     <div class="featured-book-wrap">
       <div class="featured-content">
@@ -369,7 +369,7 @@ function generateStars(count = 80) {
 
 // --- Page Load ---
 document.addEventListener('DOMContentLoaded', async () => {
-  await loadAllData(); // ✅ Error fixed → rest runs now
+  await loadAllData();
   
   renderProfile();
   renderSocialLinks('socialLinks');
@@ -380,7 +380,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   
   renderFeaturedReview();
   
-  // Latest Reviews — ✅ Will show now
+  // Latest Reviews
   const latestReviewsContainer = document.getElementById('latestReviewsContainer');
   if (latestReviewsContainer) {
     const latest = books.slice(0, 4);
@@ -391,7 +391,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
   
-  // Latest Journal — ✅ Will show now
+  // Latest Journal
   const latestJournalContainer = document.getElementById('latestJournalContainer');
   if (latestJournalContainer) {
     const latest = journalEntries.slice(0, 4);
