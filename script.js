@@ -1,6 +1,6 @@
 // ==============================
 // 🌙 MOONLIGHT BOOK READER — SCRIPT
-// Final: 3D Ready, Clickable Genres + Journal Types, Correct Labeling
+// Matches CSS exactly · Correct paths · Pills show properly
 // ==============================
 
 // --- Icon Mapping ---
@@ -73,13 +73,19 @@ function getTypeClass(name) {
   return name.trim().toLowerCase().replace(/[^a-z0-9\- ]/g, '').replace(/\s+/g, '-');
 }
 
-// Build genre pills — clickable where appropriate
+// Build genre pills — matches CSS class .genre-pill
 function buildGenreTags(bookOrEntry, clickable = true) {
   const makePill = (g) => {
     const cls = getGenreClass(g);
     const label = g.trim();
+    if (label.toLowerCase() === 'magical realism') {
+      if (clickable) {
+        return `<a href="books.html?genre=magical-realism" class="genre-pill magical-realism">${label}</a>`;
+      }
+      return `<span class="genre-pill magical-realism">${label}</span>`;
+    }
     if (clickable) {
-      return `<a href="reviews.html?genre=${encodeURIComponent(cls)}" class="genre-pill ${cls}">${label}</a>`;
+      return `<a href="books.html?genre=${encodeURIComponent(cls)}" class="genre-pill ${cls}">${label}</a>`;
     }
     return `<span class="genre-pill ${cls}">${label}</span>`;
   };
@@ -95,11 +101,11 @@ function buildGenreTags(bookOrEntry, clickable = true) {
   return tags.join('');
 }
 
-// Build journal type pill — clickable
+// Build journal type pill — matches CSS class .entry-type-pill
 function buildTypePill(entry) {
   const t = entry.type || 'THOUGHTS';
   const cls = getTypeClass(t);
-  return `<a href="journal.html?type=${encodeURIComponent(cls)}" class="type-pill ${cls}">${t.toUpperCase()}</a>`;
+  return `<a href="journal.html?type=${encodeURIComponent(cls)}" class="entry-type-pill ${cls}">${t.toUpperCase()}</a>`;
 }
 
 // --- Load Data ---
@@ -168,15 +174,14 @@ function renderStats() {
 // --- Render Book Card ---
 function renderBookCard(book, full = false) {
   const cover = book.coverImage
-    ? `<img src="${book.coverImage}" alt="${book.title}" class="book-cover" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">`
-      + `<div class="book-cover-placeholder" style="display:none;">📖</div>`
+    ? `<img src="${book.coverImage}" alt="${book.title}" class="book-cover" loading="lazy" onerror="this.style.display='none';">`
     : `<div class="book-cover-placeholder">📖</div>`;
   
   const tags = buildGenreTags(book, !full);
   const stars = renderStars(book.rating || 0);
   
   const fmt = book.format 
-    ? `<p class="book-format-line"><strong>Book Format:</strong> <span class="format-pill">${book.format.toUpperCase()}</span></p>` 
+    ? `<span class="format-pill">${book.format.toUpperCase()}</span>` 
     : '';
   
   const startDate = book.startDate 
@@ -190,66 +195,66 @@ function renderBookCard(book, full = false) {
     : '';
   
   let c = `<div class="book-card"><div class="book-header">${cover}<div class="book-meta">
-    <a href="book/${book.id}" class="book-title">${book.title}</a>
-    <p class="book-author">by ${book.author}</p>
+    <a href="book.html?id=${book.id}" class="book-title">${book.title}</a>
+    <p class="book-author">by ${book.author} ${fmt}</p>
     <div class="book-rating">${stars}</div>
     <div class="book-genres">${tags}</div>
-    ${fmt}
     ${dateLine}
   </div></div>`;
   
   if (full) {
     if (book.excerpt) c += `<p class="book-excerpt">${book.excerpt}</p>`;
-    if (book.fullReview) c += `<div class="book-full-content">${parseRichText(book.fullReview)}</div>`;
+    if (book.fullReview) c += `<div class="review-content">${parseRichText(book.fullReview)}</div>`;
     if (book.highlights && book.highlights.length) {
-      c += `<ul class="book-highlights"><strong style="color:var(--accent);font-family:'Playfair Display',serif;font-style:italic;">Quotes</strong>`;
+      c += `<div class="quotes-section"><h3>Quotes</h3><ul>`;
       book.highlights.forEach(h => { c += `<li>${h}</li>`; });
-      c += `</ul>`;
+      c += `</ul></div>`;
     }
-    if (book.verdict) c += `<p class="book-verdict"><strong style="color:var(--accent);">Verdict:</strong> ${book.verdict}</p>`;
-    c += `<a href="javascript:history.back()" class="back-link">← Back to Reviews</a>`;
+    if (book.verdict) c += `<div class="verdict-section"><h3>Verdict</h3><p>${book.verdict}</p></div>`;
+    c += `<a href="books.html" class="back-link-pill">← Back to Reviews</a>`;
   } else {
     if (book.excerpt) c += `<p class="book-excerpt">${book.excerpt}</p>`;
-    c += `<a href="book/${book.id}" class="read-more">Read full review →</a>`;
+    c += `<a href="book.html?id=${book.id}" class="read-more">Read full review →</a>`;
   }
   return c + `</div>`;
 }
 
-// --- Render Journal Entry ---
+// --- Render Journal Entry — matches CSS classes exactly ---
 function renderJournalEntry(e, full = false) {
   const iconSrc = iconMap[e.type] || '';
   const iconHtml = iconSrc 
-    ? `<img src="${iconSrc}" alt="${e.type}" class="journal-icon ${full ? 'journal-icon-large' : ''}" loading="lazy" />` 
+    ? `<img src="${iconSrc}" alt="${e.type}" class="journal-icon" loading="lazy" />` 
     : '';
   const typePill = buildTypePill(e);
-  let c = `<div class="journal-entry ${full ? 'journal-entry-full' : ''}">`;
+  
+  let c = `<div class="journal-entry">`;
   
   if (full) {
-    c += `<div class="journal-full-header">
-      <div class="journal-icon-column">${iconHtml}</div>
-      <div class="journal-meta-column">
+    c += `<div class="journal-card-header">
+      ${iconHtml}
+      <div>
         <h3 class="journal-title">${e.title}</h3>
         <p class="journal-date">${e.date ? formatDateDisplay(e.date) : ''}</p>
-        <div class="journal-type-row">${typePill}</div>
+        <div class="journal-type-tag">${typePill}</div>
       </div>
     </div>`;
-    c += `<div class="journal-content-full">${parseRichText(e.text)}</div>`;
+    c += `<div class="review-content">${parseRichText(e.text)}</div>`;
     if (e.attribution) c += `<p class="journal-attribution">— ${e.attribution}</p>`;
-    c += `<a href="javascript:history.back()" class="back-link">← Back to Journal</a>`;
+    c += `<a href="journal.html" class="back-link-pill">← Back to Journal</a>`;
   } else {
     c += `<div class="journal-card-header">
       ${iconHtml}
       <div>
-        <a href="journal/${e.id}" class="journal-title">${e.title}</a>
+        <a href="journal.html?id=${e.id}" class="journal-title">${e.title}</a>
         <p class="journal-date">${e.date ? formatDateDisplay(e.date) : ''}</p>
-        <div class="journal-type-row">${typePill}</div>
+        <div class="journal-type-tag">${typePill}</div>
       </div>
     </div>`;
     const t = document.createElement('div');
     t.innerHTML = parseRichText(e.text);
     const txt = t.textContent || '';
     c += `<p class="journal-snippet">${txt.length > 220 ? txt.substring(0, 220) + '...' : txt}</p>`;
-    c += `<a href="journal/${e.id}" class="read-more">Continue reading →</a>`;
+    c += `<a href="journal.html?id=${e.id}" class="read-more">Continue reading →</a>`;
   }
   return c + `</div>`;
 }
@@ -275,13 +280,13 @@ function renderBooksList() {
     : books;
   
   if (filtered.length === 0) {
-    container.innerHTML = '<div class="empty-state">No matching reviews ✨</div>';
+    container.innerHTML = '<p class="empty-state">No matching reviews ✨</p>';
     return;
   }
   container.innerHTML = filtered.map(book => renderBookCard(book, false)).join('');
 }
 
-// --- ⭐ Featured Review — with 3D Ready Structure ---
+// --- ⭐ Featured Review — matches index.html structure exactly ---
 function renderFeaturedReview() {
   const featured = books.find(b => b.featured === true);
   const container = document.getElementById('featuredContainer');
@@ -289,16 +294,22 @@ function renderFeaturedReview() {
   
   if (!featured) { container.innerHTML = ''; return; }
   
-  // Clickable genre pills on featured too
   const genrePills = [];
   const makePill = (g) => {
     const cls = getGenreClass(g);
-    return `<a href="reviews.html?genre=${encodeURIComponent(cls)}" class="genre-pill ${cls}">${g.trim()}</a>`;
+    const label = g.trim();
+    if (label.toLowerCase() === 'magical realism') {
+      return `<a href="books.html?genre=magical-realism" class="genre-pill magical-realism">${label}</a>`;
+    }
+    return `<a href="books.html?genre=${encodeURIComponent(cls)}" class="genre-pill">${label}</a>`;
   };
   if (featured.mainGenre) genrePills.push(makePill(featured.mainGenre));
   if (featured.otherGenres) {
     featured.otherGenres.split(',').forEach(g => { g = g.trim(); if (g) genrePills.push(makePill(g)); });
   }
+  
+  // ✅ CORRECT IMAGE PATH — uses YOUR filename
+  const coverSrc = featured.coverImage || 'content/images/midnight-library.jpg';
   
   container.innerHTML = `
     <div class="featured-book-wrap">
@@ -312,14 +323,17 @@ function renderFeaturedReview() {
         </div>
         <div class="featured-genres">${genrePills.join('')}</div>
         <p class="featured-excerpt">${featured.excerpt || ''}</p>
-        <a href="book/${featured.id}" class="btn btn-primary">Read Full Review →</a>
+        <a href="book.html?id=${featured.id}" class="btn btn-primary featured-btn">Read Full Review →</a>
       </div>
-      <div class="book-mockup-wrapper">
-        <div class="golden-frame"></div>
-        <img src="${featured.coverImage || 'content/images/featured-cover.jpg'}" 
-             alt="${featured.title}" 
-             class="featured-book-3d"
-             loading="lazy" />
+      <div class="book-frame-wrapper">
+        <div class="golden-ornate-frame"></div>
+        <img 
+          src="${coverSrc}" 
+          alt="${featured.title}" 
+          class="featured-book-3d"
+          loading="lazy"
+          onerror="this.style.display='none';this.previousElementSibling.style.background='linear-gradient(135deg, #2a1a52, #1e1240)'"
+        />
       </div>
     </div>
   `;
@@ -346,7 +360,7 @@ function initSearch() {
       return;
     }
     results.innerHTML = matches.map(b => `
-      <a href="book/${b.id}" class="search-result-item">
+      <a href="book.html?id=${b.id}" class="search-result-item">
         <span class="result-title">${b.title}</span>
         <span class="result-author">by ${b.author}</span>
       </a>
@@ -361,21 +375,6 @@ function initSearch() {
   });
 }
 
-// --- Starry Background ---
-function generateStars(count = 80) {
-  const container = document.querySelector('.stars-bg');
-  if (!container) return;
-  for (let i = 0; i < count; i++) {
-    const star = document.createElement('div');
-    star.classList.add('twinkle');
-    star.style.setProperty('--dur', `${(Math.random() * 3) + 2}s`);
-    star.style.setProperty('--delay', `${Math.random() * 4}s`);
-    star.style.left = `${Math.random() * 100}%`;
-    star.style.top = `${Math.random() * 100}%`;
-    container.appendChild(star);
-  }
-}
-
 // --- Page Load ---
 document.addEventListener('DOMContentLoaded', async () => {
   await loadAllData();
@@ -384,7 +383,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderSocialLinks('socialLinks');
   renderAbout();
   renderStats();
-  generateStars();
   renderFeaturedReview();
   
   // Latest Reviews
@@ -419,27 +417,23 @@ document.addEventListener('DOMContentLoaded', async () => {
       : filtered.map(e => renderJournalEntry(e, false)).join('');
   }
   
-  // Single Book
+  // Single Book Page
   const bookId = getUrlParam('id');
   if (bookId && books.length > 0) {
     const book = books.find(b => b.id === bookId);
     const container = document.getElementById('singleBook');
     if (book && container) {
       container.innerHTML = renderBookCard(book, true);
-    } else if (container) {
-      container.innerHTML = '<p class="empty-state">Book not found ✨</p>';
     }
   }
   
-  // Single Journal Entry
+  // Single Journal Page
   const entryId = getUrlParam('id');
   if (entryId && journalEntries.length > 0) {
     const entry = journalEntries.find(e => e.id === entryId);
     const container = document.getElementById('singleJournalEntry');
     if (entry && container) {
       container.innerHTML = renderJournalEntry(entry, true);
-    } else if (container) {
-      container.innerHTML = '<p class="empty-state">Entry not found ✨</p>';
     }
   }
   
