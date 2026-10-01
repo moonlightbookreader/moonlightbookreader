@@ -1,8 +1,7 @@
 // ==============================
 // 🌙 MOONLIGHT BOOK READER — SCRIPT
-// Preserved original functions + added: Featured Review, Search, Journal Icons (lazy loaded), 4 latest cards
+// Preserved original functions + added: Celestial Frame Decorations, 4 Journal Cards, Auto Featured
 // ==============================
-
 // --- Icon Mapping ---
 const iconMap = {
   'OBSERVATION': 'images/journal-icons/icon-observation.png',
@@ -14,7 +13,6 @@ const iconMap = {
   'RECOMMENDATION': 'images/journal-icons/icon-recommendation.png',
   'LIFE': 'images/journal-icons/icon-life.png'
 };
-
 // --- Helper: Format Date ---
 function formatDateDisplay(dateStr) {
   if (!dateStr) return '';
@@ -22,7 +20,6 @@ function formatDateDisplay(dateStr) {
     day: 'numeric', month: 'long', year: 'numeric' 
   });
 }
-
 // --- Helper: Generate Stars ---
 function renderStars(rating) {
   const full = Math.floor(rating || 0);
@@ -30,7 +27,6 @@ function renderStars(rating) {
   const empty = 5 - full - half;
   return '★'.repeat(full) + (half ? '☆' : '') + '✧'.repeat(empty);
 }
-
 // --- Rich Text Parser (ORIGINAL — preserved) ---
 function parseRichText(text) {
   if (!text) return '';
@@ -51,17 +47,14 @@ function parseRichText(text) {
   parsed = parsed.replace(/\n/g, '<br>');
   return parsed;
 }
-
 // --- State (ORIGINAL — preserved) ---
 let siteData = {}, aboutData = {}, books = [], journalEntries = [];
 let activeGenreFilter = null;
-
 // --- Get URL Parameter Helper (ORIGINAL — preserved) ---
 function getUrlParam(name) {
   const params = new URLSearchParams(window.location.search);
   return params.get(name);
 }
-
 // --- GENRE TAG HELPERS (ORIGINAL — preserved) ---
 function getGenreClass(name) {
   if (!name) return 'custom-genre';
@@ -85,7 +78,6 @@ function buildGenreTags(bookOrEntry) {
   }
   return tags.join('');
 }
-
 // --- Load Data (ORIGINAL — preserved & extended) ---
 async function loadAllData() {
   try {
@@ -105,7 +97,6 @@ async function loadAllData() {
     console.error('Error loading data:', err);
   }
 }
-
 // --- Render Profile (ORIGINAL — preserved) ---
 function renderProfile() {
   const titleEl = document.getElementById('siteTitle');
@@ -113,7 +104,6 @@ function renderProfile() {
   if (titleEl && siteData.title) titleEl.textContent = siteData.title;
   if (taglineEl && siteData.tagline) taglineEl.textContent = siteData.tagline;
 }
-
 // --- Render Social Links (ORIGINAL — preserved) ---
 function renderSocialLinks(containerId) {
   const container = document.getElementById(containerId);
@@ -123,7 +113,6 @@ function renderSocialLinks(containerId) {
     `<a href="${link.url}" target="_blank" rel="noopener" class="social-link">${link.platform}</a>`
   ).join('');
 }
-
 // --- Render About (ORIGINAL — preserved) ---
 function renderAbout() {
   const bioEl = document.getElementById('aboutBio');
@@ -131,7 +120,6 @@ function renderAbout() {
     bioEl.innerHTML = aboutData.bio;
   }
 }
-
 // --- Render Stats (ORIGINAL — preserved) ---
 function renderStats() {
   const bookCountEl = document.getElementById('statBooks');
@@ -159,7 +147,6 @@ function renderStats() {
   
   if (genreCountEl) genreCountEl.textContent = allGenres.size;
 }
-
 // --- Render Book Card (ORIGINAL — preserved) ---
 function renderBookCard(book, full = false) {
   const cover = book.coverImage
@@ -206,18 +193,15 @@ function renderBookCard(book, full = false) {
   }
   return c + `</div>`;
 }
-
 // --- 📖 Render Journal Entry — UPDATED with Icons ---
 function renderJournalEntry(e, full = false) {
   const iconSrc = iconMap[e.type] || '';
   const iconHtml = iconSrc 
     ? `<img src="${iconSrc}" alt="${e.type}" class="journal-icon ${full ? 'journal-icon-large' : ''}" loading="lazy" />` 
     : '';
-
   let c = `<div class="journal-entry ${full ? 'journal-entry-full' : ''}">`;
   
   if (full) {
-    // Full entry layout — icon on left, aligned to text (your sketch)
     c += `<div class="journal-full-header">
       <div class="journal-icon-column">${iconHtml}</div>
       <div class="journal-meta-column">
@@ -229,7 +213,6 @@ function renderJournalEntry(e, full = false) {
     c += `<div class="journal-content-full">${parseRichText(e.text)}</div>`;
     if (e.attribution) c += `<p class="journal-attribution">— ${e.attribution}</p>`;
   } else {
-    // Homepage card — icon top-left (56px)
     c += `<div class="journal-card-header">
       ${iconHtml}
       <div>
@@ -246,7 +229,6 @@ function renderJournalEntry(e, full = false) {
   }
   return c + `</div>`;
 }
-
 // --- Render Books List (ORIGINAL — preserved) ---
 function renderBooksList() {
   const container = document.getElementById('booksContainer');
@@ -260,38 +242,65 @@ function renderBooksList() {
   }
   container.innerHTML = filtered.map(book => renderBookCard(book, false)).join('');
 }
-
-// --- ⭐ Featured Review ---
+// --- ⭐ Featured Review — CELESTIAL FRAME ✨ ---
 function renderFeaturedReview() {
   const featured = books.find(b => b.featured === true);
   const section = document.getElementById('featuredSection');
   const container = document.getElementById('featuredContainer');
   if (!section || !container) return;
-
   if (!featured) {
     section.style.display = 'none';
     return;
   }
-
   section.style.display = 'block';
+  
+  // Get genres properly
+  const genrePills = [];
+  if (featured.mainGenre) genrePills.push(`<span class="genre-pill">${featured.mainGenre.trim()}</span>`);
+  if (featured.otherGenres) {
+    featured.otherGenres.split(',').forEach(g => {
+      g = g.trim();
+      if (g) genrePills.push(`<span class="genre-pill">${g}</span>`);
+    });
+  }
+  
   container.innerHTML = `
     <div class="featured-book-wrap">
-      <div class="featured-book-mockup">
-        <img src="${featured.coverImage || 'images/placeholder-cover.jpg'}" 
-             alt="${featured.title}" 
-             loading="lazy"
-             class="featured-cover" />
-        <div class="book-spine-glow"></div>
-        <div class="book-moon-decoration"></div>
+      <div class="featured-book-container">
+        <!-- Left sparkles & glow decoration -->
+        <div class="featured-decoration-left"></div>
+        
+        <!-- The book cover -->
+        <div class="featured-book-mockup">
+          <img src="${featured.coverImage || 'hero-image.jpg'}" 
+               alt="${featured.title}" 
+               loading="lazy"
+               class="featured-cover" />
+          <div class="book-spine-glow"></div>
+        </div>
+        
+        <!-- Right moon & stars decoration -->
+        <div class="featured-decoration-right">
+          <span class="moon">☾</span>
+          <span class="star">✦</span>
+          <span class="star">✧</span>
+          <span class="star">✦</span>
+        </div>
+        
+        <!-- Bottom sparkle line -->
+        <div class="featured-decoration-bottom">✧ ✦ ☾ ✦ ✧</div>
       </div>
+      
       <div class="featured-content">
         <span class="featured-tag">⭐ Featured Review</span>
         <h3 class="featured-title">${featured.title}</h3>
         <p class="featured-author">by ${featured.author}</p>
-        <p class="featured-rating">${renderStars(featured.rating)} <span>${featured.rating}/5</span></p>
+        <div class="featured-rating">
+          ${renderStars(featured.rating)} 
+          <span>${featured.rating || '0'}/5</span>
+        </div>
         <div class="featured-genres">
-          <span class="genre-pill">${featured.mainGenre}</span>
-          ${featured.otherGenres ? featured.otherGenres.split(',').map(g => `<span class="genre-pill">${g.trim()}</span>`).join('') : ''}
+          ${genrePills.join('')}
         </div>
         <p class="featured-excerpt">${featured.excerpt || ''}</p>
         <a href="book/${featured.id}" class="btn btn-primary">Read Full Review →</a>
@@ -299,13 +308,11 @@ function renderFeaturedReview() {
     </div>
   `;
 }
-
 // --- 🔍 Search Functionality ---
 function initSearch() {
   const input = document.getElementById('searchInput');
   const results = document.getElementById('searchResults');
   if (!input || !results) return;
-
   input.addEventListener('input', () => {
     const q = input.value.trim().toLowerCase();
     if (!q) {
@@ -313,19 +320,16 @@ function initSearch() {
       results.style.display = 'none';
       return;
     }
-
     const matches = books.filter(b =>
       (b.title && b.title.toLowerCase().includes(q)) ||
       (b.author && b.author.toLowerCase().includes(q)) ||
       (b.mainGenre && b.mainGenre.toLowerCase().includes(q))
     ).slice(0, 5);
-
     if (matches.length === 0) {
       results.innerHTML = '<p class="no-results">No matches found ✨</p>';
       results.style.display = 'block';
       return;
     }
-
     results.innerHTML = matches.map(b => `
       <a href="book/${b.id}" class="search-result-item">
         <span class="result-title">${b.title}</span>
@@ -334,7 +338,6 @@ function initSearch() {
     `).join('');
     results.style.display = 'block';
   });
-
   // Close on outside click
   document.addEventListener('click', (e) => {
     if (!input.contains(e.target) && !results.contains(e.target)) {
@@ -342,7 +345,6 @@ function initSearch() {
     }
   });
 }
-
 // --- Starry Background Generator ✨ (ORIGINAL — preserved) ---
 function generateStars(count = 80) {
   const container = document.querySelector('.stars-bg');
@@ -372,7 +374,6 @@ function addMoonDecorations(count = 6) {
     container.appendChild(moon);
   }
 }
-
 // --- Page Load ---
 document.addEventListener('DOMContentLoaded', async () => {
   await loadAllData();
@@ -385,7 +386,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   generateStars();
   addMoonDecorations();
   
-  // Featured Review
+  // Featured Review — now with celestial frame ✨
   renderFeaturedReview();
   
   // Home page — latest reviews (4 cards)
@@ -399,10 +400,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
   
-  // Home page — latest journal entries (3 cards with icons)
+  // Home page — latest journal entries (4 cards — 2x2 grid)
   const latestJournalContainer = document.getElementById('latestJournalContainer');
   if (latestJournalContainer) {
-    const latest = journalEntries.slice(0, 3);
+    const latest = journalEntries.slice(0, 4);
     if (latest.length === 0) {
       latestJournalContainer.innerHTML = '<p class="empty-state">No entries yet... thoughts coming soon 🌙</p>';
     } else {
@@ -437,7 +438,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
   
-  // Single journal entry page — with larger icon layout
+  // Single journal entry page
   const entryId = getUrlParam('id');
   if (entryId && journalEntries.length > 0) {
     const entry = journalEntries.find(e => e.id === entryId);
@@ -448,4 +449,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       container.innerHTML = '<p class="empty-state">Entry not found ✨</p>';
     }
   }
+  
+  initSearch();
 });
