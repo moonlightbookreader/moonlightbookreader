@@ -2,7 +2,7 @@
   "entries": [
     {
       "id": "the-midnight-library",
-      "featured": true,
+      "featured": false,
       "title": "The Midnight Library",
       "author": "Matt Haigh",
       "mainGenre": "Contemporary",
