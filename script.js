@@ -28,12 +28,27 @@ function formatDateDisplay(dateStr) {
   });
 }
 
-// --- Helper: Generate Stars ---
+// --- Generate Stars with VISUAL half-star support ✨ ---
 function renderStars(rating) {
-  const full = Math.floor(rating || 0);
-  const half = (rating || 0) % 1 >= 0.5 ? 1 : 0;
+  const r = parseFloat(rating) || 0;
+  const full = Math.floor(r);
+  const half = (r % 1) >= 0.5 ? 1 : 0;
   const empty = 5 - full - half;
-  return '★'.repeat(full) + (half ? '½' : '') + '☆'.repeat(empty);
+  
+  let html = '';
+  // Full stars
+  html += '<span style="color: var(--accent);">' + '★'.repeat(full) + '</span>';
+  // Half star — visual CSS half-fill
+  if (half) {
+    html += '<span style="display:inline-block; position:relative; width:1em; height:1em; vertical-align:middle; letter-spacing:0;">';
+    html += '<span style="position:absolute; left:0; top:0; width:50%; overflow:hidden; color:var(--accent); white-space:nowrap;">★</span>';
+    html += '<span style="position:absolute; left:0; top:0; color:rgba(212,175,55,0.3); white-space:nowrap;">★</span>';
+    html += '</span>';
+  }
+  // Empty stars
+  html += '<span style="color: rgba(212,175,55,0.3);">' + '★'.repeat(empty) + '</span>';
+  
+  return html;
 }
 
 // --- Rich Text Parser ---
