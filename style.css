@@ -630,3 +630,17 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   .featured-book-3d { width: 160px; height: 240px; }
   .container { padding: 0 1rem; }
 }
+/* ===== FEATURED HOVER — CSS GUARANTEED ✨ ===== */
+#featuredFrameWrapper:hover #featuredBookImg {
+  transform: perspective(900px) rotateY(-8deg) rotateX(2deg) translateZ(25px) scale(1.04) !important;
+  box-shadow:
+    inset 15px 0 20px -10px rgba(255,255,255,0.18),
+    inset -12px 0 25px -8px rgba(0,0,0,0.6),
+    -25px 20px 50px rgba(0,0,0,0.55),
+    0 15px 35px rgba(0,0,0,0.4),
+    8px 0 20px rgba(0,0,0,0.25) !important;
+}
+
+#featuredFrameWrapper:hover #featuredOverlay {
+  filter: drop-shadow(0 0 20px rgba(255,223,100,0.6)) drop-shadow(0 0 35px rgba(255,215,0,0.35)) !important;
+}
