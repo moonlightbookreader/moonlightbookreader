@@ -439,3 +439,66 @@ document.addEventListener('DOMContentLoaded', async () => {
   
   initSearch();
 });
+
+// ⭐ Auto-Update Featured Review — preserves ALL styling ✨
+function renderFeaturedReview() {
+  const featured = books.find(b => b.featured === true);
+  const section = document.getElementById('featuredSection');
+  
+  if (!featured) {
+    if (section) section.style.display = 'none';
+    return;
+  }
+  
+  if (section) section.style.display = 'block';
+  
+  // Title
+  const titleEl = document.getElementById('featuredTitle');
+  if (titleEl) titleEl.textContent = featured.title || 'Untitled';
+  
+  // Author
+  const authorEl = document.getElementById('featuredAuthor');
+  if (authorEl) authorEl.textContent = `by ${featured.author || 'Unknown Author'}`;
+  
+  // Rating with half-star support ✨
+  const ratingEl = document.getElementById('featuredRating');
+  if (ratingEl) {
+    const r = parseFloat(featured.rating) || 0;
+    const full = Math.floor(r);
+    const half = (r % 1) >= 0.5 ? 1 : 0;
+    const empty = 5 - full - half;
+    ratingEl.innerHTML = `${'★'.repeat(full)}${half ? '⯨' : ''}${'☆'.repeat(empty)} ${r}/5`;
+  }
+  
+  // Genres
+  const genresEl = document.getElementById('featuredGenres');
+  if (genresEl) {
+    let tags = '';
+    const addTag = (g) => {
+      const cls = g.trim().toLowerCase().replace(/[^a-z0-9\- ]/g, '').replace(/\s+/g, '-');
+      const isMagical = g.trim().toLowerCase() === 'magical realism';
+      tags += `<a href="books.html?genre=${encodeURIComponent(cls)}" class="genre-pill ${isMagical ? 'magical-realism' : cls}">${g.trim()}</a>`;
+    };
+    if (featured.mainGenre) addTag(featured.mainGenre);
+    if (featured.otherGenres) {
+      const others = Array.isArray(featured.otherGenres) ? featured.otherGenres : String(featured.otherGenres).split(',');
+      others.forEach(g => { if (g.trim()) addTag(g); });
+    }
+    genresEl.innerHTML = tags;
+  }
+  
+  // Excerpt
+  const excerptEl = document.getElementById('featuredExcerpt');
+  if (excerptEl) excerptEl.textContent = featured.excerpt || 'No excerpt yet...';
+  
+  // Button link
+  const btnEl = document.getElementById('featuredButton');
+  if (btnEl) btnEl.href = `book.html?id=${featured.id}`;
+  
+  // Book cover image
+  const imgEl = document.getElementById('featuredBookImg');
+  if (imgEl && featured.coverImage) {
+    imgEl.src = featured.coverImage;
+    imgEl.alt = featured.title || '';
+  }
+}
