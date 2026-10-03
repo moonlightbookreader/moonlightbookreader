@@ -126,6 +126,7 @@ content:
               values:
                 - Anthologies
                 - Art
+                - Biographical Fiction
                 - Biography
                 - Children
                 - Classics
@@ -133,16 +134,22 @@ content:
                 - Contemporary
                 - Cookbook
                 - Cozy Books
+                - Dark Academia
                 - Dark Fantasy
+                - Dark Romance
                 - Drama
+                - Dystopian
                 - Epic Fantasy
                 - Fantasy
                 - Fantasy Romance
                 - Fiction
+                - Gothic
                 - Graphic Novel
                 - Historical
                 - Historical Fiction
                 - Horror
+                - Literary Fiction
+                - Magical Realism
                 - Memoir
                 - Middle Grade
                 - Mystery
@@ -151,10 +158,13 @@ content:
                 - Paranormal Romance
                 - Philosophy
                 - Poetry
+                - Political Fiction
+                - Psychological Fiction
                 - Psychological Thriller
                 - Religion
                 - Romance
                 - Sci-Fi
+                - Science Fiction
                 - Self-Help
                 - Short Stories
                 - Thriller
@@ -165,6 +175,11 @@ content:
             label: Other Genres (comma separated, e.g. Romance, Mystery)
             type: string
             required: false
+          - name: triggerWarnings
+            label: Trigger Warnings (comma separated)
+            type: string
+            required: false
+            description: "Content warnings, e.g.: suicide, depression, grief"
           - name: format
             label: Format
             type: select
@@ -175,10 +190,11 @@ content:
                 - Audiobook
                 - ARC (Advanced Reader Copy)
           - name: rating
-            label: Rating (1-5)
+            label: Rating (0-5, supports half stars: 3.5, 4.5)
             type: number
-            min: 1
+            min: 0
             max: 5
+            step: 0.5
           - name: date
             label: Date Finished
             type: date
