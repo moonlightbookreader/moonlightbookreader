@@ -2,7 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap');
-
 :root {
   --bg-deep: #150c2b;
   --bg: #1e1240;
@@ -28,7 +27,6 @@
   --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.3);
   --shadow-glow: 0 0 20px rgba(255, 215, 0, 0.25);
 }
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
@@ -39,7 +37,6 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
 }
-
 /* ===== STARRY BACKGROUND ===== */
 .stars-bg {
   position: fixed;
@@ -60,11 +57,9 @@ body {
   0%, 100% { opacity: 0.2; transform: scale(0.8); }
   50% { opacity: 1; transform: scale(1.3); }
 }
-
 /* ===== LAYOUT ===== */
 .page-wrapper { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; width: 100%; flex: 1; }
-
 /* ===== HEADER ===== */
 .site-header {
   display: flex; justify-content: space-between; align-items: flex-end;
@@ -91,7 +86,6 @@ nav a::after {
 }
 nav a:hover, nav a.active { color: var(--accent); }
 nav a:hover::after, nav a.active::after { width: 100%; }
-
 /* ===== HERO ===== */
 .hero { display: grid; grid-template-columns: 1fr 1.15fr; gap: 4rem; align-items: center; margin-bottom: 4rem; }
 .hero-text .handwritten { font-family: 'Caveat', cursive; font-size: 1.6rem; color: var(--accent); margin-bottom: 0.5rem; }
@@ -124,15 +118,12 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   font-size: 1.35rem; color: var(--accent); box-shadow: 0 6px 24px rgba(0,0,0,0.4);
   border: 1px solid rgba(212,175,55,0.3); transform: rotate(-2deg); z-index: 10; white-space: nowrap;
 }
-
 /* ===== SECTION HEADERS ===== */
 .section-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
 .section-header h2 { font-family: 'Playfair Display', serif; font-size: 1.75rem; font-weight: 600; font-style: italic; color: var(--text); }
 .section-header .handwritten { font-family: 'Caveat', cursive; font-size: 1.4rem; color: var(--text-soft); }
 .section-icon { color: var(--accent); display: flex; align-items: center; }
-
 /* ===== PILLS — EXACT SHAPES ===== */
-
 /* Genre pill — fully rounded oval */
 .genre-pill {
   display: inline-block;
@@ -153,11 +144,55 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   border-color: var(--accent);
   transform: translateY(-1px);
 }
-.genre-pill.magical-realism {
-  background: rgba(255, 215, 0, 0.12);
-  border-color: rgba(255, 223, 100, 0.35);
-  color: #ffe8a0;
-}
+/* ===== ALL GENRE COLORS — COMPLETE SET ✨ ===== */
+.genre-pill.anthologies { background: rgba(186, 85, 211, 0.25); border-color: rgba(221, 160, 221, 0.4); }
+.genre-pill.art { background: rgba(255, 127, 80, 0.25); border-color: rgba(255, 160, 122, 0.4); }
+.genre-pill.biographical-fiction { background: rgba(205, 133, 63, 0.25); border-color: rgba(205, 133, 63, 0.45); }
+.genre-pill.biography { background: rgba(205, 133, 63, 0.25); border-color: rgba(205, 133, 63, 0.45); }
+.genre-pill.children { background: rgba(255, 182, 193, 0.3); border-color: rgba(255, 192, 203, 0.45); }
+.genre-pill.classics { background: rgba(245, 222, 179, 0.2); border-color: rgba(245, 222, 179, 0.4); color: #f5e6d3; }
+.genre-pill.comfort-reads { background: rgba(255, 248, 220, 0.2); border-color: rgba(255, 239, 186, 0.4); color: #f5e6d3; }
+.genre-pill.contemporary { background: rgba(147, 112, 219, 0.35); border-color: rgba(186, 160, 255, 0.4); }
+.genre-pill.cookbook { background: rgba(255, 165, 0, 0.25); border-color: rgba(255, 191, 53, 0.45); }
+.genre-pill.cozy-books { background: rgba(245, 222, 179, 0.22); border-color: rgba(255, 228, 181, 0.4); color: #f5e6d3; }
+.genre-pill.dark-academia { background: rgba(85, 107, 47, 0.35); border-color: rgba(107, 142, 35, 0.45); }
+.genre-pill.dark-fantasy { background: rgba(34, 139, 34, 0.3); border-color: rgba(85, 107, 47, 0.45); }
+.genre-pill.dark-romance { background: rgba(139, 0, 0, 0.3); border-color: rgba(178, 34, 34, 0.45); }
+.genre-pill.drama { background: rgba(128, 0, 0, 0.28); border-color: rgba(178, 34, 34, 0.45); }
+.genre-pill.dystopian { background: rgba(70, 130, 180, 0.25); border-color: rgba(100, 149, 237, 0.45); }
+.genre-pill.epic-fantasy { background: rgba(0, 100, 0, 0.32); border-color: rgba(46, 139, 87, 0.45); }
+.genre-pill.fantasy { background: rgba(46, 139, 87, 0.3); border-color: rgba(60, 179, 113, 0.45); }
+.genre-pill.fantasy-romance { background: rgba(199, 21, 133, 0.25); border-color: rgba(255, 105, 180, 0.4); }
+.genre-pill.fiction { background: rgba(147, 112, 219, 0.35); border-color: rgba(186, 160, 255, 0.4); }
+.genre-pill.gothic { background: rgba(75, 0, 130, 0.35); border-color: rgba(123, 104, 238, 0.45); }
+.genre-pill.graphic-novel { background: rgba(0, 139, 139, 0.28); border-color: rgba(32, 178, 170, 0.45); }
+.genre-pill.historical { background: rgba(184, 134, 11, 0.25); border-color: rgba(218, 165, 32, 0.45); }
+.genre-pill.historical-fiction { background: rgba(184, 134, 11, 0.25); border-color: rgba(218, 165, 32, 0.45); }
+.genre-pill.horror { background: rgba(128, 0, 0, 0.3); border-color: rgba(178, 34, 34, 0.45); }
+.genre-pill.literary-fiction { background: rgba(112, 128, 144, 0.35); border-color: rgba(176, 196, 222, 0.45); }
+.genre-pill.magical-realism { background: rgba(255, 215, 0, 0.12); border-color: rgba(255, 223, 100, 0.35); color: #ffe8a0; }
+.genre-pill.memoir { background: rgba(139, 119, 101, 0.3); border-color: rgba(188, 143, 143, 0.4); }
+.genre-pill.middle-grade { background: rgba(135, 206, 250, 0.28); border-color: rgba(173, 216, 230, 0.45); }
+.genre-pill.mystery { background: rgba(0, 128, 128, 0.3); border-color: rgba(32, 178, 170, 0.45); }
+.genre-pill.new-adult { background: rgba(255, 105, 180, 0.28); border-color: rgba(255, 182, 193, 0.45); }
+.genre-pill.non-fiction { background: rgba(139, 119, 101, 0.3); border-color: rgba(188, 143, 143, 0.4); }
+.genre-pill.paranormal-romance { background: rgba(200, 162, 200, 0.3); border-color: rgba(221, 160, 221, 0.45); }
+.genre-pill.philosophy { background: rgba(112, 128, 144, 0.32); border-color: rgba(176, 196, 222, 0.45); }
+.genre-pill.poetry { background: rgba(218, 112, 214, 0.25); border-color: rgba(221, 160, 221, 0.45); }
+.genre-pill.political-fiction { background: rgba(178, 34, 34, 0.25); border-color: rgba(205, 92, 92, 0.45); }
+.genre-pill.psychological-fiction { background: rgba(139, 0, 139, 0.3); border-color: rgba(186, 85, 211, 0.45); }
+.genre-pill.psychological-thriller { background: rgba(128, 0, 128, 0.3); border-color: rgba(186, 85, 211, 0.45); }
+.genre-pill.religion { background: rgba(218, 165, 32, 0.22); border-color: rgba(255, 215, 0, 0.35); }
+.genre-pill.romance { background: rgba(255, 105, 180, 0.25); border-color: rgba(255, 182, 193, 0.45); }
+.genre-pill.sci-fi, .genre-pill.science-fiction { background: rgba(30, 144, 255, 0.25); border-color: rgba(135, 206, 250, 0.45); }
+.genre-pill.self-help { background: rgba(60, 179, 113, 0.25); border-color: rgba(144, 238, 144, 0.4); }
+.genre-pill.short-stories { background: rgba(255, 160, 122, 0.28); border-color: rgba(255, 127, 80, 0.45); }
+.genre-pill.thriller { background: rgba(128, 0, 32, 0.3); border-color: rgba(199, 21, 133, 0.45); }
+.genre-pill.travel { background: rgba(32, 178, 170, 0.28); border-color: rgba(0, 206, 209, 0.45); }
+.genre-pill.urban-fantasy { background: rgba(75, 0, 130, 0.32); border-color: rgba(123, 104, 238, 0.45); }
+.genre-pill.young-adult { background: rgba(255, 160, 122, 0.28); border-color: rgba(255, 127, 80, 0.45); }
+/* Fallback for unknown genres */
+.genre-pill { background: rgba(147, 112, 219, 0.35); border-color: rgba(186, 160, 255, 0.4); }
 
 /* Entry type pill — RECTANGULAR with soft corners (NOT round) */
 .entry-type-pill,
@@ -177,7 +212,6 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   white-space: nowrap !important;
   margin-bottom: 0.8rem !important;
 }
-
 /* Back link pill — LONG OVAL, gold text, Caveat font */
 .back-link-pill {
   display: inline-flex !important;
@@ -199,7 +233,6 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   border-color: var(--accent) !important;
   transform: translateX(-4px) !important;
 }
-
 /* Format pill — small rectangular */
 .format-pill {
   display: inline-block !important;
@@ -213,9 +246,14 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   border: 1px solid var(--pill-format-border) !important;
   color: var(--accent) !important;
   white-space: nowrap !important;
-  margin-left: 0.5rem !important;
 }
-
+/* Book Format label */
+.book-format-label {
+  font-family: 'Caveat', cursive;
+  font-size: 1.05rem;
+  color: var(--accent2);
+  margin-right: 0.5rem;
+}
 /* ===== FEATURED REVIEW ===== */
 .featured-section { margin: 2rem 0 3rem; }
 .featured-review {
@@ -289,7 +327,6 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   padding: 0.9rem 2.5rem;
   font-size: 1rem;
 }
-
 /* ===== GOLDEN FRAME + 3D BOOK ===== */
 .book-frame-wrapper {
   position: relative;
@@ -359,7 +396,38 @@ nav a:hover::after, nav a.active::after { width: 100%; }
     0 15px 35px rgba(0, 0, 0, 0.4),
     8px 0 20px rgba(0, 0, 0, 0.25);
 }
-
+/* ===== HALF-STAR VISUAL RATING ✨ ===== */
+.star-rating {
+  display: inline-flex;
+  align-items: center;
+  letter-spacing: 0.1em;
+}
+.star-full { color: var(--accent); }
+.star-half {
+  position: relative;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  overflow: hidden;
+  color: var(--accent);
+}
+.star-half::before {
+  content: '★';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50%;
+  overflow: hidden;
+  color: var(--accent);
+}
+.star-half::after {
+  content: '★';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: rgba(212, 175, 55, 0.3);
+}
+.star-empty { color: rgba(212, 175, 55, 0.3); }
 /* ===== REVIEW CONTENT FORMATTING ===== */
 .review-content {
   line-height: 1.8;
@@ -380,7 +448,6 @@ nav a:hover::after, nav a.active::after { width: 100%; }
 }
 .review-content ul, .review-content ol { margin: 1.25rem 0; padding-left: 1.75rem; }
 .review-content li { margin-bottom: 0.5rem; }
-
 /* ===== GOLDEN DIVIDER LINE ===== */
 .review-divider {
   width: 100%;
@@ -389,7 +456,6 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   margin: 2.5rem 0;
   opacity: 0.4;
 }
-
 /* ===== QUOTES & VERDICT SPACING ===== */
 .quotes-section, .verdict-section {
   margin: 2rem 0;
@@ -403,7 +469,6 @@ nav a:hover::after, nav a.active::after { width: 100%; }
 }
 .quotes-section { margin-bottom: 2.5rem; }
 .verdict-section { margin-top: 2.5rem; }
-
 /* ===== BOOK CARDS ===== */
 .books-grid {
   display: grid;
@@ -464,7 +529,10 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   margin: 0.5rem 0 0.75rem;
 }
 .book-format-line {
-  margin: 0.75rem 0 0.25rem;
+  margin: 0.5rem 0 0.25rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
 }
 .reading-dates {
   font-family: 'Caveat', cursive;
@@ -492,7 +560,6 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   text-align: center;
   margin: 1rem 0 2.5rem;
 }
-
 /* ===== JOURNAL GRID ===== */
 .journal-grid {
   display: grid !important;
@@ -518,6 +585,12 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   gap: 1rem;
   margin-bottom: 0.75rem;
 }
+.journal-icon {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
 .journal-title {
   font-family: 'Playfair Display', serif !important;
   font-size: 1.3rem !important;
@@ -532,14 +605,31 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   font-family: 'Caveat', cursive !important;
   font-size: 1.1rem !important;
   color: var(--text-soft) !important;
-  margin-bottom: 0.75rem !important;
+  margin-bottom: 0.5rem !important;
 }
 .journal-snippet {
   color: var(--text-soft) !important;
   font-style: italic !important;
   line-height: 1.6 !important;
 }
-
+/* ===== TRIGGER WARNINGS ===== */
+.trigger-warnings {
+  background: rgba(139, 69, 19, 0.15);
+  border-left: 3px solid #b8860b;
+  padding: 0.75rem 1.25rem;
+  margin: 1rem 0;
+  border-radius: 0 8px 8px 0;
+}
+.trigger-label {
+  font-family: 'Caveat', cursive;
+  font-size: 1.1rem;
+  color: #daa520;
+  margin-bottom: 0.25rem;
+}
+.trigger-list {
+  color: var(--text-soft);
+  font-size: 0.95rem;
+}
 /* ===== SEARCH ===== */
 .search-section { margin: 2.5rem 0; }
 .search-container {
@@ -600,7 +690,6 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   color: var(--text-soft);
   font-style: italic;
 }
-
 /* ===== FOOTER ===== */
 .site-footer {
   text-align: center;
@@ -613,7 +702,6 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   font-family: 'Caveat', cursive;
   font-size: 1.2rem;
 }
-
 /* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; gap: 2rem; }
@@ -631,16 +719,12 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   .container { padding: 0 1rem; }
 }
 /* ===== FEATURED HOVER — CSS GUARANTEED ✨ ===== */
-#featuredFrameWrapper:hover #featuredBookImg {
-  transform: perspective(900px) rotateY(-8deg) rotateX(2deg) translateZ(25px) scale(1.04) !important;
+.book-frame-wrapper:hover .featured-book-3d {
+  transform: perspective(900px) rotateY(-8deg) rotateX(2deg) translateZ(25px) scale(1.03) !important;
   box-shadow:
     inset 15px 0 20px -10px rgba(255,255,255,0.18),
     inset -12px 0 25px -8px rgba(0,0,0,0.6),
     -25px 20px 50px rgba(0,0,0,0.55),
     0 15px 35px rgba(0,0,0,0.4),
     8px 0 20px rgba(0,0,0,0.25) !important;
-}
-
-#featuredFrameWrapper:hover #featuredOverlay {
-  filter: drop-shadow(0 0 20px rgba(255,223,100,0.6)) drop-shadow(0 0 35px rgba(255,215,0,0.35)) !important;
 }
