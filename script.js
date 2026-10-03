@@ -337,6 +337,24 @@ function renderFeaturedReview() {
       </div>
     </div>
   `;
+    // ✨ Hover effect — re-attached after every render
+  const wrapper = document.getElementById('featuredFrameWrapper');
+  const book = document.getElementById('featuredBookImg');
+  const overlay = document.getElementById('featuredOverlay');
+  
+  if (wrapper && book) {
+    wrapper.addEventListener('mouseenter', function() {
+      book.style.transform = 'perspective(900px) rotateY(-8deg) rotateX(2deg) translateZ(25px) scale(1.04)';
+      book.style.boxShadow = 'inset 15px 0 20px -10px rgba(255,255,255,0.18), inset -12px 0 25px -8px rgba(0,0,0,0.6), -25px 20px 50px rgba(0,0,0,0.55), 0 15px 35px rgba(0,0,0,0.4), 8px 0 20px rgba(0,0,0,0.25)';
+      if (overlay) overlay.style.filter = 'drop-shadow(0 0 20px rgba(255,223,100,0.6)) drop-shadow(0 0 35px rgba(255,215,0,0.35))';
+    });
+    
+    wrapper.addEventListener('mouseleave', function() {
+      book.style.transform = 'perspective(900px) rotateY(-14deg) rotateX(5deg) translateZ(10px)';
+      book.style.boxShadow = 'inset 15px 0 20px -10px rgba(255,255,255,0.15), inset -12px 0 25px -8px rgba(0,0,0,0.6), -20px 15px 40px rgba(0,0,0,0.5), 0 10px 30px rgba(0,0,0,0.35)';
+      if (overlay) overlay.style.filter = 'drop-shadow(0 0 10px rgba(255,215,0,0.25))';
+    });
+  }
 }
 
 // --- 🔍 Search ---
