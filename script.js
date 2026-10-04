@@ -1,8 +1,7 @@
 // ==============================
 // 🌙 MOONLIGHT BOOK READER — SCRIPT
-// Matches CSS exactly · Correct paths · Pills show properly
+// Complete: Half-Stars Fixed · Book Format Fixed · Trigger Warnings · Vertical Cards · Journal Fixed
 // ==============================
-
 // --- Icon Mapping ---
 const iconMap = {
   'OBSERVATION': 'content/images/journal-icons/icon-observation.png',
@@ -14,7 +13,6 @@ const iconMap = {
   'RECOMMENDATION': 'content/images/journal-icons/icon-recommendation.png',
   'LIFE': 'content/images/journal-icons/icon-life.png'
 };
-
 // --- State ---
 let siteData = {}, aboutData = {}, books = [], journalEntries = [];
 let activeGenreFilter = null;
@@ -35,19 +33,13 @@ function renderStars(rating) {
   const half = (r % 1) >= 0.5 ? 1 : 0;
   const empty = 5 - full - half;
   
-  let html = '';
-  // Full stars
-  html += '<span style="color: var(--accent);">' + '★'.repeat(full) + '</span>';
-  // Half star — visual CSS half-fill
+  let html = '<span class="star-rating">';
+  html += '<span class="star-full">' + '★'.repeat(full) + '</span>';
   if (half) {
-    html += '<span style="display:inline-block; position:relative; width:1em; height:1em; vertical-align:middle; letter-spacing:0;">';
-    html += '<span style="position:absolute; left:0; top:0; width:50%; overflow:hidden; color:var(--accent); white-space:nowrap;">★</span>';
-    html += '<span style="position:absolute; left:0; top:0; color:rgba(212,175,55,0.3); white-space:nowrap;">★</span>';
-    html += '</span>';
+    html += '<span class="star-half" aria-label="half star"></span>';
   }
-  // Empty stars
-  html += '<span style="color: rgba(212,175,55,0.3);">' + '★'.repeat(empty) + '</span>';
-  
+  html += '<span class="star-empty">' + '★'.repeat(empty) + '</span>';
+  html += '</span>';
   return html;
 }
 
@@ -161,8 +153,24 @@ function renderSocialLinks(containerId) {
 
 // --- Render About ---
 function renderAbout() {
+  const introEl = document.getElementById('aboutIntro');
+  const headingEl = document.getElementById('aboutHeading');
   const bioEl = document.getElementById('aboutBio');
-  if (bioEl && aboutData.bio) bioEl.innerHTML = aboutData.bio;
+  const signoffEl = document.getElementById('aboutSignoff');
+  
+  if (introEl && aboutData.introLine) introEl.textContent = aboutData.introLine;
+  if (headingEl && aboutData.heading) headingEl.textContent = aboutData.heading;
+  
+  if (bioEl && aboutData.bioParagraphs) {
+    const paragraphs = Array.isArray(aboutData.bioParagraphs) 
+      ? aboutData.bioParagraphs 
+      : [aboutData.bioParagraphs];
+    bioEl.innerHTML = paragraphs.map(p => `<p>${parseRichText(p)}</p>`).join('');
+  } else if (bioEl && aboutData.bio) {
+    bioEl.innerHTML = `<p>${parseRichText(aboutData.bio)}</p>`;
+  }
+  
+  if (signoffEl && aboutData.signoff) signoffEl.textContent = aboutData.signoff;
 }
 
 // --- Render Stats ---
@@ -186,7 +194,7 @@ function renderStats() {
   if (genreCountEl) genreCountEl.textContent = allGenres.size;
 }
 
-// --- Render Book Card ---
+// --- Render Book Card (HORIZONTAL — for single review view) ---
 function renderBookCard(book, full = false) {
   const cover = book.coverImage
     ? `<img src="${book.coverImage}" alt="${book.title}" class="book-cover" loading="lazy" onerror="this.style.display='none';">`
@@ -195,8 +203,9 @@ function renderBookCard(book, full = false) {
   const tags = buildGenreTags(book, !full);
   const stars = renderStars(book.rating || 0);
   
+  // ✅ Book Format: label + pill (placed below dates)
   const fmt = book.format 
-    ? `<span class="format-pill">${book.format.toUpperCase()}</span>` 
+    ? `<span class="book-format-label">Book Format:</span><span class="format-pill">${book.format.toUpperCase()}</span>` 
     : '';
   
   const startDate = book.startDate 
@@ -209,17 +218,38 @@ function renderBookCard(book, full = false) {
     ? `<div class="reading-dates">${startDate}${startDate && endDate ? ' · ' : ''}${endDate}</div>` 
     : '';
   
+  // ✅ Format line now BELOW dates
+  const formatLine = fmt ? `<div class="book-format-line">${fmt}</div>` : '';
+  
+  // ✅ Trigger Warnings
+  let triggerHtml = '';
+  if (book.triggerWarnings && book.triggerWarnings.trim()) {
+    const warnings = book.triggerWarnings.split(',').map(w => w.trim()).filter(w => w);
+    if (warnings.length > 0) {
+      triggerHtml = `<div class="trigger-warnings">
+        <div class="trigger-label">⚠ Trigger Warnings</div>
+        <div class="trigger-list">${warnings.join(' · ')}</div>
+      </div>`;
+    }
+  }
+  
   let c = `<div class="book-card"><div class="book-header">${cover}<div class="book-meta">
     <a href="book.html?id=${book.id}" class="book-title">${book.title}</a>
-    <p class="book-author">by ${book.author} ${fmt}</p>
+    <p class="book-author">by ${book.author}</p>
     <div class="book-rating">${stars}</div>
     <div class="book-genres">${tags}</div>
     ${dateLine}
+    ${formatLine}
   </div></div>`;
   
   if (full) {
     if (book.excerpt) c += `<p class="book-excerpt">${book.excerpt}</p>`;
+    c += triggerHtml;
     if (book.fullReview) c += `<div class="review-content">${parseRichText(book.fullReview)}</div>`;
+    
+    // ✅ Golden divider line
+    c += `<div class="review-divider"></div>`;
+    
     if (book.highlights && book.highlights.length) {
       c += `<div class="quotes-section"><h3>Quotes</h3><ul>`;
       book.highlights.forEach(h => { c += `<li>${h}</li>`; });
@@ -234,11 +264,52 @@ function renderBookCard(book, full = false) {
   return c + `</div>`;
 }
 
-// --- Render Journal Entry — matches CSS classes exactly ---
+// --- Render Book Card VERTICAL ✨ (cover on top — for listings) ---
+function renderBookCardVertical(book) {
+  const cover = book.coverImage
+    ? `<img src="${book.coverImage}" alt="${book.title}" class="book-cover-vertical" loading="lazy" onerror="this.style.display='none';">`
+    : `<div class="book-cover-placeholder" style="height:340px;">📖</div>`;
+  
+  const tags = buildGenreTags(book, true);
+  const stars = renderStars(book.rating || 0);
+  
+  const fmt = book.format 
+    ? `<span class="book-format-label">Book Format:</span><span class="format-pill">${book.format.toUpperCase()}</span>` 
+    : '';
+  
+  const startDate = book.startDate 
+    ? `<span>Started: ${formatDateDisplay(book.startDate)}</span>` 
+    : '';
+  const endDate = book.date 
+    ? `<span>Finished: ${formatDateDisplay(book.date)}</span>` 
+    : '';
+  const dateLine = (startDate || endDate) 
+    ? `<div class="reading-dates-vertical">${startDate}${startDate && endDate ? ' · ' : ''}${endDate}</div>` 
+    : '';
+  
+  const formatLine = fmt ? `<div class="book-format-line-vertical">${fmt}</div>` : '';
+  
+  return `<div class="book-card-vertical">
+    ${cover}
+    <div class="book-meta-vertical">
+      <a href="book.html?id=${book.id}" class="book-title-vertical">${book.title}</a>
+      <p class="book-author-vertical">by ${book.author}</p>
+      <div class="book-rating-vertical">${stars}</div>
+      <div class="book-genres-vertical">${tags}</div>
+      ${dateLine}
+      ${formatLine}
+      ${book.excerpt ? `<p class="book-excerpt-vertical">${book.excerpt}</p>` : ''}
+      <a href="book.html?id=${book.id}" class="read-more-vertical">Read full review →</a>
+    </div>
+  </div>`;
+}
+
+// --- Render Journal Entry ---
 function renderJournalEntry(e, full = false) {
   const iconSrc = iconMap[e.type] || '';
+  const iconClass = full ? 'journal-icon-large' : 'journal-icon';
   const iconHtml = iconSrc 
-    ? `<img src="${iconSrc}" alt="${e.type}" class="journal-icon" loading="lazy" />` 
+    ? `<img src="${iconSrc}" alt="${e.type}" class="${iconClass}" loading="lazy" />` 
     : '';
   const typePill = buildTypePill(e);
   
@@ -248,9 +319,9 @@ function renderJournalEntry(e, full = false) {
     c += `<div class="journal-card-header">
       ${iconHtml}
       <div>
+        <div class="journal-type-tag">${typePill}</div>
         <h3 class="journal-title">${e.title}</h3>
         <p class="journal-date">${e.date ? formatDateDisplay(e.date) : ''}</p>
-        <div class="journal-type-tag">${typePill}</div>
       </div>
     </div>`;
     c += `<div class="review-content">${parseRichText(e.text)}</div>`;
@@ -260,9 +331,9 @@ function renderJournalEntry(e, full = false) {
     c += `<div class="journal-card-header">
       ${iconHtml}
       <div>
+        <div class="journal-type-tag">${typePill}</div>
         <a href="journal.html?id=${e.id}" class="journal-title">${e.title}</a>
         <p class="journal-date">${e.date ? formatDateDisplay(e.date) : ''}</p>
-        <div class="journal-type-tag">${typePill}</div>
       </div>
     </div>`;
     const t = document.createElement('div');
@@ -298,77 +369,68 @@ function renderBooksList() {
     container.innerHTML = '<p class="empty-state">No matching reviews ✨</p>';
     return;
   }
-  container.innerHTML = filtered.map(book => renderBookCard(book, false)).join('');
+  
+  // Use VERTICAL cards for the books page
+  container.className = 'books-grid-vertical';
+  container.innerHTML = filtered.map(book => renderBookCardVertical(book)).join('');
 }
 
-// --- ⭐ Featured Review — matches index.html structure exactly ---
+// --- ⭐ Auto-Update Featured Review ✨ ---
 function renderFeaturedReview() {
   const featured = books.find(b => b.featured === true);
-  const container = document.getElementById('featuredContainer');
-  if (!container) return;
+  const section = document.getElementById('featuredSection');
   
-  if (!featured) { container.innerHTML = ''; return; }
-  
-  const genrePills = [];
-  const makePill = (g) => {
-    const cls = getGenreClass(g);
-    const label = g.trim();
-    if (label.toLowerCase() === 'magical realism') {
-      return `<a href="books.html?genre=magical-realism" class="genre-pill magical-realism">${label}</a>`;
-    }
-    return `<a href="books.html?genre=${encodeURIComponent(cls)}" class="genre-pill">${label}</a>`;
-  };
-  if (featured.mainGenre) genrePills.push(makePill(featured.mainGenre));
-  if (featured.otherGenres) {
-    featured.otherGenres.split(',').forEach(g => { g = g.trim(); if (g) genrePills.push(makePill(g)); });
+  if (!featured) {
+    if (section) section.style.display = 'none';
+    return;
   }
   
-  // ✅ CORRECT IMAGE PATH — uses YOUR filename
-  const coverSrc = featured.coverImage || 'content/images/midnight-library.jpg';
+  if (section) section.style.display = 'block';
   
-  container.innerHTML = `
-    <div class="featured-book-wrap">
-      <div class="featured-content">
-        <span class="featured-tag">⭐ Featured Review</span>
-        <h3 class="featured-title">${featured.title}</h3>
-        <p class="featured-author">by ${featured.author}</p>
-        <div class="featured-rating">
-          ${renderStars(featured.rating)}
-          <span>${featured.rating || '0'}/5</span>
-        </div>
-        <div class="featured-genres">${genrePills.join('')}</div>
-        <p class="featured-excerpt">${featured.excerpt || ''}</p>
-        <a href="book.html?id=${featured.id}" class="btn btn-primary featured-btn">Read Full Review →</a>
-      </div>
-      <div class="book-frame-wrapper">
-        <div class="golden-ornate-frame"></div>
-        <img 
-          src="${coverSrc}" 
-          alt="${featured.title}" 
-          class="featured-book-3d"
-          loading="lazy"
-          onerror="this.style.display='none';this.previousElementSibling.style.background='linear-gradient(135deg, #2a1a52, #1e1240)'"
-        />
-      </div>
-    </div>
-  `;
-    // ✨ Hover effect — re-attached after every render
-  const wrapper = document.getElementById('featuredFrameWrapper');
-  const book = document.getElementById('featuredBookImg');
-  const overlay = document.getElementById('featuredOverlay');
+  // Title
+  const titleEl = document.getElementById('featuredTitle');
+  if (titleEl) titleEl.textContent = featured.title || 'Untitled';
   
-  if (wrapper && book) {
-    wrapper.addEventListener('mouseenter', function() {
-      book.style.transform = 'perspective(900px) rotateY(-8deg) rotateX(2deg) translateZ(25px) scale(1.04)';
-      book.style.boxShadow = 'inset 15px 0 20px -10px rgba(255,255,255,0.18), inset -12px 0 25px -8px rgba(0,0,0,0.6), -25px 20px 50px rgba(0,0,0,0.55), 0 15px 35px rgba(0,0,0,0.4), 8px 0 20px rgba(0,0,0,0.25)';
-      if (overlay) overlay.style.filter = 'drop-shadow(0 0 20px rgba(255,223,100,0.6)) drop-shadow(0 0 35px rgba(255,215,0,0.35))';
-    });
-    
-    wrapper.addEventListener('mouseleave', function() {
-      book.style.transform = 'perspective(900px) rotateY(-14deg) rotateX(5deg) translateZ(10px)';
-      book.style.boxShadow = 'inset 15px 0 20px -10px rgba(255,255,255,0.15), inset -12px 0 25px -8px rgba(0,0,0,0.6), -20px 15px 40px rgba(0,0,0,0.5), 0 10px 30px rgba(0,0,0,0.35)';
-      if (overlay) overlay.style.filter = 'drop-shadow(0 0 10px rgba(255,215,0,0.25))';
-    });
+  // Author
+  const authorEl = document.getElementById('featuredAuthor');
+  if (authorEl) authorEl.textContent = `by ${featured.author || 'Unknown Author'}`;
+  
+  // ✅ Rating with VISUAL half-star support
+  const ratingEl = document.getElementById('featuredRating');
+  if (ratingEl) {
+    ratingEl.innerHTML = `${renderStars(featured.rating)} <span style="font-size:1rem; vertical-align:middle;">${parseFloat(featured.rating) || 0}/5</span>`;
+  }
+  
+  // Genres
+  const genresEl = document.getElementById('featuredGenres');
+  if (genresEl) {
+    let tags = '';
+    const addTag = (g) => {
+      const cls = getGenreClass(g);
+      const isMagical = g.trim().toLowerCase() === 'magical realism';
+      tags += `<a href="books.html?genre=${encodeURIComponent(cls)}" class="genre-pill ${isMagical ? 'magical-realism' : cls}">${g.trim()}</a>`;
+    };
+    if (featured.mainGenre) addTag(featured.mainGenre);
+    if (featured.otherGenres) {
+      const others = Array.isArray(featured.otherGenres) ? featured.otherGenres : String(featured.otherGenres).split(',');
+      others.forEach(g => { if (g.trim()) addTag(g); });
+    }
+    genresEl.innerHTML = tags;
+  }
+  
+  // Excerpt
+  const excerptEl = document.getElementById('featuredExcerpt');
+  if (excerptEl) excerptEl.textContent = featured.excerpt || 'No excerpt yet...';
+  
+  // Button link
+  const btnEl = document.getElementById('featuredButton');
+  if (btnEl) btnEl.href = `book.html?id=${featured.id}`;
+  
+  // Book cover image
+  const imgEl = document.getElementById('featuredBookImg');
+  if (imgEl && featured.coverImage) {
+    imgEl.src = featured.coverImage;
+    imgEl.alt = featured.title || '';
   }
 }
 
@@ -418,13 +480,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderStats();
   renderFeaturedReview();
   
-  // Latest Reviews
+  // ✨ Latest Reviews — VERTICAL cards
   const latestReviewsContainer = document.getElementById('latestReviewsContainer');
   if (latestReviewsContainer) {
     const latest = books.slice(0, 4);
+    latestReviewsContainer.className = 'books-grid-vertical';
     latestReviewsContainer.innerHTML = latest.length === 0
       ? '<p class="empty-state">No reviews yet... your first book awaits ✨</p>'
-      : latest.map(b => renderBookCard(b, false)).join('');
+      : latest.map(b => renderBookCardVertical(b)).join('');
   }
   
   // Latest Journal
@@ -472,66 +535,3 @@ document.addEventListener('DOMContentLoaded', async () => {
   
   initSearch();
 });
-
-// ⭐ Auto-Update Featured Review — preserves ALL styling ✨
-function renderFeaturedReview() {
-  const featured = books.find(b => b.featured === true);
-  const section = document.getElementById('featuredSection');
-  
-  if (!featured) {
-    if (section) section.style.display = 'none';
-    return;
-  }
-  
-  if (section) section.style.display = 'block';
-  
-  // Title
-  const titleEl = document.getElementById('featuredTitle');
-  if (titleEl) titleEl.textContent = featured.title || 'Untitled';
-  
-  // Author
-  const authorEl = document.getElementById('featuredAuthor');
-  if (authorEl) authorEl.textContent = `by ${featured.author || 'Unknown Author'}`;
-  
-  // Rating with half-star support ✨
-  const ratingEl = document.getElementById('featuredRating');
-  if (ratingEl) {
-    const r = parseFloat(featured.rating) || 0;
-    const full = Math.floor(r);
-    const half = (r % 1) >= 0.5 ? 1 : 0;
-    const empty = 5 - full - half;
-    ratingEl.innerHTML = `${'★'.repeat(full)}${half ? '⯨' : ''}${'☆'.repeat(empty)} ${r}/5`;
-  }
-  
-  // Genres
-  const genresEl = document.getElementById('featuredGenres');
-  if (genresEl) {
-    let tags = '';
-    const addTag = (g) => {
-      const cls = g.trim().toLowerCase().replace(/[^a-z0-9\- ]/g, '').replace(/\s+/g, '-');
-      const isMagical = g.trim().toLowerCase() === 'magical realism';
-      tags += `<a href="books.html?genre=${encodeURIComponent(cls)}" class="genre-pill ${isMagical ? 'magical-realism' : cls}">${g.trim()}</a>`;
-    };
-    if (featured.mainGenre) addTag(featured.mainGenre);
-    if (featured.otherGenres) {
-      const others = Array.isArray(featured.otherGenres) ? featured.otherGenres : String(featured.otherGenres).split(',');
-      others.forEach(g => { if (g.trim()) addTag(g); });
-    }
-    genresEl.innerHTML = tags;
-  }
-  
-  // Excerpt
-  const excerptEl = document.getElementById('featuredExcerpt');
-  if (excerptEl) excerptEl.textContent = featured.excerpt || 'No excerpt yet...';
-  
-  // Button link
-  const btnEl = document.getElementById('featuredButton');
-  if (btnEl) btnEl.href = `book.html?id=${featured.id}`;
-  
-  // Book cover image
-  const imgEl = document.getElementById('featuredBookImg');
-  if (imgEl && featured.coverImage) {
-    imgEl.src = featured.coverImage;
-    imgEl.alt = featured.title || '';
-  }
-}
