@@ -893,3 +893,31 @@ nav a:hover::after, nav a.active::after { width: 100%; }
 #featuredFrameWrapper:hover #featuredOverlay {
   filter: drop-shadow(0 0 20px rgba(255,223,100,0.6)) drop-shadow(0 0 35px rgba(255,215,0,0.35)) !important;
 }
+/* ===== HALF-STAR FIX ✨ ===== */
+.star-half {
+  position: relative;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+}
+.star-half::before {
+  content: '★';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50%;
+  overflow: hidden;
+  white-space: nowrap;
+  color: var(--accent);
+  z-index: 2;
+}
+.star-half::after {
+  content: '★';
+  position: absolute;
+  left: 0;
+  top: 0;
+  white-space: nowrap;
+  color: rgba(212, 175, 55, 0.3);
+  z-index: 1;
+}
