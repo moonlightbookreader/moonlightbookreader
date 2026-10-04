@@ -172,14 +172,13 @@ content:
                 - Urban Fantasy
                 - Young Adult
           - name: otherGenres
-            label: Other Genres (comma separated, e.g. Romance, Mystery)
+            label: Other Genres (comma separated)
             type: string
             required: false
           - name: triggerWarnings
-            label: Trigger Warnings (comma separated)
+            label: Trigger Warnings
             type: string
             required: false
-            description: "Content warnings, e.g.: suicide, depression, grief"
           - name: format
             label: Format
             type: select
@@ -190,7 +189,7 @@ content:
                 - Audiobook
                 - ARC (Advanced Reader Copy)
           - name: rating
-            label: Rating (0-5, supports half stars: 3.5, 4.5)
+            label: Rating
             type: number
             min: 0
             max: 5
