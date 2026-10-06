@@ -1,6 +1,6 @@
 // ==============================
 // 🌙 MOONLIGHT BOOK READER — SCRIPT
-// Fixed: Horizontal cards restored · Back pills at TOP · All issues resolved
+// All fixes: Type pill below title/date · Back pills top+bottom · Horizontal cards · Larger single cover
 // ==============================
 // --- Icon Mapping ---
 const iconMap = {
@@ -203,7 +203,6 @@ function renderBookCard(book, full = false) {
   const tags = buildGenreTags(book, !full);
   const stars = renderStars(book.rating || 0);
   
-  // ✅ Book Format: label + pill
   const fmt = book.format 
     ? `<span class="book-format-label">Book Format:</span><span class="format-pill">${book.format.toUpperCase()}</span>` 
     : '';
@@ -220,7 +219,6 @@ function renderBookCard(book, full = false) {
   
   const formatLine = fmt ? `<div class="book-format-line">${fmt}</div>` : '';
   
-  // ✅ Trigger Warnings
   let triggerHtml = '';
   if (book.triggerWarnings && book.triggerWarnings.trim()) {
     const warnings = book.triggerWarnings.split(',').map(w => w.trim()).filter(w => w);
@@ -235,7 +233,7 @@ function renderBookCard(book, full = false) {
   let c = '';
   
   if (full) {
-    // ✅ SINGLE REVIEW PAGE — Back pill at TOP, wrapped for larger cover CSS
+    // ✅ SINGLE REVIEW PAGE — Back pill at TOP
     c += `<div class="single-book-container">`;
     c += `<a href="books.html" class="back-link-pill back-link-pill--top">← Back to Reviews</a>`;
     c += `<div class="book-card"><div class="book-header">${cover}<div class="book-meta">
@@ -251,7 +249,6 @@ function renderBookCard(book, full = false) {
     c += triggerHtml;
     if (book.fullReview) c += `<div class="review-content">${parseRichText(book.fullReview)}</div>`;
     
-    // ✅ Golden divider line
     c += `<div class="review-divider"></div>`;
     
     if (book.highlights && book.highlights.length) {
@@ -260,9 +257,8 @@ function renderBookCard(book, full = false) {
       c += `</ul></div>`;
     }
     if (book.verdict) c += `<div class="verdict-section"><h3>Verdict</h3><p>${book.verdict}</p></div>`;
-    c += `</div>`; // close single-book-container
+    c += `</div>`;
   } else {
-    // LISTING CARD — no back pill
     c += `<div class="book-card"><div class="book-header">${cover}<div class="book-meta">
       <a href="book.html?id=${book.id}" class="book-title">${book.title}</a>
       <p class="book-author">by ${book.author}</p>
@@ -281,6 +277,7 @@ function renderBookCard(book, full = false) {
 }
 
 // --- Render Journal Entry ---
+// ✅ Type pill is NOW BELOW title and date (as per user's screenshots)
 function renderJournalEntry(e, full = false) {
   const iconSrc = iconMap[e.type] || '';
   const iconClass = full ? 'journal-icon-large' : 'journal-icon';
@@ -292,26 +289,27 @@ function renderJournalEntry(e, full = false) {
   let c = `<div class="journal-entry">`;
   
   if (full) {
-    // ✅ SINGLE JOURNAL — Back pill at TOP
+    // ✅ Back pill at TOP
     c += `<a href="journal.html" class="back-link-pill back-link-pill--top">← Back to Journal</a>`;
     c += `<div class="journal-card-header">
       ${iconHtml}
       <div>
-        <div class="journal-type-tag">${typePill}</div>
         <h3 class="journal-title">${e.title}</h3>
         <p class="journal-date">${e.date ? formatDateDisplay(e.date) : ''}</p>
+        <div class="journal-type-tag">${typePill}</div>
       </div>
     </div>`;
     c += `<div class="review-content">${parseRichText(e.text)}</div>`;
     if (e.attribution) c += `<p class="journal-attribution">— ${e.attribution}</p>`;
+    // ✅ Back pill also at BOTTOM
+    c += `<a href="journal.html" class="back-link-pill back-link-pill--bottom">← Back to Journal</a>`;
   } else {
-    // LISTING CARD
     c += `<div class="journal-card-header">
       ${iconHtml}
       <div>
-        <div class="journal-type-tag">${typePill}</div>
         <a href="journal.html?id=${e.id}" class="journal-title">${e.title}</a>
         <p class="journal-date">${e.date ? formatDateDisplay(e.date) : ''}</p>
+        <div class="journal-type-tag">${typePill}</div>
       </div>
     </div>`;
     const t = document.createElement('div');
@@ -349,7 +347,6 @@ function renderBooksList() {
     return;
   }
   
-  // ✅ Back to HORIZONTAL cards (user said vertical was too big)
   container.className = 'books-grid';
   container.innerHTML = filtered.map(book => renderBookCard(book, false)).join('');
 }
@@ -366,21 +363,17 @@ function renderFeaturedReview() {
   
   if (section) section.style.display = 'block';
   
-  // Title
   const titleEl = document.getElementById('featuredTitle');
   if (titleEl) titleEl.textContent = featured.title || 'Untitled';
   
-  // Author
   const authorEl = document.getElementById('featuredAuthor');
   if (authorEl) authorEl.textContent = `by ${featured.author || 'Unknown Author'}`;
   
-  // ✅ Rating with VISUAL half-star support
   const ratingEl = document.getElementById('featuredRating');
   if (ratingEl) {
     ratingEl.innerHTML = `${renderStars(featured.rating)} <span style="font-size:1rem; vertical-align:middle;">${parseFloat(featured.rating) || 0}/5</span>`;
   }
   
-  // Genres
   const genresEl = document.getElementById('featuredGenres');
   if (genresEl) {
     let tags = '';
@@ -397,15 +390,12 @@ function renderFeaturedReview() {
     genresEl.innerHTML = tags;
   }
   
-  // Excerpt
   const excerptEl = document.getElementById('featuredExcerpt');
   if (excerptEl) excerptEl.textContent = featured.excerpt || 'No excerpt yet...';
   
-  // Button link
   const btnEl = document.getElementById('featuredButton');
   if (btnEl) btnEl.href = `book.html?id=${featured.id}`;
   
-  // Book cover image
   const imgEl = document.getElementById('featuredBookImg');
   if (imgEl && featured.coverImage) {
     imgEl.src = featured.coverImage;
@@ -459,7 +449,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderStats();
   renderFeaturedReview();
   
-  // ✨ Latest Reviews — HORIZONTAL cards (user said vertical was too big)
+  // ✨ Latest Reviews — HORIZONTAL cards
   const latestReviewsContainer = document.getElementById('latestReviewsContainer');
   if (latestReviewsContainer) {
     const latest = books.slice(0, 4);
