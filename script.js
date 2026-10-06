@@ -1,6 +1,6 @@
 // ==============================
 // 🌙 MOONLIGHT BOOK READER — SCRIPT
-// Complete: Half-Stars Fixed · Book Format Fixed · Trigger Warnings · Vertical Cards · Journal Fixed
+// Fixed: Horizontal cards restored · Back pills at TOP · All issues resolved
 // ==============================
 // --- Icon Mapping ---
 const iconMap = {
@@ -194,7 +194,7 @@ function renderStats() {
   if (genreCountEl) genreCountEl.textContent = allGenres.size;
 }
 
-// --- Render Book Card (HORIZONTAL — for single review view) ---
+// --- Render Book Card (HORIZONTAL — cover on left, text on right) ---
 function renderBookCard(book, full = false) {
   const cover = book.coverImage
     ? `<img src="${book.coverImage}" alt="${book.title}" class="book-cover" loading="lazy" onerror="this.style.display='none';">`
@@ -203,7 +203,7 @@ function renderBookCard(book, full = false) {
   const tags = buildGenreTags(book, !full);
   const stars = renderStars(book.rating || 0);
   
-  // ✅ Book Format: label + pill (placed below dates)
+  // ✅ Book Format: label + pill
   const fmt = book.format 
     ? `<span class="book-format-label">Book Format:</span><span class="format-pill">${book.format.toUpperCase()}</span>` 
     : '';
@@ -218,7 +218,6 @@ function renderBookCard(book, full = false) {
     ? `<div class="reading-dates">${startDate}${startDate && endDate ? ' · ' : ''}${endDate}</div>` 
     : '';
   
-  // ✅ Format line now BELOW dates
   const formatLine = fmt ? `<div class="book-format-line">${fmt}</div>` : '';
   
   // ✅ Trigger Warnings
@@ -233,16 +232,21 @@ function renderBookCard(book, full = false) {
     }
   }
   
-  let c = `<div class="book-card"><div class="book-header">${cover}<div class="book-meta">
-    <a href="book.html?id=${book.id}" class="book-title">${book.title}</a>
-    <p class="book-author">by ${book.author}</p>
-    <div class="book-rating">${stars}</div>
-    <div class="book-genres">${tags}</div>
-    ${dateLine}
-    ${formatLine}
-  </div></div>`;
+  let c = '';
   
   if (full) {
+    // ✅ SINGLE REVIEW PAGE — Back pill at TOP, wrapped for larger cover CSS
+    c += `<div class="single-book-container">`;
+    c += `<a href="books.html" class="back-link-pill back-link-pill--top">← Back to Reviews</a>`;
+    c += `<div class="book-card"><div class="book-header">${cover}<div class="book-meta">
+      <a href="book.html?id=${book.id}" class="book-title">${book.title}</a>
+      <p class="book-author">by ${book.author}</p>
+      <div class="book-rating">${stars}</div>
+      <div class="book-genres">${tags}</div>
+      ${dateLine}
+      ${formatLine}
+    </div></div>`;
+    
     if (book.excerpt) c += `<p class="book-excerpt">${book.excerpt}</p>`;
     c += triggerHtml;
     if (book.fullReview) c += `<div class="review-content">${parseRichText(book.fullReview)}</div>`;
@@ -256,52 +260,24 @@ function renderBookCard(book, full = false) {
       c += `</ul></div>`;
     }
     if (book.verdict) c += `<div class="verdict-section"><h3>Verdict</h3><p>${book.verdict}</p></div>`;
-    c += `<a href="books.html" class="back-link-pill">← Back to Reviews</a>`;
+    c += `</div>`; // close single-book-container
   } else {
-    if (book.excerpt) c += `<p class="book-excerpt">${book.excerpt}</p>`;
-    c += `<a href="book.html?id=${book.id}" class="read-more">Read full review →</a>`;
-  }
-  return c + `</div>`;
-}
-
-// --- Render Book Card VERTICAL ✨ (cover on top — for listings) ---
-function renderBookCardVertical(book) {
-  const cover = book.coverImage
-    ? `<img src="${book.coverImage}" alt="${book.title}" class="book-cover-vertical" loading="lazy" onerror="this.style.display='none';">`
-    : `<div class="book-cover-placeholder" style="height:340px;">📖</div>`;
-  
-  const tags = buildGenreTags(book, true);
-  const stars = renderStars(book.rating || 0);
-  
-  const fmt = book.format 
-    ? `<span class="book-format-label">Book Format:</span><span class="format-pill">${book.format.toUpperCase()}</span>` 
-    : '';
-  
-  const startDate = book.startDate 
-    ? `<span>Started: ${formatDateDisplay(book.startDate)}</span>` 
-    : '';
-  const endDate = book.date 
-    ? `<span>Finished: ${formatDateDisplay(book.date)}</span>` 
-    : '';
-  const dateLine = (startDate || endDate) 
-    ? `<div class="reading-dates-vertical">${startDate}${startDate && endDate ? ' · ' : ''}${endDate}</div>` 
-    : '';
-  
-  const formatLine = fmt ? `<div class="book-format-line-vertical">${fmt}</div>` : '';
-  
-  return `<div class="book-card-vertical">
-    ${cover}
-    <div class="book-meta-vertical">
-      <a href="book.html?id=${book.id}" class="book-title-vertical">${book.title}</a>
-      <p class="book-author-vertical">by ${book.author}</p>
-      <div class="book-rating-vertical">${stars}</div>
-      <div class="book-genres-vertical">${tags}</div>
+    // LISTING CARD — no back pill
+    c += `<div class="book-card"><div class="book-header">${cover}<div class="book-meta">
+      <a href="book.html?id=${book.id}" class="book-title">${book.title}</a>
+      <p class="book-author">by ${book.author}</p>
+      <div class="book-rating">${stars}</div>
+      <div class="book-genres">${tags}</div>
       ${dateLine}
       ${formatLine}
-      ${book.excerpt ? `<p class="book-excerpt-vertical">${book.excerpt}</p>` : ''}
-      <a href="book.html?id=${book.id}" class="read-more-vertical">Read full review →</a>
-    </div>
-  </div>`;
+    </div></div>`;
+    
+    if (book.excerpt) c += `<p class="book-excerpt">${book.excerpt}</p>`;
+    c += `<a href="book.html?id=${book.id}" class="read-more">Read full review →</a>`;
+    c += `</div>`;
+  }
+  
+  return c;
 }
 
 // --- Render Journal Entry ---
@@ -316,6 +292,8 @@ function renderJournalEntry(e, full = false) {
   let c = `<div class="journal-entry">`;
   
   if (full) {
+    // ✅ SINGLE JOURNAL — Back pill at TOP
+    c += `<a href="journal.html" class="back-link-pill back-link-pill--top">← Back to Journal</a>`;
     c += `<div class="journal-card-header">
       ${iconHtml}
       <div>
@@ -326,8 +304,8 @@ function renderJournalEntry(e, full = false) {
     </div>`;
     c += `<div class="review-content">${parseRichText(e.text)}</div>`;
     if (e.attribution) c += `<p class="journal-attribution">— ${e.attribution}</p>`;
-    c += `<a href="journal.html" class="back-link-pill">← Back to Journal</a>`;
   } else {
+    // LISTING CARD
     c += `<div class="journal-card-header">
       ${iconHtml}
       <div>
@@ -342,6 +320,7 @@ function renderJournalEntry(e, full = false) {
     c += `<p class="journal-snippet">${txt.length > 220 ? txt.substring(0, 220) + '...' : txt}</p>`;
     c += `<a href="journal.html?id=${e.id}" class="read-more">Continue reading →</a>`;
   }
+  
   return c + `</div>`;
 }
 
@@ -351,7 +330,7 @@ function applyFiltersFromURL() {
   activeTypeFilter = getUrlParam('type');
 }
 
-// --- Render Books List ---
+// --- Render Books List — HORIZONTAL cards ✨ ---
 function renderBooksList() {
   const container = document.getElementById('booksContainer');
   if (!container) return;
@@ -370,9 +349,9 @@ function renderBooksList() {
     return;
   }
   
-  // Use VERTICAL cards for the books page
-  container.className = 'books-grid-vertical';
-  container.innerHTML = filtered.map(book => renderBookCardVertical(book)).join('');
+  // ✅ Back to HORIZONTAL cards (user said vertical was too big)
+  container.className = 'books-grid';
+  container.innerHTML = filtered.map(book => renderBookCard(book, false)).join('');
 }
 
 // --- ⭐ Auto-Update Featured Review ✨ ---
@@ -480,14 +459,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderStats();
   renderFeaturedReview();
   
-  // ✨ Latest Reviews — VERTICAL cards
+  // ✨ Latest Reviews — HORIZONTAL cards (user said vertical was too big)
   const latestReviewsContainer = document.getElementById('latestReviewsContainer');
   if (latestReviewsContainer) {
     const latest = books.slice(0, 4);
-    latestReviewsContainer.className = 'books-grid-vertical';
+    latestReviewsContainer.className = 'books-grid';
     latestReviewsContainer.innerHTML = latest.length === 0
       ? '<p class="empty-state">No reviews yet... your first book awaits ✨</p>'
-      : latest.map(b => renderBookCardVertical(b)).join('');
+      : latest.map(b => renderBookCard(b, false)).join('');
   }
   
   // Latest Journal
