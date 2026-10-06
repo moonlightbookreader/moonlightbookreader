@@ -67,6 +67,42 @@
       font-size: 1.3rem;
       color: var(--accent2);
     }
+    /* Social links section */
+    .about-social {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .about-social-label {
+      font-family: 'Caveat', cursive;
+      font-size: 1.3rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .about-social #socialLinks {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .about-social .social-link {
+      display: inline-block;
+      padding: 0.5rem 1.2rem;
+      border-radius: 999px;
+      font-family: 'Lora', serif;
+      font-size: 0.85rem;
+      background: rgba(45, 30, 80, 0.85);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      color: var(--accent);
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+    .about-social .social-link:hover {
+      background: rgba(212, 175, 55, 0.15);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
   </style>
 </head>
 <body>
@@ -85,7 +121,6 @@
           <a href="about.html" class="active">About</a>
         </nav>
       </header>
-
       <section class="about-section">
         <!-- Profile Image with Placeholder -->
         <div class="about-profile">
@@ -99,38 +134,38 @@
           <div class="profile-name" id="profileName">Moonlight Book Reader</div>
           <div class="profile-tagline" id="profileTagline">— nocturnal reader & tea lover</div>
         </div>
-
         <p class="about-intro" id="aboutIntro">a little about me...</p>
-        <h2 id="aboutHeading">Hello, Fellow Book Lover!</h2>
+        <!-- ✅ Added class="about-heading" so CSS gold italic Playfair Display applies -->
+        <h2 class="about-heading" id="aboutHeading">Hello, Fellow Book Lover!</h2>
         <div class="about-bio" id="aboutBio"></div>
         <p class="about-signoff" id="aboutSignoff">— Moonlight Book Reader</p>
-
         <div class="about-social">
           <p class="about-social-label">find me elsewhere in the bookish world...</p>
           <div id="socialLinks"></div>
         </div>
       </section>
     </div>
-
     <footer class="site-footer">
       <p><span class="handwritten">☾ Moonlight Book Reader · written under the same moon ✨</span></p>
     </footer>
   </div>
-
   <script src="script.js"></script>
   <script>
-    loadAllData().then(() => {
-      renderProfile();
-      renderAbout();
-      renderSocialLinks('socialLinks');
-      
-      // Show profile image if one is uploaded
-      const profileImg = document.getElementById('profileImg');
-      if (siteData.profileImage && siteData.profileImage.trim() !== '') {
-        profileImg.src = siteData.profileImage;
-        profileImg.classList.add('has-image');
+    // Wait for main script to finish loading data, then apply profile image
+    function applyProfileImage() {
+      if (typeof siteData !== 'undefined' && siteData.profileImage && siteData.profileImage.trim() !== '') {
+        const profileImg = document.getElementById('profileImg');
+        if (profileImg) {
+          profileImg.src = siteData.profileImage;
+          profileImg.classList.add('has-image');
+        }
+      } else if (typeof loadAllData === 'function') {
+        // If siteData not ready yet, try again shortly
+        setTimeout(applyProfileImage, 200);
       }
-    });
+    }
+    // Main script runs on DOMContentLoaded; we start checking shortly after
+    setTimeout(applyProfileImage, 100);
   </script>
 </body>
 </html>
