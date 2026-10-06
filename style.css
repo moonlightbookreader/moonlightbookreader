@@ -936,3 +936,9 @@ nav a:hover::after, nav a.active::after { width: 100%; }
 #featuredFrameWrapper:hover #featuredOverlay {
   filter: drop-shadow(0 0 20px rgba(255,223,100,0.6)) drop-shadow(0 0 35px rgba(255,215,0,0.35)) !important;
 }
+/* ===== SINGLE REVIEW PAGE — Larger book cover ✨ ===== */
+.single-book-container .book-cover,
+#singleBook .book-cover {
+  width: 160px;
+  height: 240px;
+}
