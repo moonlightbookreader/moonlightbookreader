@@ -1,6 +1,6 @@
 // ==============================
 // 🌙 MOONLIGHT BOOK READER — SCRIPT
-// All fixes: Back pills outside containers · Top+Bottom on both · Clean structure
+// Half-star fix: ★ inside .star-half for perfect baseline alignment
 // ==============================
 // --- Icon Mapping ---
 const iconMap = {
@@ -27,6 +27,7 @@ function formatDateDisplay(dateStr) {
 }
 
 // --- Generate Stars with VISUAL half-star support ✨ ---
+// ✅ KEY FIX: .star-half now contains ★ as text (so baseline matches naturally)
 function renderStars(rating) {
   const r = parseFloat(rating) || 0;
   const full = Math.floor(r);
@@ -36,7 +37,7 @@ function renderStars(rating) {
   let html = '<span class="star-rating">';
   html += '<span class="star-full">' + '★'.repeat(full) + '</span>';
   if (half) {
-    html += '<span class="star-half" aria-label="half star"></span>';
+    html += '<span class="star-half">★</span>';
   }
   html += '<span class="star-empty">' + '★'.repeat(empty) + '</span>';
   html += '</span>';
