@@ -255,9 +255,11 @@ nav a:hover::after, nav a.active::after { width: 100%; }
 /* Position variants */
 .back-link-pill--top {
   margin: 0 0 1.5rem 0 !important;
+  display: inline-flex !important;
 }
 .back-link-pill--bottom {
   margin: 1.5rem 0 0 0 !important;
+  display: inline-flex !important;
 }
 
 /* Format pill — small rectangular */
@@ -426,20 +428,26 @@ nav a:hover::after, nav a.active::after { width: 100%; }
     8px 0 20px rgba(0, 0, 0, 0.25);
 }
 
-/* ===== VISUAL STAR RATING — CLEAN ✨ ===== */
+/* ===== VISUAL STAR RATING — BASELINE ALIGNED ✨ ===== */
 .star-rating {
   display: inline-flex;
-  align-items: center;
+  align-items: baseline;
   letter-spacing: 0.1em;
+  line-height: 1;
+}
+.star-full,
+.star-empty,
+.star-half {
+  display: inline-block;
+  line-height: 1;
+  vertical-align: baseline;
 }
 .star-full { color: var(--accent); }
 .star-empty { color: rgba(212, 175, 55, 0.3); }
 .star-half {
   position: relative;
-  display: inline-block;
   width: 1em;
   height: 1em;
-  vertical-align: middle;
 }
 .star-half::before {
   content: '★';
@@ -451,6 +459,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   white-space: nowrap;
   color: var(--accent);
   z-index: 2;
+  line-height: 1;
 }
 .star-half::after {
   content: '★';
@@ -460,6 +469,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   white-space: nowrap;
   color: rgba(212, 175, 55, 0.3);
   z-index: 1;
+  line-height: 1;
 }
 
 /* ===== REVIEW CONTENT FORMATTING ===== */
@@ -527,9 +537,10 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   gap: 1.25rem;
   margin-bottom: 1rem;
 }
+/* ✅ Listing covers: slightly larger (was 100×150) */
 .book-cover {
-  width: 100px;
-  height: 150px;
+  width: 120px;
+  height: 180px;
   object-fit: cover;
   border-radius: 6px;
   flex-shrink: 0;
@@ -720,13 +731,15 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   gap: 1rem;
   margin-bottom: 0.75rem;
 }
+/* ✅ Listing icons: bigger (was 56px) */
 .journal-icon {
-  width: 56px;
-  height: 56px;
+  width: 72px;
+  height: 72px;
   object-fit: contain;
   flex-shrink: 0;
   filter: drop-shadow(0 0 4px rgba(212,175,55,0.2));
 }
+/* ✅ Full entry icons: 135px */
 .journal-icon-large {
   width: 135px;
   height: 135px;
@@ -936,6 +949,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
 #featuredFrameWrapper:hover #featuredOverlay {
   filter: drop-shadow(0 0 20px rgba(255,223,100,0.6)) drop-shadow(0 0 35px rgba(255,215,0,0.35)) !important;
 }
+
 /* ===== SINGLE REVIEW PAGE — Larger book cover ✨ ===== */
 .single-book-container .book-cover,
 #singleBook .book-cover {
