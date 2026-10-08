@@ -428,7 +428,9 @@ nav a:hover::after, nav a.active::after { width: 100%; }
     8px 0 20px rgba(0, 0, 0, 0.25);
 }
 
-/* ===== VISUAL STAR RATING — BASELINE ALIGNED ✨ ===== */
+/* ===== VISUAL STAR RATING — PERFECT BASELINE ✨ ===== */
+/* The key fix: .star-half contains the faded ★ as TEXT, so it shares the
+   same natural baseline as .star-full and .star-empty. Gold half overlays. */
 .star-rating {
   display: inline-flex;
   align-items: baseline;
@@ -446,8 +448,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
 .star-empty { color: rgba(212, 175, 55, 0.3); }
 .star-half {
   position: relative;
-  width: 1em;
-  height: 1em;
+  color: rgba(212, 175, 55, 0.3); /* faded star as the base text */
 }
 .star-half::before {
   content: '★';
@@ -457,18 +458,8 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   width: 50%;
   overflow: hidden;
   white-space: nowrap;
-  color: var(--accent);
+  color: var(--accent); /* solid gold half on top */
   z-index: 2;
-  line-height: 1;
-}
-.star-half::after {
-  content: '★';
-  position: absolute;
-  left: 0;
-  top: 0;
-  white-space: nowrap;
-  color: rgba(212, 175, 55, 0.3);
-  z-index: 1;
   line-height: 1;
 }
 
@@ -537,7 +528,6 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   gap: 1.25rem;
   margin-bottom: 1rem;
 }
-/* ✅ Listing covers: slightly larger (was 100×150) */
 .book-cover {
   width: 120px;
   height: 180px;
@@ -731,7 +721,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   gap: 1rem;
   margin-bottom: 0.75rem;
 }
-/* ✅ Listing icons: bigger (was 56px) */
+/* Listing icons: 72px */
 .journal-icon {
   width: 72px;
   height: 72px;
@@ -739,13 +729,13 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   flex-shrink: 0;
   filter: drop-shadow(0 0 4px rgba(212,175,55,0.2));
 }
-/* ✅ Full entry icons: 135px */
+/* ✅ Full entry icons: 135px — guaranteed with !important */
 .journal-icon-large {
-  width: 135px;
-  height: 135px;
-  object-fit: contain;
-  flex-shrink: 0;
-  filter: drop-shadow(0 0 6px rgba(212,175,55,0.25));
+  width: 135px !important;
+  height: 135px !important;
+  object-fit: contain !important;
+  flex-shrink: 0 !important;
+  filter: drop-shadow(0 0 6px rgba(212,175,55,0.25)) !important;
 }
 .journal-title {
   font-family: 'Playfair Display', serif !important;
