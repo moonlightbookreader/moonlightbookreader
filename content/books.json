@@ -2,7 +2,7 @@
   "entries": [
     {
       "id": "the-midnight-library",
-      "featured": false,
+      "featured": true,
       "title": "The Midnight Library",
       "author": "Matt Haigh",
       "mainGenre": "Contemporary",
@@ -23,7 +23,7 @@
     },
     {
       "id": "the-second-greatest-inevitability",
-      "featured": true,
+      "featured": false,
       "title": "The Second Greatest Inevitability",
       "author": "Michael Gryboski",
       "mainGenre": "Contemporary",
