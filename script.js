@@ -1,5 +1,6 @@
 // ==============================
 // 🌙 MOONLIGHT BOOK READER — SCRIPT
+// FIXED: journal links → journal-entry.html · Back pills outside wrapper
 // Half-star fix: ★ inside .star-half for perfect baseline alignment
 // ==============================
 // --- Icon Mapping ---
@@ -17,7 +18,6 @@ const iconMap = {
 let siteData = {}, aboutData = {}, books = [], journalEntries = [];
 let activeGenreFilter = null;
 let activeTypeFilter = null;
-
 // --- Helper: Format Date ---
 function formatDateDisplay(dateStr) {
   if (!dateStr) return '';
@@ -25,9 +25,7 @@ function formatDateDisplay(dateStr) {
     day: 'numeric', month: 'long', year: 'numeric' 
   });
 }
-
 // --- Generate Stars with VISUAL half-star support ✨ ---
-// ✅ KEY FIX: .star-half now contains ★ as text (so baseline matches naturally)
 function renderStars(rating) {
   const r = parseFloat(rating) || 0;
   const full = Math.floor(r);
@@ -43,7 +41,6 @@ function renderStars(rating) {
   html += '</span>';
   return html;
 }
-
 // --- Rich Text Parser ---
 function parseRichText(text) {
   if (!text) return '';
@@ -64,13 +61,11 @@ function parseRichText(text) {
   parsed = parsed.replace(/\n/g, '<br>');
   return parsed;
 }
-
 // --- Get URL Parameter Helper ---
 function getUrlParam(name) {
   const params = new URLSearchParams(window.location.search);
   return params.get(name);
 }
-
 // --- Helpers ---
 function getGenreClass(name) {
   if (!name) return 'custom-genre';
@@ -80,7 +75,6 @@ function getTypeClass(name) {
   if (!name) return 'custom-type';
   return name.trim().toLowerCase().replace(/[^a-z0-9\- ]/g, '').replace(/\s+/g, '-');
 }
-
 // Build genre pills — matches CSS class .genre-pill
 function buildGenreTags(bookOrEntry, clickable = true) {
   const makePill = (g) => {
@@ -108,14 +102,12 @@ function buildGenreTags(bookOrEntry, clickable = true) {
   }
   return tags.join('');
 }
-
 // Build journal type pill — matches CSS class .entry-type-pill
 function buildTypePill(entry) {
   const t = entry.type || 'THOUGHTS';
   const cls = getTypeClass(t);
   return `<a href="journal.html?type=${encodeURIComponent(cls)}" class="entry-type-pill ${cls}">${t.toUpperCase()}</a>`;
 }
-
 // --- Load Data ---
 async function loadAllData() {
   try {
@@ -133,7 +125,6 @@ async function loadAllData() {
     journalEntries = journalData.entries || [];
   } catch (err) { console.error('Error loading data:', err); }
 }
-
 // --- Render Profile ---
 function renderProfile() {
   const titleEl = document.getElementById('siteTitle');
@@ -141,7 +132,6 @@ function renderProfile() {
   if (titleEl && siteData.title) titleEl.textContent = siteData.title;
   if (taglineEl && siteData.tagline) taglineEl.textContent = siteData.tagline;
 }
-
 // --- Render Social Links ---
 function renderSocialLinks(containerId) {
   const container = document.getElementById(containerId);
@@ -151,7 +141,6 @@ function renderSocialLinks(containerId) {
     `<a href="${link.url}" target="_blank" rel="noopener" class="social-link">${link.platform}</a>`
   ).join('');
 }
-
 // --- Render About ---
 function renderAbout() {
   const introEl = document.getElementById('aboutIntro');
@@ -173,7 +162,6 @@ function renderAbout() {
   
   if (signoffEl && aboutData.signoff) signoffEl.textContent = aboutData.signoff;
 }
-
 // --- Render Stats ---
 function renderStats() {
   const bookCountEl = document.getElementById('statBooks');
@@ -194,8 +182,7 @@ function renderStats() {
   });
   if (genreCountEl) genreCountEl.textContent = allGenres.size;
 }
-
-// --- Render Book Card (HORIZONTAL — cover on left, text on right) ---
+// --- Render Book Card ---
 function renderBookCard(book, full = false) {
   const cover = book.coverImage
     ? `<img src="${book.coverImage}" alt="${book.title}" class="book-cover" loading="lazy" onerror="this.style.display='none';">`
@@ -234,7 +221,6 @@ function renderBookCard(book, full = false) {
   let c = '';
   
   if (full) {
-    // ✅ SINGLE REVIEW PAGE — Back pill at TOP, OUTSIDE all containers
     c += `<a href="books.html" class="back-link-pill back-link-pill--top">← Back to Reviews</a>`;
     c += `<div class="single-book-container">`;
     c += `<div class="book-card"><div class="book-header">${cover}<div class="book-meta">
@@ -258,8 +244,7 @@ function renderBookCard(book, full = false) {
       c += `</ul></div>`;
     }
     if (book.verdict) c += `<div class="verdict-section"><h3>Verdict</h3><p>${book.verdict}</p></div>`;
-    c += `</div>`; // closes single-book-container
-    // ✅ Back pill also at BOTTOM, OUTSIDE all containers
+    c += `</div>`;
     c += `<a href="books.html" class="back-link-pill back-link-pill--bottom">← Back to Reviews</a>`;
   } else {
     c += `<div class="book-card"><div class="book-header">${cover}<div class="book-meta">
@@ -278,9 +263,8 @@ function renderBookCard(book, full = false) {
   
   return c;
 }
-
 // --- Render Journal Entry ---
-// ✅ Type pill BELOW title and date · Back pills TOP + BOTTOM on full view · No "Continue reading" on full
+// ✅ List view → journal-entry.html · Full view: pills OUTSIDE wrapper, no "Continue reading"
 function renderJournalEntry(e, full = false) {
   const iconSrc = iconMap[e.type] || '';
   const iconClass = full ? 'journal-icon-large' : 'journal-icon';
@@ -289,49 +273,54 @@ function renderJournalEntry(e, full = false) {
     : '';
   const typePill = buildTypePill(e);
   
-  let c = `<div class="journal-entry">`;
+  let c = '';
   
   if (full) {
-    // ✅ Back pill at TOP
+    // ✅ Back pill — TOP, OUTSIDE the journal entry wrapper
     c += `<a href="journal.html" class="back-link-pill back-link-pill--top">← Back to Journal</a>`;
-    c += `<div class="journal-card-header">
-      ${iconHtml}
-      <div>
-        <h3 class="journal-title">${e.title}</h3>
-        <p class="journal-date">${e.date ? formatDateDisplay(e.date) : ''}</p>
-        <div class="journal-type-tag">${typePill}</div>
+    c += `<div class="journal-entry-wrapper">`;
+    c += `<div class="journal-entry">
+      <div class="journal-card-header">
+        ${iconHtml}
+        <div>
+          <h3 class="journal-title">${e.title}</h3>
+          <p class="journal-date">${e.date ? formatDateDisplay(e.date) : ''}</p>
+          <div class="journal-type-tag">${typePill}</div>
+        </div>
       </div>
-    </div>`;
-    c += `<div class="review-content">${parseRichText(e.text)}</div>`;
+      <div class="review-content">${parseRichText(e.text)}</div>`;
     if (e.attribution) c += `<p class="journal-attribution">— ${e.attribution}</p>`;
-    // ✅ Back pill also at BOTTOM
+    c += `</div>`; // closes .journal-entry
+    c += `</div>`; // closes .journal-entry-wrapper
+    // ✅ Back pill — BOTTOM, OUTSIDE the wrapper
     c += `<a href="journal.html" class="back-link-pill back-link-pill--bottom">← Back to Journal</a>`;
   } else {
-    c += `<div class="journal-card-header">
-      ${iconHtml}
-      <div>
-        <a href="journal.html?id=${e.id}" class="journal-title">${e.title}</a>
-        <p class="journal-date">${e.date ? formatDateDisplay(e.date) : ''}</p>
-        <div class="journal-type-tag">${typePill}</div>
-      </div>
-    </div>`;
+    // ✅ List view: links go to journal-entry.html
+    c += `<div class="journal-entry">
+      <div class="journal-card-header">
+        ${iconHtml}
+        <div>
+          <a href="journal-entry.html?id=${e.id}" class="journal-title">${e.title}</a>
+          <p class="journal-date">${e.date ? formatDateDisplay(e.date) : ''}</p>
+          <div class="journal-type-tag">${typePill}</div>
+        </div>
+      </div>`;
     const t = document.createElement('div');
     t.innerHTML = parseRichText(e.text);
     const txt = t.textContent || '';
     c += `<p class="journal-snippet">${txt.length > 220 ? txt.substring(0, 220) + '...' : txt}</p>`;
-    c += `<a href="journal.html?id=${e.id}" class="read-more">Continue reading →</a>`;
+    c += `<a href="journal-entry.html?id=${e.id}" class="read-more">Continue reading →</a>`;
+    c += `</div>`;
   }
   
-  return c + `</div>`;
+  return c;
 }
-
 // --- Apply Filters from URL ---
 function applyFiltersFromURL() {
   activeGenreFilter = getUrlParam('genre');
   activeTypeFilter = getUrlParam('type');
 }
-
-// --- Render Books List — HORIZONTAL cards ✨ ---
+// --- Render Books List ---
 function renderBooksList() {
   const container = document.getElementById('booksContainer');
   if (!container) return;
@@ -353,8 +342,7 @@ function renderBooksList() {
   container.className = 'books-grid';
   container.innerHTML = filtered.map(book => renderBookCard(book, false)).join('');
 }
-
-// --- ⭐ Auto-Update Featured Review ✨ ---
+// --- ⭐ Auto-Update Featured Review ---
 function renderFeaturedReview() {
   const featured = books.find(b => b.featured === true);
   const section = document.getElementById('featuredSection');
@@ -405,7 +393,6 @@ function renderFeaturedReview() {
     imgEl.alt = featured.title || '';
   }
 }
-
 // --- 🔍 Search ---
 function initSearch() {
   const input = document.getElementById('searchInput');
@@ -441,7 +428,6 @@ function initSearch() {
     }
   });
 }
-
 // --- Page Load ---
 document.addEventListener('DOMContentLoaded', async () => {
   await loadAllData();
@@ -452,7 +438,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderStats();
   renderFeaturedReview();
   
-  // ✨ Latest Reviews — HORIZONTAL cards
+  // Latest Reviews
   const latestReviewsContainer = document.getElementById('latestReviewsContainer');
   if (latestReviewsContainer) {
     const latest = books.slice(0, 4);
@@ -462,7 +448,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       : latest.map(b => renderBookCard(b, false)).join('');
   }
   
-  // Latest Journal
+  // Latest Journal — links → journal-entry.html ✅
   const latestJournalContainer = document.getElementById('latestJournalContainer');
   if (latestJournalContainer) {
     const latest = journalEntries.slice(0, 4);
@@ -474,7 +460,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Books Page
   if (document.getElementById('booksContainer')) renderBooksList();
   
-  // Journal Page with type filter
+  // Journal Listing Page (journal.html) — list view, links → journal-entry.html ✅
   if (document.getElementById('journalContainer')) {
     applyFiltersFromURL();
     const filtered = activeTypeFilter
@@ -495,9 +481,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
   
-  // Single Journal Page
+  // Single Journal Entry Page (journal-entry.html) — full view, no "Continue reading" ✅
   const entryId = getUrlParam('id');
-  if (entryId && journalEntries.length > 0) {
+  if (entryId && journalEntries.length > 0 && document.getElementById('singleJournalEntry')) {
     const entry = journalEntries.find(e => e.id === entryId);
     const container = document.getElementById('singleJournalEntry');
     if (entry && container) {
