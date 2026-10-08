@@ -1,6 +1,6 @@
 // ==============================
 // 🌙 MOONLIGHT BOOK READER — SCRIPT
-// All fixes: Type pill below title/date · Back pills top+bottom · Horizontal cards · Larger single cover
+// All fixes: Back pills outside containers · Top+Bottom on both · Clean structure
 // ==============================
 // --- Icon Mapping ---
 const iconMap = {
@@ -233,9 +233,9 @@ function renderBookCard(book, full = false) {
   let c = '';
   
   if (full) {
-    // ✅ SINGLE REVIEW PAGE — Back pill at TOP
-    c += `<div class="single-book-container">`;
+    // ✅ SINGLE REVIEW PAGE — Back pill at TOP, OUTSIDE all containers
     c += `<a href="books.html" class="back-link-pill back-link-pill--top">← Back to Reviews</a>`;
+    c += `<div class="single-book-container">`;
     c += `<div class="book-card"><div class="book-header">${cover}<div class="book-meta">
       <a href="book.html?id=${book.id}" class="book-title">${book.title}</a>
       <p class="book-author">by ${book.author}</p>
@@ -257,7 +257,9 @@ function renderBookCard(book, full = false) {
       c += `</ul></div>`;
     }
     if (book.verdict) c += `<div class="verdict-section"><h3>Verdict</h3><p>${book.verdict}</p></div>`;
-    c += `</div>`;
+    c += `</div>`; // closes single-book-container
+    // ✅ Back pill also at BOTTOM, OUTSIDE all containers
+    c += `<a href="books.html" class="back-link-pill back-link-pill--bottom">← Back to Reviews</a>`;
   } else {
     c += `<div class="book-card"><div class="book-header">${cover}<div class="book-meta">
       <a href="book.html?id=${book.id}" class="book-title">${book.title}</a>
@@ -277,7 +279,7 @@ function renderBookCard(book, full = false) {
 }
 
 // --- Render Journal Entry ---
-// ✅ Type pill is NOW BELOW title and date (as per user's screenshots)
+// ✅ Type pill BELOW title and date · Back pills TOP + BOTTOM on full view · No "Continue reading" on full
 function renderJournalEntry(e, full = false) {
   const iconSrc = iconMap[e.type] || '';
   const iconClass = full ? 'journal-icon-large' : 'journal-icon';
