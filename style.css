@@ -341,7 +341,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   font-style: italic;
   color: #c8b8e0;
   margin-bottom: 2rem;
-  max-width: 70%;
+  max-width: 75%;
 }
 .featured-btn {
   border-radius: 999px;
