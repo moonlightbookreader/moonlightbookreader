@@ -1,6 +1,6 @@
 // ==============================
 // 🌙 MOONLIGHT BOOK READER — SCRIPT
-// FIXED: Newest first on homepage · journal links → journal-entry.html
+// FIXED: Newest first everywhere · Books page search filter
 // Half-star fix: ★ inside .star-half for perfect baseline alignment
 // ==============================
 // --- Icon Mapping ---
@@ -316,19 +316,35 @@ function applyFiltersFromURL() {
   activeGenreFilter = getUrlParam('genre');
   activeTypeFilter = getUrlParam('type');
 }
-// --- Render Books List ---
-function renderBooksList() {
+// --- Render Books List (NEWEST FIRST) ---
+function renderBooksList(searchQuery = '') {
   const container = document.getElementById('booksContainer');
   if (!container) return;
   applyFiltersFromURL();
   
-  const filtered = activeGenreFilter
-    ? books.filter(b => {
-        const main = getGenreClass(b.mainGenre || b.genre || '');
-        const others = (b.otherGenres || '').split(',').map(g => getGenreClass(g));
-        return main === activeGenreFilter || others.includes(activeGenreFilter);
-      })
-    : books;
+  // ✅ NEWEST FIRST — reverse the array
+  let filtered = books.slice().reverse();
+  
+  // Apply genre filter from URL if present
+  if (activeGenreFilter) {
+    filtered = filtered.filter(b => {
+      const main = getGenreClass(b.mainGenre || b.genre || '');
+      const others = (b.otherGenres || '').split(',').map(g => getGenreClass(g));
+      return main === activeGenreFilter || others.includes(activeGenreFilter);
+    });
+  }
+  
+  // ✅ Apply live search filter from the books page search bar
+  if (searchQuery) {
+    const q = searchQuery.trim().toLowerCase();
+    filtered = filtered.filter(b => {
+      const titleMatch = b.title && b.title.toLowerCase().includes(q);
+      const authorMatch = b.author && b.author.toLowerCase().includes(q);
+      const genreMatch = (b.mainGenre && b.mainGenre.toLowerCase().includes(q)) ||
+        (b.otherGenres && b.otherGenres.toLowerCase().includes(q));
+      return titleMatch || authorMatch || genreMatch;
+    });
+  }
   
   if (filtered.length === 0) {
     container.innerHTML = '<p class="empty-state">No matching reviews ✨</p>';
@@ -389,7 +405,7 @@ function renderFeaturedReview() {
     imgEl.alt = featured.title || '';
   }
 }
-// --- 🔍 Search ---
+// --- 🔍 Homepage Search ---
 function initSearch() {
   const input = document.getElementById('searchInput');
   const results = document.getElementById('searchResults');
@@ -424,6 +440,15 @@ function initSearch() {
     }
   });
 }
+// --- 🔍 Books Page Search (filters the grid live) ---
+function initBooksPageSearch() {
+  const input = document.getElementById('booksSearchInput');
+  if (!input) return;
+  
+  input.addEventListener('input', () => {
+    renderBooksList(input.value);
+  });
+}
 // --- Page Load ---
 document.addEventListener('DOMContentLoaded', async () => {
   await loadAllData();
@@ -453,15 +478,20 @@ document.addEventListener('DOMContentLoaded', async () => {
       : latest.map(e => renderJournalEntry(e, false)).join('');
   }
   
-  // Books Page
-  if (document.getElementById('booksContainer')) renderBooksList();
+  // ✅ Books Page — NEWEST FIRST + live search filter
+  if (document.getElementById('booksContainer')) {
+    renderBooksList();
+    initBooksPageSearch();
+  }
   
-  // Journal Listing Page (journal.html)
+  // ✅ Journal Listing Page — NEWEST FIRST
   if (document.getElementById('journalContainer')) {
     applyFiltersFromURL();
-    const filtered = activeTypeFilter
-      ? journalEntries.filter(e => getTypeClass(e.type || 'THOUGHTS') === activeTypeFilter)
-      : journalEntries;
+    // ✅ NEWEST FIRST — reverse the array
+    let filtered = journalEntries.slice().reverse();
+    if (activeTypeFilter) {
+      filtered = filtered.filter(e => getTypeClass(e.type || 'THOUGHTS') === activeTypeFilter);
+    }
     document.getElementById('journalContainer').innerHTML = filtered.length === 0
       ? '<p class="empty-state">No matching entries ✨</p>'
       : filtered.map(e => renderJournalEntry(e, false)).join('');
