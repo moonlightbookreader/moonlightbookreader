@@ -1,6 +1,6 @@
 // ==============================
 // 🌙 MOONLIGHT BOOK READER — SCRIPT
-// FIXED: journal links → journal-entry.html · Back pills outside wrapper
+// FIXED: Newest first on homepage · journal links → journal-entry.html
 // Half-star fix: ★ inside .star-half for perfect baseline alignment
 // ==============================
 // --- Icon Mapping ---
@@ -264,7 +264,6 @@ function renderBookCard(book, full = false) {
   return c;
 }
 // --- Render Journal Entry ---
-// ✅ List view → journal-entry.html · Full view: pills OUTSIDE wrapper, no "Continue reading"
 function renderJournalEntry(e, full = false) {
   const iconSrc = iconMap[e.type] || '';
   const iconClass = full ? 'journal-icon-large' : 'journal-icon';
@@ -276,7 +275,6 @@ function renderJournalEntry(e, full = false) {
   let c = '';
   
   if (full) {
-    // ✅ Back pill — TOP, OUTSIDE the journal entry wrapper
     c += `<a href="journal.html" class="back-link-pill back-link-pill--top">← Back to Journal</a>`;
     c += `<div class="journal-entry-wrapper">`;
     c += `<div class="journal-entry">
@@ -290,12 +288,10 @@ function renderJournalEntry(e, full = false) {
       </div>
       <div class="review-content">${parseRichText(e.text)}</div>`;
     if (e.attribution) c += `<p class="journal-attribution">— ${e.attribution}</p>`;
-    c += `</div>`; // closes .journal-entry
-    c += `</div>`; // closes .journal-entry-wrapper
-    // ✅ Back pill — BOTTOM, OUTSIDE the wrapper
+    c += `</div>`;
+    c += `</div>`;
     c += `<a href="journal.html" class="back-link-pill back-link-pill--bottom">← Back to Journal</a>`;
   } else {
-    // ✅ List view: links go to journal-entry.html
     c += `<div class="journal-entry">
       <div class="journal-card-header">
         ${iconHtml}
@@ -438,20 +434,20 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderStats();
   renderFeaturedReview();
   
-  // Latest Reviews
+  // ✅ Latest Reviews — NEWEST FIRST (4 items)
   const latestReviewsContainer = document.getElementById('latestReviewsContainer');
   if (latestReviewsContainer) {
-    const latest = books.slice(0, 4);
+    const latest = books.slice().reverse().slice(0, 4);
     latestReviewsContainer.className = 'books-grid';
     latestReviewsContainer.innerHTML = latest.length === 0
       ? '<p class="empty-state">No reviews yet... your first book awaits ✨</p>'
       : latest.map(b => renderBookCard(b, false)).join('');
   }
   
-  // Latest Journal — links → journal-entry.html ✅
+  // ✅ Latest Journal — NEWEST FIRST (4 items)
   const latestJournalContainer = document.getElementById('latestJournalContainer');
   if (latestJournalContainer) {
-    const latest = journalEntries.slice(0, 4);
+    const latest = journalEntries.slice().reverse().slice(0, 4);
     latestJournalContainer.innerHTML = latest.length === 0
       ? '<p class="empty-state">No entries yet... thoughts coming soon 🌙</p>'
       : latest.map(e => renderJournalEntry(e, false)).join('');
@@ -460,7 +456,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Books Page
   if (document.getElementById('booksContainer')) renderBooksList();
   
-  // Journal Listing Page (journal.html) — list view, links → journal-entry.html ✅
+  // Journal Listing Page (journal.html)
   if (document.getElementById('journalContainer')) {
     applyFiltersFromURL();
     const filtered = activeTypeFilter
@@ -481,7 +477,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
   
-  // Single Journal Entry Page (journal-entry.html) — full view, no "Continue reading" ✅
+  // Single Journal Entry Page (journal-entry.html)
   const entryId = getUrlParam('id');
   if (entryId && journalEntries.length > 0 && document.getElementById('singleJournalEntry')) {
     const entry = journalEntries.find(e => e.id === entryId);
