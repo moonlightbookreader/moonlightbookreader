@@ -611,7 +611,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   text-align: center;
   margin: 1rem 0 2.5rem;
 }
-/* ===== JOURNAL GRID — also 2 per row ===== */
+/* ===== JOURNAL GRID — 2 per row ===== */
 .journal-grid {
   display: grid !important;
   grid-template-columns: repeat(2, 1fr) !important;
@@ -751,7 +751,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   color: var(--text-soft);
   font-size: 0.95rem;
 }
-/* ===== SEARCH ===== */
+/* ===== SEARCH — RESTORED EXACTLY TO ORIGINAL ✨ ===== */
 .search-section { margin: 2.5rem 0; }
 .search-container {
   position: relative;
@@ -787,4 +787,6 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   max-height: 400px;
   overflow-y: auto;
 }
-.search-
+.search-result-item {
+  display: block;
+  padding: 0.75rem 
