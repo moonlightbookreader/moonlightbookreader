@@ -23,30 +23,33 @@
           <a href="about.html">About</a>
         </nav>
       </header>
-
       <section>
-        <div class="section-header">
-          <span class="section-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--accent)" stroke="var(--accent)" stroke-width="1">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-            </svg>
-          </span>
-          <h2>Book Reviews</h2>
-          <span class="handwritten">— stories loved under moonlight</span>
+        <!-- ✅ Section header + search bar in one row, search aligned right -->
+        <div class="books-page-header">
+          <div class="section-header">
+            <span class="section-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--accent)" stroke="var(--accent)" stroke-width="1">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+            </span>
+            <h2>Book Reviews</h2>
+            <span class="handwritten">— stories loved under moonlight</span>
+          </div>
+          <!-- 🔍 Search bar — same style as homepage, aligned right -->
+          <div class="search-container books-search-container">
+            <input type="text" id="booksSearchInput" class="search-input" placeholder="Search by title, author, or genre…" autocomplete="off" />
+          </div>
         </div>
-
         <div id="booksContainer">
           <!-- Book cards + genre tags/filter will appear here -->
           <div class="empty-state">Loading reviews... ✨</div>
         </div>
       </section>
     </div>
-
     <footer class="site-footer">
       <p><span class="handwritten">☾ Moonlight Book Reader · written under the same moon ✨</span></p>
     </footer>
   </div>
-
   <script src="script.js"></script>
   <script>
     loadAllData().then(() => {
