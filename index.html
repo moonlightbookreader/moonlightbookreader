@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Moonlight Book Reader — Home</title>
   <link rel="icon" type="image/png" href="favicon.png" />
-  <link rel="stylesheet" href="style.css?v=5" />
+  <link rel="stylesheet" href="style.css?v=6" />
 </head>
 <body>
   <div class="stars-bg"></div>
@@ -23,7 +23,6 @@
           <a href="about.html">About</a>
         </nav>
       </header>
-
       <!-- HERO SECTION -->
       <section class="hero">
         <div class="hero-text">
@@ -57,20 +56,7 @@
         </div>
       </section>
 
-      <!-- 🔍 Search Bar -->
-      <section class="search-section">
-        <div class="search-container">
-          <input 
-            type="text" 
-            id="searchInput" 
-            placeholder="Search books by title, author, or genre..." 
-            class="search-input"
-          />
-          <div id="searchResults" class="search-results"></div>
-        </div>
-      </section>
-
-           <!-- ⭐ Featured Review — AUTO-UPDATING ✨ (styling 100% preserved) -->
+      <!-- ⭐ Featured Review — AUTO-UPDATING ✨ -->
       <section class="featured-section" id="featuredSection">
         <div class="featured-review" style="background: rgba(21, 12, 43, 0.25); backdrop-filter: blur(2px); border: 1px solid rgba(212, 175, 55, 0.15);">
           <div class="featured-book-wrap">
@@ -113,17 +99,16 @@
               id="featuredFrameWrapper"
               style="position: relative; width: 465px; height: 547px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;"
             >
-              
-              <!-- 3D BOOK — perfect size: 300px × 450px, centered -->
+              <!-- 3D BOOK COVER -->
               <img 
                 id="featuredBookImg"
                 src="content/images/midnight-library.jpg" 
                 alt="The Midnight Library" 
                 style="position: relative; z-index: 8; width: 280px; height: 420px; object-fit: cover; border-radius: 4px 10px 10px 4px; transform: perspective(900px) rotateY(-14deg) rotateX(5deg) translateZ(10px); box-shadow: inset 15px 0 20px -10px rgba(255,255,255,0.15), inset -12px 0 25px -8px rgba(0,0,0,0.6), -20px 15px 40px rgba(0,0,0,0.5), 0 10px 30px rgba(0,0,0,0.35); transition: transform 0.4s ease, box-shadow 0.4s ease;"
-                onerror="this.style.border='2px dashed rgba(255,215,0,0.5)'; this.style.background='linear-gradient(135deg, #2a1a52, #1e1240)'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.style.color='#d4af37'; this.style.fontFamily='Caveat, cursive'; this.style.fontSize='1.2rem'; this.innerHTML='📖 Book Cover';"
+                onerror="this.style.border='2px dashed rgba(255,215,0,0.5)'; this.style.background='linear-gradient(135deg, #2a1a52, #1e1240)'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.style.color='#d4af37'; this.style.fontFamily='Caveat, cursive'; this.style.fontSize='1.2rem'; this.alt='📖 Book Cover';"
               />
               
-              <!-- YOUR ELEGANT GOLDEN FRAME -->
+              <!-- GOLDEN DECORATIVE OVERLAY -->
               <img 
                 id="featuredOverlay"
                 src="content/images/book-decoration.png" 
@@ -133,6 +118,19 @@
               />
             </div>
           </div>
+        </div>
+      </section>
+
+      <!-- 🔍 Search Bar — now after Featured ✨ -->
+      <section class="search-section">
+        <div class="search-container">
+          <input 
+            type="text" 
+            id="searchInput" 
+            placeholder="Search books by title, author, or genre..." 
+            class="search-input"
+          />
+          <div id="searchResults" class="search-results"></div>
         </div>
       </section>
       
@@ -187,12 +185,14 @@
       }
     }
   </script>
-  <script src="script.js?v=5"></script>
-  <!-- ✨ Featured Hover Effect — Guaranteed to work -->
+
+  <script src="script.js?v=6"></script>
+
+  <!-- ✨ Featured Hover Effect — Fixed to use correct ID -->
   <script>
     (function() {
       const wrapper = document.getElementById('featuredFrameWrapper');
-      const book = document.getElementById('featuredBook3d');
+      const book = document.getElementById('featuredBookImg');
       const overlay = document.getElementById('featuredOverlay');
       
       if (wrapper && book) {
