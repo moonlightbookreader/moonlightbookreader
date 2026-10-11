@@ -147,6 +147,8 @@ nav a:hover::after, nav a.active::after { width: 100%; }
 /* ===== ALL GENRE COLORS — COMPLETE SET ✨ ===== */
 .genre-pill.anthologies { background: rgba(186, 85, 211, 0.25); border-color: rgba(221, 160, 221, 0.4); }
 .genre-pill.art { background: rgba(255, 127, 80, 0.25); border-color: rgba(255, 160, 122, 0.4); }
+/* ✨ NEW: Autobiography — warm sepia, personal & intimate */
+.genre-pill.autobiography { background: rgba(160, 120, 80, 0.3); border-color: rgba(210, 170, 120, 0.45); }
 .genre-pill.biographical-fiction { background: rgba(205, 133, 63, 0.25); border-color: rgba(205, 133, 63, 0.45); }
 .genre-pill.biography { background: rgba(205, 133, 63, 0.25); border-color: rgba(205, 133, 63, 0.45); }
 .genre-pill.children { background: rgba(255, 182, 193, 0.3); border-color: rgba(255, 192, 203, 0.45); }
@@ -174,11 +176,17 @@ nav a:hover::after, nav a.active::after { width: 100%; }
 .genre-pill.memoir { background: rgba(139, 119, 101, 0.3); border-color: rgba(188, 143, 143, 0.4); }
 .genre-pill.middle-grade { background: rgba(135, 206, 250, 0.28); border-color: rgba(173, 216, 230, 0.45); }
 .genre-pill.mystery { background: rgba(0, 128, 128, 0.3); border-color: rgba(32, 178, 170, 0.45); }
+/* ✨ NEW: Mystery / Thriller — deep noir teal, shadow & intrigue */
+.genre-pill.mystery-thriller { background: rgba(20, 60, 80, 0.45); border-color: rgba(80, 140, 160, 0.45); }
 .genre-pill.new-adult { background: rgba(255, 105, 180, 0.28); border-color: rgba(255, 182, 193, 0.45); }
 .genre-pill.non-fiction { background: rgba(139, 119, 101, 0.3); border-color: rgba(188, 143, 143, 0.4); }
 .genre-pill.paranormal-romance { background: rgba(200, 162, 200, 0.3); border-color: rgba(221, 160, 221, 0.45); }
 .genre-pill.philosophy { background: rgba(112, 128, 144, 0.32); border-color: rgba(176, 196, 222, 0.45); }
+/* ✨ NEW: Photography — soft silver with moonlight gold whisper */
+.genre-pill.photography { background: rgba(160, 160, 170, 0.28); border-color: rgba(212, 195, 140, 0.4); }
 .genre-pill.poetry { background: rgba(218, 112, 214, 0.25); border-color: rgba(221, 160, 221, 0.45); }
+/* ✨ NEW: Post-Apocalyptic — dusty burnt rust, faded world */
+.genre-pill.post-apocalyptic { background: rgba(140, 70, 40, 0.35); border-color: rgba(200, 120, 70, 0.45); }
 .genre-pill.political-fiction { background: rgba(178, 34, 34, 0.25); border-color: rgba(205, 92, 92, 0.45); }
 .genre-pill.psychological-fiction { background: rgba(139, 0, 139, 0.3); border-color: rgba(186, 85, 211, 0.45); }
 .genre-pill.psychological-thriller { background: rgba(128, 0, 128, 0.3); border-color: rgba(186, 85, 211, 0.45); }
@@ -187,6 +195,8 @@ nav a:hover::after, nav a.active::after { width: 100%; }
 .genre-pill.sci-fi, .genre-pill.science-fiction { background: rgba(30, 144, 255, 0.25); border-color: rgba(135, 206, 250, 0.45); }
 .genre-pill.self-help { background: rgba(60, 179, 113, 0.25); border-color: rgba(144, 238, 144, 0.4); }
 .genre-pill.short-stories { background: rgba(255, 160, 122, 0.28); border-color: rgba(255, 127, 80, 0.45); }
+/* ✨ NEW: Speculative Fiction — cosmic indigo, other worlds & stars */
+.genre-pill.speculative-fiction { background: rgba(50, 30, 120, 0.4); border-color: rgba(120, 100, 200, 0.45); }
 .genre-pill.thriller { background: rgba(128, 0, 32, 0.3); border-color: rgba(199, 21, 133, 0.45); }
 .genre-pill.travel { background: rgba(32, 178, 170, 0.28); border-color: rgba(0, 206, 209, 0.45); }
 .genre-pill.urban-fantasy { background: rgba(75, 0, 130, 0.32); border-color: rgba(123, 104, 238, 0.45); }
@@ -431,7 +441,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
 #featuredFrameWrapper:hover #featuredOverlay {
   filter: drop-shadow(0 0 20px rgba(255,223,100,0.6)) drop-shadow(0 0 35px rgba(255,215,0,0.35)) !important;
 }
-/* ===== VISUAL STAR RATING — PERFECT BASELINE ✨ */
+/* ===== VISUAL STAR RATING — PERFECT BASELINE ✨ ===== */
 .star-rating {
   display: inline-flex;
   align-items: baseline;
@@ -751,7 +761,7 @@ nav a:hover::after, nav a.active::after { width: 100%; }
   color: var(--text-soft);
   font-size: 0.95rem;
 }
-/* ===== SEARCH — RESTORED EXACTLY TO ORIGINAL ✨ ===== */
+/* ===== SEARCH ===== */
 .search-section { margin: 2.5rem 0; }
 .search-container {
   position: relative;
@@ -789,4 +799,81 @@ nav a:hover::after, nav a.active::after { width: 100%; }
 }
 .search-result-item {
   display: block;
-  padding: 0.75rem 
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  color: var(--text);
+  text-decoration: none;
+}
+.search-result-item:hover { background: rgba(212, 175, 55, 0.1); }
+.result-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  color: var(--accent);
+}
+.result-author {
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  margin-top: 0.2rem;
+}
+.no-results {
+  padding: 1rem;
+  text-align: center;
+  color: var(--text-soft);
+  font-style: italic;
+}
+/* ===== FOOTER ===== */
+.site-footer {
+  text-align: center;
+  padding: 2rem;
+  margin-top: 3rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-soft);
+}
+.site-footer .handwritten {
+  font-family: 'Caveat', cursive;
+  font-size: 1.2rem;
+}
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; gap: 2rem; }
+  .featured-review { padding: 1.5rem; }
+  .featured-book-wrap { flex-direction: column; text-align: center; gap: 2rem; }
+  .featured-genres { justify-content: center; }
+  .featured-excerpt { max-width: 100%; }
+  .book-frame-wrapper { width: 300px; height: 400px; }
+  .featured-book-3d { width: 190px; height: 285px; }
+  .journal-card-header { flex-direction: column; align-items: center; text-align: center; }
+  .books-grid, .latest-reviews-grid, .journal-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .books-page-header {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+  .books-search-container {
+    max-width: 100% !important;
+    width: 100%;
+  }
+}
+@media (max-width: 600px) {
+  .featured-title { font-size: 1.8rem; }
+  .book-frame-wrapper { width: 260px; height: 340px; }
+  .featured-book-3d { width: 160px; height: 240px; }
+  .container { padding: 0 1rem; }
+}
+/* ===== BOOKS PAGE HEADER — title left, search right ✨ ===== */
+.books-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.books-page-header .section-header {
+  margin-bottom: 0;
+}
+.books-search-container {
+  max-width: 340px;
+  margin: 0;
+}
